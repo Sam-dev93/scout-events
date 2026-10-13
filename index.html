@@ -814,7 +814,7 @@ function clubRow(c) {
 
 function fixRow(f, showDate) {
   const idx = D.fixtures.indexOf(f);
-  const right = !blank(f['Resale from (£)']) ? '<b class="num">' + gbp(f['Resale from (£)']) + '</b><small>' + n0(f['Resale listings']) + ' listed</small>' : (f['On GO'] ? '' : '<small>no resale data</small>');
+  const right = !blank(f['Resale from (£)']) ? '<b class="num">' + gbp(f['Resale from (£)']) + '</b><small>' + (!blank(f['LFT from (£)']) ? 'LFT from' : n0(f['Resale listings']) + ' listed') + '</small>' : (f['On GO'] ? '' : '<small>no resale data</small>');
   const tags = [f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '', goTag(f['GO status'])].join('');
   return '<button class="row press" onclick="openFixture(' + idx + ')"><div class="time num">' + (showDate ? esc(String(f['Date']).slice(8, 10) + '/' + String(f['Date']).slice(5, 7)) + '<br>' : '') + esc(f['KO (UK)']) + '</div>' +
     '<div class="main"><div class="t">' + esc(f['Home']) + ' v ' + esc(f['Away']) + '</div><div class="s">' + esc(f['Competition']) + (f['Round'] ? ' · ' + esc(f['Round']) : '') + ' · ' + esc(f['Venue']) + '</div>' +
@@ -971,11 +971,12 @@ function openFixture(i) {
     '<h2>' + esc(f['Home']) + ' v ' + esc(f['Away']) + '</h2><p>' + esc(dt) + ' · ' + esc(f['KO (UK)']) + ' · ' + esc(f['Competition']) + (f['Round'] ? ' · ' + esc(f['Round']) : '') + '</p>' +
     '<div class="tags">' + (f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '') + goTag(f['GO status']) + (blank(f['Fixture score']) ? '' : scorePill(f['Fixture score'])) + '</div></div>';
   h += '<div class="card cardpad"><div class="cells">' + cell('Venue', f['Venue']) + cell('Capacity', n0(f['Capacity'])) +
-    cell('Resale from', gbp(f['Resale from (£)'])) + cell('Resale listings', n0(f['Resale listings'])) +
+    cell('LiveFootballTickets', blank(f['LFT from (£)']) ? '' : 'from ' + gbp(f['LFT from (£)'])) + cell('Resale listings', n0(f['Resale listings'])) +
     cell('GO from', gbp(f['GO from (£)'])) + cell('GO status', f['GO status'] || 'Not listed') + '</div></div>';
   const ci = D.clubs.findIndex(c => c['Club'] === f['Home']);
   h += '<div style="display:flex;flex-direction:column;gap:10px">' +
     (f['GO link'] ? '<a class="btn fill press" href="' + esc(f['GO link']) + '" target="_blank" rel="noopener">View on GO Official</a>' : '') +
+    (f['LFT link'] ? '<a class="btn tint press" href="' + esc(f['LFT link']) + '" target="_blank" rel="noopener">LiveFootballTickets listing</a>' : '') +
     (f['Resale link'] ? '<a class="btn tint press" href="' + esc(f['Resale link']) + '" target="_blank" rel="noopener">Resale listings</a>' : '') +
     '<button class="btn tint press" onclick="closeSheet();openClub(' + JSON.stringify(f['Home']).replace(/"/g, '&quot;') + ')">' + esc(f['Home']) + ' club profile</button>' +
     (f['ESPN link'] ? '<a class="btn tint press" href="' + esc(f['ESPN link']) + '" target="_blank" rel="noopener">Match page</a>' : '') + '</div>';
