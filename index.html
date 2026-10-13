@@ -421,7 +421,6 @@ function badge(name, xl) {
   return '<div class="badge' + (xl ? ' xl' : '') + '" style="background:' + PALETTE[h % PALETTE.length] + '">' + esc(ini) + '</div>';
 }
 function scorePill(v) { if (blank(v)) return ''; const c = v >= 60 ? 'sc-hi' : v >= 35 ? 'sc-md' : 'sc-lo'; return '<span class="score ' + c + '">' + v + '</span>'; }
-function goTag(s) { if (!s) return ''; const c = /sold/i.test(s) ? 't-sold' : /fast|few|last/i.test(s) ? 't-fast' : 't-av'; return '<span class="tag ' + c + '">GO · ' + esc(s) + '</span>'; }
 function sigTag(s) { return '<span class="tag ' + slug(s) + '">' + esc(s || 'General') + '</span>'; }
 function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 3500); }
 function chips(el, items, cur, fn) {
@@ -460,7 +459,7 @@ async function reload(action) {
     else if (action === 'radar') toast(newRadar().length + ' new on the radar');
     else if (action === 'refresh') toast('Data refreshed');
   } catch (e) {
-    if (e.message === 'bad-key') { store.set('se-key', ''); openKeySheet('That key didn’t work — check it in the sheet (GO Scout → Show app key).'); }
+    if (e.message === 'bad-key') { store.set('se-key', ''); openKeySheet('That key didn’t work — check it in the sheet (Scout Events → Show app key).'); }
     else $('statusMessages').innerHTML = '<div class="card banner"><span class="ic">⚠︎</span><div><b>Couldn’t reach the scout service</b><br><span class="muted">' + esc(e.message) + (D ? ' — showing saved data.' : '') + '</span></div></div>';
   } finally { setBusy(false); if (D) renderIntel(); }
 }
@@ -564,7 +563,7 @@ function radarText(k) {
 }
 
 function untapped() {
-  return allClubs().filter(c => !c['On GO now (games)'] && c['Status'] !== 'Partner' && c['Status'] !== 'Not interested' && !(c._i && c._i.verdict === 'SKIP'))
+  return allClubs().filter(c => c['Status'] !== 'Not interested' && !(c._i && c._i.verdict === 'SKIP'))
     .sort((a, b) => cScore(b) - cScore(a));
 }
 function intelFor(club) { return D.intel.filter(i => i['Club / topic'] === club); }
@@ -803,7 +802,6 @@ function clubRow(c) {
     c['Capacity'] ? pill('👥 ' + n0(c['Capacity'])) : '',
     i && i.runBy ? pill('🥂 ' + esc(i.runBy)) : '',
     i && !blank(i.hospFrom) ? pill('from ' + gbp(i.hospFrom), 'gold') : '',
-    c['Status'] === 'Partner' ? pill('Partner', 'acc') : c['On GO now (games)'] ? pill('On GO · ' + esc(c['On GO now (games)']), 'acc') : '',
     sc >= 0 ? pill('Score ' + sc, sc >= 60 ? 'acc' : '') : ''
   ].join('');
   return '<button class="fc press" onclick="openClub(' + JSON.stringify(c['Club']).replace(/"/g, '&quot;') + ')">' +
@@ -814,8 +812,8 @@ function clubRow(c) {
 
 function fixRow(f, showDate) {
   const idx = D.fixtures.indexOf(f);
-  const right = !blank(f['Resale from (£)']) ? '<b class="num">' + gbp(f['Resale from (£)']) + '</b><small>' + (!blank(f['LFT from (£)']) ? 'LFT from' : n0(f['Resale listings']) + ' listed') + '</small>' : (f['On GO'] ? '' : '<small>no resale data</small>');
-  const tags = [f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '', goTag(f['GO status'])].join('');
+  const right = !blank(f['Resale from (£)']) ? '<b class="num">' + gbp(f['Resale from (£)']) + '</b><small>' + (!blank(f['LFT from (£)']) ? 'LFT from' : n0(f['Resale listings']) + ' listed') + '</small>' : '<small>no resale data</small>';
+  const tags = f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '';
   return '<button class="row press" onclick="openFixture(' + idx + ')"><div class="time num">' + (showDate ? esc(String(f['Date']).slice(8, 10) + '/' + String(f['Date']).slice(5, 7)) + '<br>' : '') + esc(f['KO (UK)']) + '</div>' +
     '<div class="main"><div class="t">' + esc(f['Home']) + ' v ' + esc(f['Away']) + '</div><div class="s">' + esc(f['Competition']) + (f['Round'] ? ' · ' + esc(f['Round']) : '') + ' · ' + esc(f['Venue']) + '</div>' +
     (tags ? '<div class="tags">' + tags + '</div>' : '') + '</div><div class="right">' + right + '</div></button>';
@@ -835,7 +833,7 @@ function renderClubs() {
   const all = allClubs();
   const leagues = [...new Set(all.map(c => c['League']).filter(Boolean))];
   chips('clubLeagues', [['', 'All leagues']].concat(leagues.map(l => [l, l])), S.clubs.league, v => { S.clubs.league = v; renderClubs(); });
-  chips('clubSort', [['score','Best opportunity'],['researched','Researched'],['untapped','Not on GO'],['cap','Biggest'],['resale','Hottest resale'],['az','A–Z']], S.clubs.sort, v => { S.clubs.sort = v; renderClubs(); });
+  chips('clubSort', [['score','Best opportunity'],['researched','Researched'],['untapped','Not contacted'],['cap','Biggest'],['resale','Hottest resale'],['az','A–Z']], S.clubs.sort, v => { S.clubs.sort = v; renderClubs(); });
   const q = S.clubs.q.toLowerCase();
   let rows = all.filter(c => (!S.clubs.league || c['League'] === S.clubs.league) && (!q || (c['Club'] + ' ' + c['Stadium']).toLowerCase().includes(q)));
   const num = v => blank(v) ? -1 : Number(v);
@@ -845,7 +843,7 @@ function renderClubs() {
     resale: (a, b) => num(b['Avg resale from (£)']) - num(a['Avg resale from (£)']),
     az: (a, b) => String(a['Club']).localeCompare(String(b['Club']))
   };
-  if (S.clubs.sort === 'untapped') rows = rows.filter(c => !c['On GO now (games)'] && c['Status'] !== 'Partner');
+  if (S.clubs.sort === 'untapped') rows = rows.filter(c => !c['Status'] || c['Status'] === 'Not contacted');
   if (S.clubs.sort === 'researched') rows = rows.filter(c => c._i && c._i.dossier);
   rows.sort(sorts[S.clubs.sort]);
   if (S.fb === 'clubs') $('fbSub').textContent = rows.length + ' clubs · ' + (D.clubIntel || []).length + ' researched';
@@ -874,10 +872,10 @@ function openClub(x) {
     '<div class="cells" style="width:100%;text-align:left">' + cell('Capacity', n0(d.capacity || c['Capacity'])) + cell('Face value', range(tk.face_from, tk.face_to)) +
     cell('Hospitality', range(hsp.from, hsp.to)) + cell('Run by', hsp.run_by) +
     '<div><div class="l">Demand</div><div class="v">' + (stars(Number(dm.score) || 0) || '—') + '</div></div>' + cell('Sell-outs', dm.sellout_rate) +
-    (c['Avg resale from (£)'] !== undefined ? cell('Resale avg', gbp(c['Avg resale from (£)'])) + cell('On GO now', c['On GO now (games)'] ? c['On GO now (games)'] + ' games' : 'No') : '') + '</div></div>';
+    (c['Avg resale from (£)'] !== undefined ? cell('Resale avg', gbp(c['Avg resale from (£)'])) + cell('Home games left', c['Home games left']) : '') + '</div></div>';
 
   if (i.dossier) {
-    if (d.reseller_route) h += '<div class="shead"><h2>Route in for GO</h2></div><div class="card bul"><div>' + esc(d.reseller_route) + '</div>' + (hsp.contact ? '<div><b>Contact:</b> <span style="user-select:text">' + esc(hsp.contact) + '</span></div>' : '') + '</div>';
+    if (d.reseller_route) h += '<div class="shead"><h2>Route in</h2></div><div class="card bul"><div>' + esc(d.reseller_route) + '</div>' + (hsp.contact ? '<div><b>Contact:</b> <span style="user-select:text">' + esc(hsp.contact) + '</span></div>' : '') + '</div>';
     if ((d.prepare || []).filter(Boolean).length) h += '<div class="shead"><h2>Next steps</h2></div><div class="card bul"><ul class="check">' + d.prepare.filter(Boolean).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>';
     if (tk.how_sales_work || tk.price_categories) h += '<div class="shead"><h2>How tickets sell</h2></div><div class="card bul">' + (tk.how_sales_work ? '<div>' + esc(tk.how_sales_work) + '</div>' : '') + (tk.price_categories ? '<div class="muted">💷 ' + esc(tk.price_categories) + '</div>' : '') + (tk.source ? '<div>' + srcChip(tk.source, 'Official · ' + host(tk.source)) + '</div>' : '') + '</div>';
     if ((tk.sale_windows || []).length) h += '<div class="shead"><h2>Sale windows</h2></div>' + linkRows(tk.sale_windows.map(w => ({ t: w.window + (w.games ? ' — ' + w.games : ''), s: w.who, r: fmtWhen(w.date), url: w.source })));
@@ -939,8 +937,8 @@ function closeClub() { $('view-club').classList.remove('open'); }
 /* ---------- Fixtures ---------- */
 function renderFix() {
   if (!D) return;
-  chips('fixPeriod', [[3,'3 days'],[7,'7 days'],[14,'14 days'],[30,'30 days'],[90,'90 days'],['all','Season'],['notgo', S.fix.notGo ? '✓ Not on GO' : 'Not on GO']], S.fix.notGo ? 'notgo' : S.fix.days, v => {
-    if (v === 'notgo') S.fix.notGo = !S.fix.notGo; else S.fix.days = v === 'all' ? 'all' : Number(v);
+  chips('fixPeriod', [[3,'3 days'],[7,'7 days'],[14,'14 days'],[30,'30 days'],[90,'90 days'],['all','Season']], S.fix.days, v => {
+    S.fix.days = v === 'all' ? 'all' : Number(v);
     renderFix();
   });
   // keep the period chip highlighted alongside the toggle
@@ -949,10 +947,10 @@ function renderFix() {
   chips('fixComps', [['', 'All competitions']].concat(comps.map(c => [c, c])), S.fix.comp, v => { S.fix.comp = v; renderFix(); });
   const lim = S.fix.days === 'all' ? '9999' : addDaysStr(S.fix.days);
   const q = S.fix.q.toLowerCase();
-  const rows = D.fixtures.filter(f => String(f['Date']) <= lim && (!S.fix.comp || f['Competition'] === S.fix.comp) && (!S.fix.notGo || !f['On GO']) &&
+  const rows = D.fixtures.filter(f => String(f['Date']) <= lim && (!S.fix.comp || f['Competition'] === S.fix.comp) &&
     (!q || (f['Home'] + ' ' + f['Away'] + ' ' + f['Venue']).toLowerCase().includes(q)));
-  const onGo = rows.filter(f => f['On GO']).length;
-  if (S.fb === 'fix') $('fbSub').textContent = rows.length + ' fixtures · ' + onGo + ' on GO';
+  const priced = rows.filter(f => !blank(f['LFT from (£)'])).length;
+  if (S.fb === 'fix') $('fbSub').textContent = rows.length + ' fixtures · ' + priced + ' with LFT prices';
   if (!rows.length) { $('fixBody').innerHTML = '<div class="card empty">No fixtures match.</div>'; return; }
   const byDay = {};
   rows.slice(0, 600).forEach(f => (byDay[f['Date']] = byDay[f['Date']] || []).push(f));
@@ -969,14 +967,12 @@ function openFixture(i) {
   const dt = new Date(f['Date'] + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
   let h = '<div class="sheet-title"><div style="display:flex;gap:10px;align-items:center">' + badge(f['Home']) + '<span class="muted">v</span>' + badge(f['Away']) + '</div>' +
     '<h2>' + esc(f['Home']) + ' v ' + esc(f['Away']) + '</h2><p>' + esc(dt) + ' · ' + esc(f['KO (UK)']) + ' · ' + esc(f['Competition']) + (f['Round'] ? ' · ' + esc(f['Round']) : '') + '</p>' +
-    '<div class="tags">' + (f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '') + goTag(f['GO status']) + (blank(f['Fixture score']) ? '' : scorePill(f['Fixture score'])) + '</div></div>';
+    '<div class="tags">' + (f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '') + (blank(f['Fixture score']) ? '' : scorePill(f['Fixture score'])) + '</div></div>';
   h += '<div class="card cardpad"><div class="cells">' + cell('Venue', f['Venue']) + cell('Capacity', n0(f['Capacity'])) +
-    cell('LiveFootballTickets', blank(f['LFT from (£)']) ? '' : 'from ' + gbp(f['LFT from (£)'])) + cell('Resale listings', n0(f['Resale listings'])) +
-    cell('GO from', gbp(f['GO from (£)'])) + cell('GO status', f['GO status'] || 'Not listed') + '</div></div>';
+    cell('LiveFootballTickets', blank(f['LFT from (£)']) ? '' : 'from ' + gbp(f['LFT from (£)'])) + cell('Resale listings', n0(f['Resale listings'])) + '</div></div>';
   const ci = D.clubs.findIndex(c => c['Club'] === f['Home']);
   h += '<div style="display:flex;flex-direction:column;gap:10px">' +
-    (f['GO link'] ? '<a class="btn fill press" href="' + esc(f['GO link']) + '" target="_blank" rel="noopener">View on GO Official</a>' : '') +
-    (f['LFT link'] ? '<a class="btn tint press" href="' + esc(f['LFT link']) + '" target="_blank" rel="noopener">LiveFootballTickets listing</a>' : '') +
+ (f['LFT link'] ? '<a class="btn fill press" href="' + esc(f['LFT link']) + '" target="_blank" rel="noopener">LiveFootballTickets listing</a>' : '') +
     (f['Resale link'] ? '<a class="btn tint press" href="' + esc(f['Resale link']) + '" target="_blank" rel="noopener">Resale listings</a>' : '') +
     '<button class="btn tint press" onclick="closeSheet();openClub(' + JSON.stringify(f['Home']).replace(/"/g, '&quot;') + ')">' + esc(f['Home']) + ' club profile</button>' +
     (f['ESPN link'] ? '<a class="btn tint press" href="' + esc(f['ESPN link']) + '" target="_blank" rel="noopener">Match page</a>' : '') + '</div>';
@@ -1063,7 +1059,7 @@ function syncThemeColor() { $('themeColor').setAttribute('content', getComputedS
 
 function openKeySheet(msg) {
   openSheet('<div class="sheet-title"><img src="./logo.png" alt="" style="width:64px;height:64px;border-radius:16px;background:#FBFBF8"><h2>Enter app key</h2><p>' +
-    esc(msg || 'In the Google Sheet: GO Scout → Show app key') + '</p></div>' +
+    esc(msg || 'In the Google Sheet: Scout Events → Show app key') + '</p></div>' +
     '<label class="field"><input id="keyInput" placeholder="APP KEY" autocomplete="off" autocapitalize="characters" value="' + esc(key()) + '"></label>' +
     '<button class="btn fill press" onclick="saveKey()">Connect</button>');
   setTimeout(() => { const i = $('keyInput'); if (i) i.focus(); }, 350);
