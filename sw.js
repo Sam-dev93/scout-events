@@ -4,7 +4,7 @@
  *  • Bump VERSION on every deploy; the page switches over when the app next goes to the background.
  *  • Apps Script API calls are never cached (the app keeps its own saved copy for offline).
  */
-const VERSION = '2026.10.13-6';
+const VERSION = '2026.10.13-7';
 const CACHE = `scout-events-${VERSION}`;
 const SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png', './logo.png'];
 
