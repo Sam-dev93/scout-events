@@ -645,6 +645,12 @@ function openEvent(id) {
       (d.capacity_note || d.capacity_source ? '<div class="muted">👥 ' + esc(d.capacity_note || 'Capacity') + ' ' + srcChip(d.capacity_source) + '</div>' : '') +
       (t.notes || t.source ? '<div class="muted">🎟 ' + esc(t.notes || 'Ticket prices') + ' ' + srcChip(t.source) + '</div>' : '') +
       (dm.resale_source ? '<div class="muted">💷 Resale prices ' + srcChip(dm.resale_source) + '</div>' : '') + '</div>';
+    const rc = (d.resale_check || []).filter(x => x && x.platform);
+    if (rc.length) h += '<div class="shead"><h2>Resale cross-check</h2></div><div class="list">' + rc.map(x =>
+      (x.url ? '<a class="row plain press" href="' + esc(x.url) + '" target="_blank" rel="noopener">' : '<div class="row plain">') +
+      '<div class="main"><div class="t">' + esc(x.platform) + '</div><div class="s" style="white-space:normal">' +
+      esc([!blank(x.listings) ? n0(x.listings) + ' listed' : '', !blank(x.avg) ? 'avg ' + gbp(x.avg) : '', x.note || ''].filter(Boolean).join(' · ') || (blank(x.from) ? 'No price found' : '')) + '</div></div>' +
+      '<div class="right"><b class="num" style="font-size:16px">' + (blank(x.from) ? '—' : gbp(x.from)) + '</b>' + (blank(x.from) ? '' : '<small>from</small>') + '</div>' + (x.url ? '</a>' : '</div>')).join('') + '</div>';
     if ((d.prepare || []).filter(Boolean).length) h += '<div class="shead"><h2>How to prepare</h2></div><div class="card bul"><ul class="check">' + d.prepare.filter(Boolean).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>';
     if ((d.on_sale || []).length) h += '<div class="shead"><h2>On-sale timeline</h2></div><div class="list">' + d.on_sale.map(o => '<div class="row plain"><div class="main"><div class="t wrap">' + esc(o.phase) + '</div>' +
       '<div class="s" style="white-space:normal">' + esc([o.where, o.requirements].filter(Boolean).join(' · ')) + '</div>' + (o.source ? '<div class="tags">' + srcChip(o.source, 'Source · ' + host(o.source)) + '</div>' : '') + '</div><div class="right"><b style="font-size:15px">' + esc(fmtWhen(o.date)) + '</b></div></div>').join('') + '</div>';
@@ -711,6 +717,7 @@ function eventText(e) {
   L.push('• Face value: ' + (range(t.face_from, t.face_to) || 'TBC'));
   L.push('• Hospitality: ' + (range(hsp.from, hsp.to) || 'TBC') + (hsp.official_provider ? ' (' + hsp.official_provider + ')' : ''));
   if (!blank(dm.resale_from)) L.push('• Resale: from ' + gbp(dm.resale_from));
+  (d.resale_check || []).filter(x => x && x.platform && !blank(x.from)).forEach(x => L.push('   – ' + x.platform + ': from ' + gbp(x.from) + (blank(x.listings) ? '' : ' (' + n0(x.listings) + ' listed)')));
   if (d.ticket_status) L.push('• Status: ' + d.ticket_status);
   if (t.source) L.push('  ↳ ' + t.source);
   if ((d.on_sale || []).length) { L.push(''); L.push('🗓 *On sale*'); d.on_sale.forEach(o => { L.push('• ' + o.phase + ': ' + (o.date || 'TBC') + (o.where ? ' (' + o.where + ')' : '') + (o.requirements ? ' — ' + o.requirements : '')); if (o.source) L.push('  ↳ ' + o.source); }); }
