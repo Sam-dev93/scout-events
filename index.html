@@ -700,7 +700,7 @@ function openEvent(id) {
 
   h += '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">' +
     (e.dossier ? '<button class="btn wa press" onclick="shareEvent(\'' + esc(id) + '\')">Share on WhatsApp</button><button class="btn tint press" onclick="copyEvent(\'' + esc(id) + '\')">Copy full details</button>' : '') +
-    '<button class="btn ' + (e.dossier ? 'tint' : 'fill') + ' press" id="resBtn" onclick="researchNow(\'' + esc(id) + '\')"' + (busy ? ' disabled' : '') + '>' + (queued(e) ? '⏳ Queued for next research run' : D.researchMode === 'scheduled' ? (e.dossier ? 'Queue a fresh research' : 'Queue for research (next run)') : (e.dossier ? 'Research again' : 'Research this event now')) + '</button>' +
+    '<button class="btn ' + (e.dossier ? 'tint' : 'fill') + ' press" id="resBtn" onclick="researchNow(\'' + esc(id) + '\')"' + (busy ? ' disabled' : '') + '>' + (queued(e) ? '⏳ Queued — Claude researches it within the hour' : D.researchMode === 'scheduled' ? (e.dossier ? '🔎 Research again' : '🔎 Research this event') : (e.dossier ? 'Research again' : 'Research this event now')) + '</button>' +
     (e.researched ? '<p class="muted" style="text-align:center">Researched ' + ago(e.researched) + '</p>' : '') + '</div>';
   $('evCTitle').textContent = e.name;
   $('eventBody').innerHTML = h;
@@ -716,7 +716,7 @@ async function researchNow(id) {
   try {
     const j = await api('research', '&id=' + encodeURIComponent(id));
     D = j; store.set(CACHE_KEY, JSON.stringify(j)); renderAll(); openEvent(id);
-    toast(j.queued ? 'Queued — Claude researches it at the next run (~7am / 1pm)' : 'Dossier updated');
+    toast(j.queued ? 'Queued — Claude researches it within the hour' : 'Dossier updated');
   } catch (e) { toast('Research failed: ' + e.message); if (b) { b.disabled = false; b.textContent = 'Try again'; } }
   finally { setBusy(false); }
 }
@@ -867,7 +867,7 @@ function openClub(x) {
   let h = '<div class="card cardpad" style="align-items:center;text-align:center">' + badge(c['Club'], true) +
     '<div><div style="font-size:24px;font-weight:800;letter-spacing:-.3px">' + esc(c['Club']) + '</div><div class="muted">' + esc([c['League'], d.stadium || c['Stadium']].filter(Boolean).join(' · ')) + '</div></div>' +
     '<div class="verdict ' + vcls + '" style="width:100%;text-align:left"><div class="vh"><span class="vl">' + ({ go: '✅ GO', maybe: '🤔 MAYBE', skip: '⛔ SKIP', none: '🔎 Not researched yet' }[vcls]) + '</span>' + scorePill(cScore(c) < 0 ? '' : cScore(c)) + '</div>' +
-    (vd.why ? '<p>' + esc(vd.why) + '</p>' : '<p class="muted">' + (clubQueued(name) ? 'Queued — Claude researches it at the next run.' : 'Queue it and Claude will research official ticketing, hospitality & demand.') + '</p>') +
+    (vd.why ? '<p>' + esc(vd.why) + '</p>' : '<p class="muted">' + (clubQueued(name) ? 'Queued — Claude researches it within the hour.' : 'Queue it and Claude will research official ticketing, hospitality & demand.') + '</p>') +
     (vd.angle ? '<div class="angle">💡 ' + esc(vd.angle) + '</div>' : '') + '</div>' +
     '<div class="cells" style="width:100%;text-align:left">' + cell('Capacity', n0(d.capacity || c['Capacity'])) + cell('Face value', range(tk.face_from, tk.face_to)) +
     cell('Hospitality', range(hsp.from, hsp.to)) + cell('Run by', hsp.run_by) +
@@ -903,7 +903,7 @@ function openClub(x) {
   const q = JSON.stringify(name).replace(/"/g, '&quot;');
   h += '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">' +
     (i.dossier ? '<button class="btn wa press" onclick="window.open(\'https://wa.me/?text=\'+encodeURIComponent(clubText(' + q + ')),\'_blank\')">Share on WhatsApp</button>' : '') +
-    '<button class="btn ' + (i.dossier ? 'tint' : 'fill') + ' press" id="clubResBtn" onclick="queueClub(' + q + ')"' + (clubQueued(name) ? ' disabled' : '') + '>' + (clubQueued(name) ? '⏳ Queued for next research run' : i.dossier ? 'Queue a fresh research' : 'Queue club research') + '</button>' +
+    '<button class="btn ' + (i.dossier ? 'tint' : 'fill') + ' press" id="clubResBtn" onclick="queueClub(' + q + ')"' + (clubQueued(name) ? ' disabled' : '') + '>' + (clubQueued(name) ? '⏳ Queued — Claude researches it within the hour' : i.dossier ? '🔎 Research again' : '🔎 Research this club') + '</button>' +
     (i.researched ? '<p class="muted" style="text-align:center">Researched ' + ago(i.researched) + '</p>' : '') + '</div>';
   $('clubCTitle').textContent = c['Club'];
   $('clubBody').innerHTML = h;
@@ -912,7 +912,7 @@ function openClub(x) {
 }
 async function queueClub(name) {
   const b = $('clubResBtn'); if (b) { b.disabled = true; b.textContent = 'Adding to research queue…'; }
-  try { const j = await api('researchclub', '&club=' + encodeURIComponent(name)); D = j; store.set(CACHE_KEY, JSON.stringify(j)); renderAll(); openClub(name); toast('Queued — researched at the next run (~7am / 1pm)'); }
+  try { const j = await api('researchclub', '&club=' + encodeURIComponent(name)); D = j; store.set(CACHE_KEY, JSON.stringify(j)); renderAll(); openClub(name); toast('Queued — Claude researches it within the hour'); }
   catch (e) { toast('Failed: ' + e.message); if (b) { b.disabled = false; b.textContent = 'Try again'; } }
 }
 function clubText(name) {
@@ -1036,7 +1036,7 @@ function openSettings() {
     '<button class="btn tint press" onclick="scoutNow()"' + (busy ? ' disabled' : '') + '>' + (D && D.researchMode === 'scheduled' ? 'Import latest Claude research' : 'Discover & research events') + '</button>' +
     (D && D.researchMode === 'scheduled' ? '' : '<button class="btn tint press" onclick="scanRadar()"' + (busy ? ' disabled' : '') + '>Sweep the radar now</button>') +
     '<button class="btn tint press" onclick="scanNews()"' + (busy ? ' disabled' : '') + '>Scan the web for news</button></div>' +
-    '<p class="muted" style="padding:0 4px">' + (D && D.researchMode === 'scheduled' ? 'Claude researches on your Max plan at ~7am and ~1pm; the sheet imports it within 15 min.' : 'These also run automatically when auto-refresh is on in the sheet.') + '</p>' +
+    '<p class="muted" style="padding:0 4px">' + (D && D.researchMode === 'scheduled' ? 'Claude only researches what you tap Research on (checked hourly, 7am–10pm) plus one radar sweep a day, on your Max plan.' : 'These also run automatically when auto-refresh is on in the sheet.') + '</p>' +
     '<div class="shead" style="padding:4px 4px 0"><h2>Phone alerts</h2></div>' +
     '<div class="card cardpad"><div class="prose">Get a push when something hot hits the radar, an event is rated GO, or a GO event goes on sale within 48 hours.</div>' +
     '<div class="prose"><b>1.</b> Install the free <b>ntfy</b> app (App Store / Google Play).<br><b>2.</b> Tap <b>+</b> and subscribe to this topic:</div>' +
