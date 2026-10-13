@@ -278,6 +278,26 @@ body.busy .progress { display: block; }
 .vdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .vt-go { color: var(--green); } .vt-maybe { color: var(--gold); } .vt-skip { color: var(--red); } .vt-none { color: var(--ter); }
 .lnk { color: var(--acc); }
+.feed { display: flex; flex-direction: column; gap: 10px; }
+.fc { background: var(--card); border-radius: 24px; padding: 14px 16px 14px; display: flex; flex-direction: column; gap: 8px; text-align: left; width: 100%; }
+.fc .top { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--sec); min-height: 22px; }
+.fc .top .cat { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fc .ndot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+.fc .hd { font-size: 17px; font-weight: 800; letter-spacing: -.2px; line-height: 1.25; display: flex; gap: 10px; align-items: center; }
+.fc .hd span { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.fc .sub { font-size: 14px; color: var(--sec); line-height: 1.38; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: -3px; }
+.fc .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 11px; border-radius: 999px; background: var(--sub2); font-size: 12.5px; font-weight: 700; color: var(--label); white-space: nowrap; }
+.pill.acc { background: var(--acc-bg); color: var(--acc); }
+.pill.gold { background: var(--gold-bg); color: var(--gold); }
+.pill.red { background: var(--red-bg); color: var(--red); }
+.pill.dim { color: var(--sec); }
+.fc .foot { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--ter); border-top: 1px solid var(--sep); padding-top: 9px; margin-top: 2px; }
+.fc .foot .src-ok { color: var(--green); }
+.fc .foot .grow { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lv { height: 22px; padding: 0 9px; border-radius: 999px; font-size: 10.5px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; display: inline-flex; align-items: center; flex-shrink: 0; }
+.lv.high { background: var(--acc); color: #fff; } .lv.medium { background: var(--gold-bg); color: var(--gold); } .lv.low { background: var(--fill); color: var(--sec); }
+.lv.go { background: var(--green); color: #fff; } .lv.maybe { background: var(--gold); color: #fff; } .lv.skip { background: var(--red-bg); color: var(--red); } .lv.none { background: var(--fill); color: var(--sec); }
 .offline-pill { display: none; position: fixed; z-index: 16; left: 50%; transform: translateX(-50%); top: calc(var(--safe-top) + 10px); height: 34px; padding: 0 14px; border-radius: 999px; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--sec); }
 body.offline .offline-pill { display: flex; }
 </style>
@@ -498,20 +518,30 @@ function newRadar() { const seen = radarSeen(); return (D.radar || []).filter(r 
 function markRadarSeen() { if (D && (D.radar || []).length) { store.set('se-radar-seen', D.radar.map(r => r.found).sort().pop()); } }
 const host = u => String(u || '').replace(/^https?:\/\/(www\.)?/, '').split('/')[0];
 const srcChip = (u, label) => u && /^https?:/.test(u) ? '<a class="src press' + (/official/i.test(label || '') ? ' off' : '') + '" href="' + esc(u) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">' + esc(label || host(u)) + ' ↗</a>' : '';
+function splitTitle(t) {
+  t = String(t || '');
+  const m = /^(.{6,70}?)\s+[—–-]\s+(.+)$/.exec(t) || /^(.{6,60}?):\s+(.+)$/.exec(t);
+  return m ? [m[1], m[2]] : [t, ''];
+}
+const pill = (txt, cls) => txt ? '<span class="pill ' + (cls || '') + '">' + txt + '</span>' : '';
 function radarRow(r) {
-  const isNew = r.found > radarSeen();
-  const today = todayStr();
+  const isNew = r.found > radarSeen(), today = todayStr();
   const sale = dparts(r.saleDate), ev = dparts(r.eventDate);
-  let top, when, cls = r.value === 'High' ? 'hi' : '';
-  if (sale) { top = sale.iso < today ? 'opened' : ({ Ballot: 'ballot', Presale: 'presale', 'Sale window': 'window' }[r.what] || 'on sale'); when = sale.iso; if (sale.iso < today) cls += ' muted'; }
-  else if (ev) { top = 'event'; when = ev.iso; }
-  else { top = 'news'; when = String(r.found).slice(0, 10); }
-  const meta = [catEmoji(r.category) + ' ' + (r.category || 'Event'), r.what, sale && sale.time ? sale.time : ''].filter(Boolean);
-  return '<button class="row press rad" onclick="openRadar(\'' + esc(r.key) + '\')">' + dateBlock(top, when, cls) +
-    '<div class="main"><div class="t clamp2">' + (isNew ? '<span class="tag t-new" style="margin-right:6px;vertical-align:2px">NEW</span>' : '') + esc(r.title) + '</div>' +
-    '<div class="s">' + esc(meta.join(' · ')) + '</div>' +
-    '<div class="meta3"><span class="vdot" style="background:' + (VDOT[r.value] || VDOT.Medium) + '"></span>' + esc((r.value || 'Medium') + ' value') +
-    (r.source ? '<span class="sep">·</span><span class="' + (/official/i.test(r.sourceType) ? 'lnk' : '') + '">' + esc((r.sourceType || 'Source') + ' · ' + host(r.source)) + '</span>' : '') + '</div></div>' + CHEV + '</button>';
+  const [hd, rest] = splitTitle(r.title);
+  let salePill = '';
+  if (sale) {
+    const past = sale.iso < today, lbl = past ? 'Opened' : ({ Ballot: 'Ballot', Presale: 'Presale', 'Sale window': 'Sale window' }[r.what] || 'On sale');
+    salePill = pill('🎟 ' + esc(lbl + ' ' + sale.wd + ' ' + sale.d + ' ' + sale.mon + (sale.time ? ' · ' + sale.time : '')), past ? 'dim' : 'acc');
+  }
+  const evPill = ev ? pill('📅 ' + esc(ev.d + ' ' + ev.mon + ' ' + ev.iso.slice(0, 4))) : '';
+  const off = /official/i.test(r.sourceType || '');
+  return '<button class="fc press" onclick="openRadar(\'' + esc(r.key) + '\')">' +
+    '<div class="top">' + (isNew ? '<span class="ndot"></span>' : '') + '<span class="cat">' + catEmoji(r.category) + ' ' + esc([r.category || 'Event', r.what].filter(Boolean).join(' · ')) + '</span>' +
+    '<span class="lv ' + esc(String(r.value || 'medium').toLowerCase()) + '">' + esc(r.value || 'Medium') + '</span></div>' +
+    '<div class="hd"><span>' + esc(hd) + '</span></div>' + (rest ? '<div class="sub">' + esc(rest) + '</div>' : '') +
+    (salePill || evPill ? '<div class="pills">' + salePill + evPill + '</div>' : '') +
+    '<div class="foot">' + (r.source ? '<span class="grow' + (off ? ' src-ok' : '') + '">' + (off ? '✓ Official · ' : '') + esc(host(r.source)) + '</span>' : '<span class="grow">No source</span>') +
+    '<span>' + esc(ago(r.found)) + '</span></div></button>';
 }
 function openRadar(k) {
   const r = (D.radar || []).find(x => x.key === k); if (!r) return;
@@ -554,13 +584,13 @@ function renderHome() {
     tile('New on radar', newRadar().length, "S.rad='radar';switchTab('intel')") + '</div>';
 
   const hotRadar = (D.radar || []).filter(r => r.value === 'High').sort((a, b) => String(b.found).localeCompare(String(a.found))).slice(0, 4);
-  if (hotRadar.length) h += '<div class="shead"><h2>🔥 On the radar</h2><button class="link press" onclick="S.rad=\'radar\';switchTab(\'intel\')">All</button></div><div class="list">' + hotRadar.map(radarRow).join('') + '</div>';
-  if (onSale.length) h += '<div class="shead"><h2>Going on sale soon</h2><button class="link press" onclick="S.ev.when=\'onsale\';renderEvents();switchTab(\'events\')">All</button></div><div class="list">' + onSale.slice(0, 6).map(e => eventRow(e, true)).join('') + '</div>';
+  if (hotRadar.length) h += '<div class="shead"><h2>🔥 On the radar</h2><button class="link press" onclick="S.rad=\'radar\';switchTab(\'intel\')">All</button></div><div class="feed">' + hotRadar.map(radarRow).join('') + '</div>';
+  if (onSale.length) h += '<div class="shead"><h2>Going on sale soon</h2><button class="link press" onclick="S.ev.when=\'onsale\';renderEvents();switchTab(\'events\')">All</button></div><div class="feed">' + onSale.slice(0, 6).map(e => eventRow(e, true)).join('') + '</div>';
   h += '<div class="shead"><h2>Top picks</h2><button class="link press" onclick="S.ev.verdict=\'GO\';renderEvents();switchTab(\'events\')">All</button></div>';
-  h += go.length ? '<div class="list">' + go.slice(0, 8).map(e => eventRow(e)).join('') + '</div>' :
+  h += go.length ? '<div class="feed">' + go.slice(0, 8).map(e => eventRow(e)).join('') + '</div>' :
     '<div class="card empty">' + (researched.length ? 'No GO verdicts yet.' : 'Events are being researched in batches — or start now.') + '<div style="margin-top:12px"><button class="btn tint press" onclick="scoutNow()">Discover & research events</button></div></div>';
 
-  if (allClubs().length) h += '<div class="shead"><h2>Football · who to call next</h2><button class="link press" onclick="S.fb=\'clubs\';switchTab(\'football\');renderFootball()">All clubs</button></div><div class="list">' + untapped().slice(0, 4).map(clubRow).join('') + '</div>';
+  if (allClubs().length) h += '<div class="shead"><h2>Football · who to call next</h2><button class="link press" onclick="S.fb=\'clubs\';switchTab(\'football\');renderFootball()">All clubs</button></div><div class="feed">' + untapped().slice(0, 4).map(clubRow).join('') + '</div>';
 
   const pri = ['Partner deal','Competitor','Demand / sell-out','New hospitality','Event announced'];
   const sig = D.intel.filter(i => pri.indexOf(i['Signal']) > -1).sort((a, b) => (b['New'] - a['New']) || String(b['Date']).localeCompare(String(a['Date']))).slice(0, 4);
@@ -581,18 +611,20 @@ const findEv = id => (D.events || []).find(e => e.id === id);
 const queued = e => (D.priorityIds || []).indexOf(e.id) > -1;
 
 function eventRow(e, saleFirst) {
-  const sale = saleFirst && dparts(e.nextSale);
-  const blk = sale ? dateBlock('on sale', e.nextSale, 'hi') : dateBlock((dparts(e.start) || {}).wd || '', e.start, e.tier === 'A' ? 'hi' : '');
+  const v = queued(e) ? ['none', '⏳ Queued'] : e.verdict ? [e.verdict.toLowerCase(), e.verdict] : ['none', e.error ? 'Retry' : 'To research'];
   const where = [e.venue, e.city].filter(Boolean).join(', ');
-  const sub = catEmoji(e.category) + ' ' + [e.category, where].filter(Boolean).join(' · ');
-  const vt = queued(e) ? '<span class="vt-none">⏳ Queued for research</span>' : e.verdict ?
-    '<span class="vt-' + e.verdict.toLowerCase() + '">' + ({ GO: '✓ GO', MAYBE: '◐ MAYBE', SKIP: '✕ SKIP' }[e.verdict] || e.verdict) + '</span>' :
-    '<span class="vt-none">' + (e.error ? 'Research failed — retry' : 'Not researched yet') + '</span>';
-  const bits = [vt, !blank(e.faceFrom) ? 'from ' + gbp(e.faceFrom) : '', e.status || '', e.demand ? '★'.repeat(Number(e.demand)) : '', sale ? 'event ' + fmtDay(e.start) : '', e.teamStatus || '']
-    .filter(Boolean).join('<span class="sep">·</span>');
-  return '<button class="row press" onclick="openEvent(\'' + esc(e.id) + '\')">' + blk +
-    '<div class="main"><div class="t">' + esc(e.name) + '</div><div class="s">' + esc(sub) + '</div><div class="meta3">' + bits + '</div></div>' +
-    (blank(e.score) ? CHEV : scorePill(e.score)) + '</button>';
+  const st = dparts(e.start), sale = dparts(e.nextSale);
+  const pills = [
+    pill('📅 ' + (st ? esc(st.wd + ' ' + st.d + ' ' + st.mon + (e.end && e.end !== e.start ? ' →' : '')) : 'Date TBC'), saleFirst ? '' : 'acc'),
+    sale && e.nextSale >= todayStr() ? pill('🎟 On sale ' + esc(sale.d + ' ' + sale.mon), 'gold') : '',
+    !blank(e.faceFrom) ? pill('from ' + gbp(e.faceFrom)) : '',
+    e.demand ? pill('🔥 ' + '★'.repeat(Number(e.demand)), 'dim') : '',
+    !blank(e.score) ? pill('Score ' + esc(e.score), Number(e.score) >= 60 ? 'acc' : '') : ''
+  ].join('');
+  return '<button class="fc press" onclick="openEvent(\'' + esc(e.id) + '\')">' +
+    '<div class="top"><span class="cat">' + catEmoji(e.category) + ' ' + esc(e.category || 'Event') + (e.tier ? ' · Tier ' + esc(e.tier) : '') + '</span><span class="lv ' + v[0] + '">' + esc(v[1]) + '</span></div>' +
+    '<div class="hd"><span>' + esc(e.name) + '</span></div>' + (where ? '<div class="sub">📍 ' + esc(where) + '</div>' : '') +
+    '<div class="pills">' + pills + '</div>' + (e.teamStatus ? '<div class="foot"><span class="grow">Team: ' + esc(e.teamStatus) + '</span></div>' : '') + '</button>';
 }
 
 function renderEvents() {
@@ -616,7 +648,7 @@ function renderEvents() {
   if (!rows.length) { $('evBody').innerHTML = '<div class="card empty">No events match.</div>'; return; }
   const byMonth = {};
   rows.slice(0, 500).forEach(e => { const k = w === 'onsale' ? 'On sale ' + new Date(e.nextSale + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }) : new Date(e.start + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); (byMonth[k] = byMonth[k] || []).push(e); });
-  $('evBody').innerHTML = Object.keys(byMonth).map(m => '<div class="day">' + esc(m) + '</div><div class="list">' + byMonth[m].map(e => eventRow(e, w === 'onsale')).join('') + '</div>').join('');
+  $('evBody').innerHTML = Object.keys(byMonth).map(m => '<div class="day">' + esc(m) + '</div><div class="feed">' + byMonth[m].map(e => eventRow(e, w === 'onsale')).join('') + '</div>').join('');
 }
 
 function openEvent(id) {
@@ -661,7 +693,7 @@ function openEvent(id) {
     if ((d.latest_news || []).filter(x => x && x.headline).length) h += '<div class="shead"><h2>Latest news</h2></div><div class="list">' + d.latest_news.filter(x => x && x.headline).map(x =>
       (x.url ? '<a class="row plain press" href="' + esc(x.url) + '" target="_blank" rel="noopener">' : '<div class="row plain">') + '<div class="main"><div class="t wrap" style="font-size:15px">' + esc(x.headline) + '</div><div class="s">' + esc([x.date, host(x.url)].filter(Boolean).join(' · ')) + '</div></div>' + (x.url ? CHEV + '</a>' : '</div>')).join('') + '</div>';
     const radarHits = (D.radar || []).filter(r => r.eventId === e.id);
-    if (radarHits.length) h += '<div class="shead"><h2>On the radar</h2></div><div class="list">' + radarHits.map(radarRow).join('') + '</div>';
+    if (radarHits.length) h += '<div class="shead"><h2>On the radar</h2></div><div class="feed">' + radarHits.map(radarRow).join('') + '</div>';
     h += list('Competitors already selling', d.competitors) + list('Risks', d.risks);
     if ((d.sources || []).length) h += '<div class="shead"><h2>All sources</h2></div><div class="list">' + d.sources.slice(0, 12).map(x => '<a class="row plain press" href="' + esc(x.url) + '" target="_blank" rel="noopener"><div class="main"><div class="t" style="font-size:14px">' + esc(x.title) + '</div><div class="s">' + esc(x.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]) + '</div></div>' + CHEV + '</a>').join('') + '</div>';
   }
@@ -765,13 +797,19 @@ const cScore = c => !blank(c._i && c._i.score) ? Number(c._i.score) : (blank(c['
 const clubQueued = name => (D.priorityClubs || []).some(n => n === name);
 function clubRow(c) {
   const i = c._i;
-  const sub = [c['League'], c['Stadium'], c['Capacity'] ? n0(c['Capacity']) + ' seats' : ''].filter(Boolean).join(' · ');
-  const vt = clubQueued(c['Club']) ? '<span class="vt-none">⏳ Queued for research</span>' : i && i.verdict ?
-    '<span class="vt-' + i.verdict.toLowerCase() + '">' + ({ GO: '✓ GO', MAYBE: '◐ MAYBE', SKIP: '✕ SKIP' }[i.verdict] || i.verdict) + '</span>' : '<span class="vt-none">Not researched yet</span>';
-  const bits = [vt, i && i.runBy ? 'Hospitality: ' + i.runBy : '', i && !blank(i.hospFrom) ? 'from ' + gbp(i.hospFrom) : '',
-    c['Status'] === 'Partner' ? 'Partner' : '', c['On GO now (games)'] ? 'On GO · ' + c['On GO now (games)'] : ''].filter(Boolean).join('<span class="sep">·</span>');
-  return '<button class="row press" onclick="openClub(' + JSON.stringify(c['Club']).replace(/"/g, '&quot;') + ')">' + badge(c['Club']) +
-    '<div class="main"><div class="t">' + esc(c['Club']) + '</div><div class="s">' + esc(sub) + '</div><div class="meta3">' + bits + '</div></div>' + scorePill(cScore(c) < 0 ? '' : cScore(c)) + '</button>';
+  const v = clubQueued(c['Club']) ? ['none', '⏳ Queued'] : i && i.verdict ? [i.verdict.toLowerCase(), i.verdict] : ['none', 'To research'];
+  const sc = cScore(c);
+  const pills = [
+    c['Capacity'] ? pill('👥 ' + n0(c['Capacity'])) : '',
+    i && i.runBy ? pill('🥂 ' + esc(i.runBy)) : '',
+    i && !blank(i.hospFrom) ? pill('from ' + gbp(i.hospFrom), 'gold') : '',
+    c['Status'] === 'Partner' ? pill('Partner', 'acc') : c['On GO now (games)'] ? pill('On GO · ' + esc(c['On GO now (games)']), 'acc') : '',
+    sc >= 0 ? pill('Score ' + sc, sc >= 60 ? 'acc' : '') : ''
+  ].join('');
+  return '<button class="fc press" onclick="openClub(' + JSON.stringify(c['Club']).replace(/"/g, '&quot;') + ')">' +
+    '<div class="top"><span class="cat">⚽ ' + esc(c['League'] || 'Football') + '</span><span class="lv ' + v[0] + '">' + esc(v[1]) + '</span></div>' +
+    '<div class="hd">' + badge(c['Club']) + '<span>' + esc(c['Club']) + '</span></div>' + (c['Stadium'] ? '<div class="sub">🏟 ' + esc(c['Stadium']) + '</div>' : '') +
+    (pills ? '<div class="pills">' + pills + '</div>' : '') + '</button>';
 }
 
 function fixRow(f, showDate) {
@@ -811,7 +849,7 @@ function renderClubs() {
   if (S.clubs.sort === 'researched') rows = rows.filter(c => c._i && c._i.dossier);
   rows.sort(sorts[S.clubs.sort]);
   if (S.fb === 'clubs') $('fbSub').textContent = rows.length + ' clubs · ' + (D.clubIntel || []).length + ' researched';
-  $('clubsBody').innerHTML = rows.length ? '<div class="list">' + rows.map(clubRow).join('') + '</div>' :
+  $('clubsBody').innerHTML = rows.length ? '<div class="feed">' + rows.map(clubRow).join('') + '</div>' :
     '<div class="card empty">' + (all.length ? 'No clubs match.' : 'Club dossiers arrive with the next Claude research run (3 clubs per run).') + '</div>';
 }
 
@@ -852,7 +890,7 @@ function openClub(x) {
     if (dm.summary || dm.waiting_list || dm.resale_note) h += '<div class="shead"><h2>Demand</h2></div><div class="card bul">' + [dm.summary, dm.waiting_list && 'Waiting list: ' + dm.waiting_list, dm.resale_note].filter(Boolean).map(x => '<div>' + esc(x) + '</div>').join('') + (dm.source ? '<div>' + srcChip(dm.source) + '</div>' : '') + '</div>';
     if ((d.fan_buzz || []).filter(x => x && x.summary).length) h += '<div class="shead"><h2>What fans are saying</h2></div>' + linkRows(d.fan_buzz.filter(x => x && x.summary).map(x => ({ t: x.summary, s: x.where || host(x.url), url: x.url })));
   }
-  if (radarHits.length) h += '<div class="shead"><h2>On the radar</h2></div><div class="list">' + radarHits.map(radarRow).join('') + '</div>';
+  if (radarHits.length) h += '<div class="shead"><h2>On the radar</h2></div><div class="feed">' + radarHits.map(radarRow).join('') + '</div>';
   if (fx.length) h += '<div class="shead"><h2>Upcoming home fixtures</h2></div><div class="list">' + fx.map(f => fixRow(f, true)).join('') + '</div>';
   if (i.dossier) {
     if ((d.latest_news || []).filter(x => x && x.headline).length) h += '<div class="shead"><h2>Latest news</h2></div>' + linkRows(d.latest_news.filter(x => x && x.headline).map(x => ({ t: x.headline, s: [x.date, host(x.url)].filter(Boolean).join(' · '), url: x.url })));
@@ -960,7 +998,7 @@ function renderIntel() {
       .sort((a, b) => (a.value === 'High' ? 0 : 1) - (b.value === 'High' ? 0 : 1) || String(b.found).localeCompare(String(a.found)));
     $('intelSub').textContent = D.radarUpdated ? rows.length + ' items · swept ' + ago(D.radarUpdated) : 'Not swept yet';
     let h = D.researchMode === 'scheduled' ? '' : '<button class="btn tint press" onclick="scanRadar()"' + (busy ? ' disabled' : '') + '>Sweep official sites, socials & forums now</button>';
-    h += rows.length ? '<div class="list">' + rows.slice(0, 200).map(radarRow).join('') + '</div>' :
+    h += rows.length ? '<div class="feed">' + rows.slice(0, 200).map(radarRow).join('') + '</div>' :
       '<div class="card empty">' + (all.length ? 'Nothing matches.' : 'The radar sweeps official club, promoter & venue sites, their Instagram/X, ticketing platforms, news and fan forums for on-sale windows, ballots, new events and sell-outs — every item with its source link.') + '</div>';
     $('intelBody').innerHTML = h;
     if (curTab === 'intel') setTimeout(markRadarSeen, 1500);
