@@ -191,7 +191,7 @@ button.row:active, a.row:active { background: var(--fill); }
 .glass { background: var(--glass); border: 1px solid var(--g-border); box-shadow: var(--g-shadow); -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%); }
 .tabbar { position: fixed; z-index: 20; left: 0; right: 0; margin: 0 auto; bottom: max(10px, calc(var(--safe-bottom) - 10px));
   width: min(calc(100% - 40px), 440px); height: 62px; border-radius: 999px; display: flex; align-items: center; padding: 0 4px; }
-.tab-pill { position: absolute; left: 4px; top: 4px; bottom: 4px; width: calc((100% - 8px) / 4); border-radius: 999px; background: var(--pill); transform: translateX(calc(var(--i, 0) * 100%)); transition: transform .45s cubic-bezier(.3,1.3,.45,1); }
+.tab-pill { position: absolute; left: 4px; top: 4px; bottom: 4px; width: calc((100% - 8px) / 3); border-radius: 999px; background: var(--pill); transform: translateX(calc(var(--i, 0) * 100%)); transition: transform .45s cubic-bezier(.3,1.3,.45,1); }
 .tab { position: relative; z-index: 1; flex: 1; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; font-weight: 600; color: var(--label); }
 .tab[aria-selected="true"] { color: var(--acc); }
 .tab .dot { position: absolute; top: 6px; right: calc(50% - 18px); min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: var(--red); color: #fff; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
@@ -308,28 +308,18 @@ body.offline .offline-pill { display: flex; }
   <!-- ================= HOME ================= -->
   <section class="view active" id="view-home">
     <div class="nav"><div class="ctitle">Scout Events</div><div class="icons">
+      <button class="tb press" onclick="toggleSearch('ev')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
       <button class="tb press reloadBtn" onclick="reload()" aria-label="Reload"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></button>
       <button class="tb press" onclick="openSettings()" aria-label="Settings"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button></div></div>
     <div class="scroll"><div class="page">
       <header class="hero-head"><div class="brand"><img src="./logo.png" alt=""><div><h1>Scout Events</h1><p id="homeSub">Season 2026–27</p></div></div></header>
       <div class="toolbar"><span></span><div class="icons">
-        <button class="tb press reloadBtn" onclick="reload()" aria-label="Reload"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></button>
+        <button class="tb press" onclick="toggleSearch('ev')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+      <button class="tb press reloadBtn" onclick="reload()" aria-label="Reload"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></button>
         <button class="tb press" onclick="openSettings()" aria-label="Settings"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button></div></div>
       <div class="progress"><div class="track"><i></i></div><p id="progressText">Loading…</p></div>
       <div id="statusMessages"></div>
-      <div id="homeBody" style="display:flex;flex-direction:column;gap:10px"></div>
-    </div></div>
-  </section>
-
-  <!-- ================= EVENTS ================= -->
-  <section class="view" id="view-events">
-    <div class="nav"><div class="ctitle">Events</div><div class="icons"><button class="tb press" onclick="toggleSearch('ev')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button></div></div>
-    <div class="scroll"><div class="page">
-      <header class="hero-head"><h1>Events</h1><p id="evSub">&nbsp;</p></header>
-      <div class="toolbar"><span></span><div class="icons"><button class="tb press" onclick="toggleSearch('ev')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button></div></div>
       <label class="search" id="search-ev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="search" placeholder="Search events, venues, cities" oninput="S.ev.q=this.value;renderEvents()" autocomplete="off"><button onclick="toggleSearch('ev')" aria-label="Close search">✕</button></label>
-      <div class="chips" id="evVerdict"></div>
-      <div class="chips" id="evWhen"></div>
       <div class="chips" id="evCats"></div>
       <div id="evBody" style="display:flex;flex-direction:column;gap:10px"></div>
     </div></div>
@@ -379,8 +369,7 @@ body.offline .offline-pill { display: flex; }
 <div class="bottom-fade" aria-hidden="true"></div>
 <nav class="tabbar glass" role="tablist" id="tabbar">
   <span class="tab-pill" aria-hidden="true"></span>
-  <button class="tab" role="tab" data-tab="home" aria-selected="true" onclick="switchTab('home')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Briefing</span></button>
-  <button class="tab" role="tab" data-tab="events" aria-selected="false" onclick="switchTab('events')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 0 0 6v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3a2 2 0 0 0 0-6V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M14 4v16" stroke-dasharray="2 3"/></svg><span>Events</span></button>
+  <button class="tab" role="tab" data-tab="home" aria-selected="true" onclick="switchTab('home')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 0 0 6v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3a2 2 0 0 0 0-6V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M14 4v16" stroke-dasharray="2 3"/></svg><span>Events</span></button>
   <button class="tab" role="tab" data-tab="football" aria-selected="false" onclick="switchTab('football')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/><path d="M12 7V3M16 10l4-1.5M14.5 14.5l2.5 3.5M9.5 14.5L7 18M8 10L4 8.5"/></svg><span>Football</span></button>
   <button class="tab" role="tab" data-tab="intel" aria-selected="false" onclick="switchTab('intel')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1A10 10 0 0 1 12 2M19.1 4.9A10 10 0 0 1 12 22"/><path d="M8.5 15.5a5 5 0 0 1 0-7M15.5 8.5a5 5 0 0 1 0 7"/><circle cx="12" cy="12" r="1.5"/></svg><span>Radar</span><span class="dot hidden" id="intelDot"></span></button>
 </nav>
@@ -396,7 +385,7 @@ body.offline .offline-pill { display: flex; }
 const API_URL = 'https://script.google.com/macros/s/AKfycbzf_xkYr-xh1UDU9BgSE5OAk-wewK7EwMFX8dRxLYf-Atx5HhV-PsbUyj5QLloabHnQcA/exec';
 const CACHE_KEY = 'se-data-v1';
 const SIGNALS = ['Partner deal','Competitor','Demand / sell-out','New hospitality','Event announced','Stadium / capacity','Ownership / money','General'];
-const TABS = ['home','events','football','intel'];
+const TABS = ['home','football','intel'];
 
 let D = null, busy = false, curTab = 'home', curEvent = null;
 const S = { rad: 'radar', radar: { what: '', high: false }, fb: 'clubs', ev: { q:'', verdict:'', when:'all', cat:'' }, clubs: { q:'', league:'', sort:'score' }, fix: { q:'', days:14, comp:'', notGo:false }, intel: { q:'', sig:'', newOnly:false, club:'' } };
@@ -569,33 +558,8 @@ function untapped() {
 function intelFor(club) { return D.intel.filter(i => i['Club / topic'] === club); }
 
 function renderHome() {
-  const evs = D.events || [];
-  $('homeSub').textContent = D.updated || D.eventsUpdated ? 'Updated ' + ago([D.updated, D.eventsUpdated, D.intelUpdated].filter(Boolean).sort().pop()) : 'Season 2026–27';
-  if (!evs.length && !allClubs().length && !(D.radar || []).length) { $('homeBody').innerHTML = '<div class="card empty">Nothing scouted yet.<div style="margin-top:12px;display:flex;flex-direction:column;gap:10px"><button class="btn fill press" onclick="scoutNow()">Discover & research events</button><button class="btn tint press" onclick="rescan()">Scan football fixtures</button></div></div>'; return; }
-  const researched = evs.filter(e => e.dossier);
-  const go = researched.filter(e => e.verdict === 'GO').sort((a, b) => b.score - a.score);
-  const soonLim = addDaysStr(21), today = todayStr();
-  const onSale = evs.filter(e => e.nextSale && e.nextSale >= today && e.nextSale <= soonLim).sort((a, b) => a.nextSale.localeCompare(b.nextSale));
-  let h = '<div class="tiles">' +
-    tile('Events scouted', researched.length + ' / ' + evs.length, "S.ev.verdict='';switchTab('events')") +
-    tile('Worth it (GO)', go.length, "S.ev.verdict='GO';renderEvents();switchTab('events')") +
-    tile('On sale in 3 weeks', onSale.length, "S.ev.when='onsale';renderEvents();switchTab('events')") +
-    tile('New on radar', newRadar().length, "S.rad='radar';switchTab('intel')") + '</div>';
-
-  const hotRadar = (D.radar || []).filter(r => r.value === 'High').sort((a, b) => String(b.found).localeCompare(String(a.found))).slice(0, 4);
-  if (hotRadar.length) h += '<div class="shead"><h2>🔥 On the radar</h2><button class="link press" onclick="S.rad=\'radar\';switchTab(\'intel\')">All</button></div><div class="feed">' + hotRadar.map(radarRow).join('') + '</div>';
-  if (onSale.length) h += '<div class="shead"><h2>Going on sale soon</h2><button class="link press" onclick="S.ev.when=\'onsale\';renderEvents();switchTab(\'events\')">All</button></div><div class="feed">' + onSale.slice(0, 6).map(e => eventRow(e, true)).join('') + '</div>';
-  h += '<div class="shead"><h2>Top picks</h2><button class="link press" onclick="S.ev.verdict=\'GO\';renderEvents();switchTab(\'events\')">All</button></div>';
-  h += go.length ? '<div class="feed">' + go.slice(0, 8).map(e => eventRow(e)).join('') + '</div>' :
-    '<div class="card empty">' + (researched.length ? 'No GO verdicts yet.' : 'Events are being researched in batches — or start now.') + '<div style="margin-top:12px"><button class="btn tint press" onclick="scoutNow()">Discover & research events</button></div></div>';
-
-  if (allClubs().length) h += '<div class="shead"><h2>Football · who to call next</h2><button class="link press" onclick="S.fb=\'clubs\';switchTab(\'football\');renderFootball()">All clubs</button></div><div class="feed">' + untapped().slice(0, 4).map(clubRow).join('') + '</div>';
-
-  const pri = ['Partner deal','Competitor','Demand / sell-out','New hospitality','Event announced'];
-  const sig = D.intel.filter(i => pri.indexOf(i['Signal']) > -1).sort((a, b) => (b['New'] - a['New']) || String(b['Date']).localeCompare(String(a['Date']))).slice(0, 4);
-  if (sig.length) h += '<div class="shead"><h2>Signals</h2><button class="link press" onclick="switchTab(\'intel\')">All intel</button></div><div class="list">' + sig.map(intelRow).join('') + '</div>';
-  h += '<div class="list" style="margin-top:6px"><button class="row plain press" onclick="openGuide()"><div class="main"><div class="t">How competitions work</div><div class="s">Formats, key dates & the hospitality angle</div></div>' + CHEV + '</button></div>';
-  $('homeBody').innerHTML = h;
+  const last = [D.updated, D.eventsUpdated, D.radarUpdated].filter(Boolean).sort().pop();
+  $('homeSub').textContent = last ? 'Updated ' + ago(last) : 'Season 2026–27';
 }
 
 /* ---------- Events ---------- */
@@ -610,44 +574,41 @@ const findEv = id => (D.events || []).find(e => e.id === id);
 const queued = e => (D.priorityIds || []).indexOf(e.id) > -1;
 
 function eventRow(e, saleFirst) {
-  const v = queued(e) ? ['none', '⏳ Queued'] : e.verdict ? [e.verdict.toLowerCase(), e.verdict] : ['none', e.error ? 'Retry' : 'To research'];
+  const v = queued(e) ? ['none', '⏳ Researching'] : e.dossier && e.verdict ? [e.verdict.toLowerCase(), e.verdict] : null;
   const where = [e.venue, e.city].filter(Boolean).join(', ');
   const st = dparts(e.start), sale = dparts(e.nextSale);
   const pills = [
     pill('📅 ' + (st ? esc(st.wd + ' ' + st.d + ' ' + st.mon + (e.end && e.end !== e.start ? ' →' : '')) : 'Date TBC'), saleFirst ? '' : 'acc'),
-    sale && e.nextSale >= todayStr() ? pill('🎟 On sale ' + esc(sale.d + ' ' + sale.mon), 'gold') : '',
-    !blank(e.faceFrom) ? pill('from ' + gbp(e.faceFrom)) : '',
-    e.demand ? pill('🔥 ' + '★'.repeat(Number(e.demand)), 'dim') : '',
-    !blank(e.score) ? pill('Score ' + esc(e.score), Number(e.score) >= 60 ? 'acc' : '') : ''
+    !blank(e.faceFrom) ? pill('🎟 from ' + gbp(e.faceFrom)) : '',
+    !blank(e.hospFrom) ? pill('🥂 from ' + gbp(e.hospFrom)) : '',
+    !blank(e.capacity) ? pill('👥 ' + n0(e.capacity)) : '',
+    sale && e.nextSale >= todayStr() ? pill('On sale ' + esc(sale.d + ' ' + sale.mon + (sale.time ? ' ' + sale.time : '')), 'gold') :
+      e.status ? pill(esc(e.status), /sold out/i.test(e.status) ? 'red' : /on sale|selling/i.test(e.status) ? 'acc' : 'dim') : ''
   ].join('');
   return '<button class="fc press" onclick="openEvent(\'' + esc(e.id) + '\')">' +
-    '<div class="top"><span class="cat">' + catEmoji(e.category) + ' ' + esc(e.category || 'Event') + (e.tier ? ' · Tier ' + esc(e.tier) : '') + '</span><span class="lv ' + v[0] + '">' + esc(v[1]) + '</span></div>' +
+    '<div class="top"><span class="cat">' + catEmoji(e.category) + ' ' + esc(e.category || 'Event') + '</span>' + (v ? '<span class="lv ' + v[0] + '">' + esc(v[1]) + '</span>' : '') + '</div>' +
     '<div class="hd"><span>' + esc(e.name) + '</span></div>' + (where ? '<div class="sub">📍 ' + esc(where) + '</div>' : '') +
-    '<div class="pills">' + pills + '</div>' + (e.teamStatus ? '<div class="foot"><span class="grow">Team: ' + esc(e.teamStatus) + '</span></div>' : '') + '</button>';
+    '<div class="pills">' + pills + '</div></button>';
 }
 
 function renderEvents() {
   if (!D) return;
-  const evs = D.events || [];
-  const counts = { GO: 0, MAYBE: 0, SKIP: 0, '': 0 }; evs.forEach(e => counts[e.verdict || ''] = (counts[e.verdict || ''] || 0) + 1);
-  chips('evVerdict', [['', 'All · ' + evs.length], ['GO', '✅ GO · ' + counts.GO], ['MAYBE', '🤔 Maybe · ' + counts.MAYBE], ['SKIP', '⛔ Skip · ' + counts.SKIP], ['none', 'Not researched · ' + counts['']]], S.ev.verdict, v => { S.ev.verdict = v; renderEvents(); });
-  chips('evWhen', [['all', '2026–27'], ['30', 'Next 30 days'], ['90', 'Next 3 months'], ['2026', '2026'], ['2027', '2027'], ['onsale', 'On sale soon']], S.ev.when, v => { S.ev.when = v; renderEvents(); });
+  const evs = D.events || [], today = todayStr(), soon = addDaysStr(30);
+  const nSoon = evs.filter(e => e.nextSale && e.nextSale >= today && e.nextSale <= soon).length;
+  const nDeep = evs.filter(e => e.dossier).length;
   const cats = [...new Set(evs.map(e => e.category).filter(Boolean))].sort();
-  chips('evCats', [['', 'All categories']].concat(cats.map(c => [c, catEmoji(c) + ' ' + c])), S.ev.cat, v => { S.ev.cat = v; renderEvents(); });
-  const q = S.ev.q.toLowerCase(), w = S.ev.when, today = todayStr();
+  chips('evCats', [['', 'All · ' + evs.length], ['__soon', '🎟 On sale soon · ' + nSoon], ['__deep', '🔎 Deep researched · ' + nDeep]]
+    .concat(cats.map(c => [c, catEmoji(c) + ' ' + c])), S.ev.cat, v => { S.ev.cat = v; renderEvents(); });
+  const q = S.ev.q.toLowerCase(), f = S.ev.cat;
   let rows = evs.filter(e =>
-    (!S.ev.verdict || (S.ev.verdict === 'none' ? !e.verdict : e.verdict === S.ev.verdict)) &&
-    (!S.ev.cat || e.category === S.ev.cat) &&
-    (w === 'all' || (w === '2026' || w === '2027') ? (w === 'all' || String(e.start).slice(0, 4) === w) :
-      w === 'onsale' ? (e.nextSale && e.nextSale >= today && e.nextSale <= addDaysStr(45)) : e.start <= addDaysStr(Number(w))) &&
+    (!f || (f === '__soon' ? e.nextSale && e.nextSale >= today && e.nextSale <= soon : f === '__deep' ? !!e.dossier : e.category === f)) &&
     (!q || [e.name, e.venue, e.city, e.category].join(' ').toLowerCase().includes(q)));
-  if (w === 'onsale') rows.sort((a, b) => a.nextSale.localeCompare(b.nextSale));
-  $('evSub').textContent = rows.length + ' events · ' + (D.eventsUpdated ? 'scouted ' + ago(D.eventsUpdated) : 'not scouted yet');
-  if (!evs.length) { $('evBody').innerHTML = '<div class="card empty">No events yet. Scout Events searches the web for every sport, comedy and theatre event in 2026–27, then researches each one.<div style="margin-top:12px"><button class="btn fill press" onclick="scoutNow()">Discover & research events</button></div></div>'; return; }
+  rows.sort((a, b) => f === '__soon' ? a.nextSale.localeCompare(b.nextSale) : String(a.start).localeCompare(String(b.start)));
+  if (!evs.length) { $('evBody').innerHTML = '<div class="card empty">No events yet — Claude looks for upcoming events every morning and fills this list automatically.</div>'; return; }
   if (!rows.length) { $('evBody').innerHTML = '<div class="card empty">No events match.</div>'; return; }
   const byMonth = {};
-  rows.slice(0, 500).forEach(e => { const k = w === 'onsale' ? 'On sale ' + new Date(e.nextSale + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }) : new Date(e.start + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); (byMonth[k] = byMonth[k] || []).push(e); });
-  $('evBody').innerHTML = Object.keys(byMonth).map(m => '<div class="day">' + esc(m) + '</div><div class="feed">' + byMonth[m].map(e => eventRow(e, w === 'onsale')).join('') + '</div>').join('');
+  rows.slice(0, 500).forEach(e => { const d = f === '__soon' ? e.nextSale : e.start; const k = new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); (byMonth[k] = byMonth[k] || []).push(e); });
+  $('evBody').innerHTML = Object.keys(byMonth).map(m => '<div class="day">' + esc((f === '__soon' ? 'On sale · ' : '') + m) + '</div><div class="feed">' + byMonth[m].map(e => eventRow(e, f === '__soon')).join('') + '</div>').join('');
 }
 
 function openEvent(id) {
@@ -663,7 +624,15 @@ function openEvent(id) {
     '<div class="muted">' + esc(e.category) + (e.tier ? ' · Tier ' + esc(e.tier) : '') + '</div>' +
     '<div style="font-size:24px;font-weight:800;letter-spacing:-.3px;line-height:1.15">' + esc(d.name || e.name) + '</div></div></div>' +
     '<div style="font-size:15px;line-height:1.5">📅 ' + esc(d.date_text || fmtRange(e.start, e.end)) + '<br>📍 ' + esc([d.venue || e.venue, d.city || e.city, d.country || e.country].filter(Boolean).join(', ')) + '</div>';
-  h += '<div class="verdict ' + vcls + '"><div class="vh"><span class="vl">' + ({ go: '✅ GO', maybe: '🤔 MAYBE', skip: '⛔ SKIP', none: e.error ? '⚠️ Research failed' : '🔎 Not researched yet' }[vcls]) + '</span>' + scorePill(vd.score != null ? vd.score : e.score) + '</div>' +
+  if (!e.dossier) {
+    const rng = (a, b) => blank(a) && blank(b) ? '' : blank(b) || a === b ? gbp(a) : gbp(a) + ' – ' + gbp(b);
+    h += '</div><div class="shead"><h2>Basic details</h2></div><div class="card cardpad"><div class="cells">' +
+      cell('Capacity', n0(e.capacity)) + cell('Tickets', rng(e.faceFrom, e.faceTo)) + cell('Hospitality from', blank(e.hospFrom) ? '' : gbp(e.hospFrom)) +
+      cell('Ticket status', e.status) + cell('Next on-sale', e.nextSale ? fmtDay(e.nextSale) : '') + cell('Tier', e.tier) + '</div>' +
+      (e.basic ? '<div style="font-size:15px;line-height:1.45">' + esc(e.basic) + '</div>' : (e.note ? '<div class="muted">' + esc(e.note) + '</div>' : '')) +
+      (e.ticketsUrl ? '<a class="btn tint press" href="' + esc(e.ticketsUrl) + '" target="_blank" rel="noopener">Official tickets · ' + esc(host(e.ticketsUrl)) + '</a>' : '') +
+      '<div class="muted">' + (e.basicChecked ? 'Quick check ' + ago(e.basicChecked) + ' · ' : '') + 'Deep research adds every official seller, on-sale timeline, sell-out history, resale, fan buzz, risks and a GO / MAYBE / SKIP verdict — all with sources.</div></div>';
+  } else h += '<div class="verdict ' + vcls + '"><div class="vh"><span class="vl">' + ({ go: '✅ GO', maybe: '🤔 MAYBE', skip: '⛔ SKIP', none: e.error ? '⚠️ Research failed' : '🔎 Not researched yet' }[vcls]) + '</span>' + scorePill(vd.score != null ? vd.score : e.score) + '</div>' +
     (vd.why ? '<p>' + esc(vd.why) + '</p>' : '<p class="muted">' + esc(e.error || e.note || 'Tap research to build the full dossier.') + '</p>') +
     (vd.angle ? '<div class="angle">💡 ' + esc(vd.angle) + '</div>' : '') + '</div></div>';
 
@@ -700,7 +669,7 @@ function openEvent(id) {
 
   h += '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">' +
     (e.dossier ? '<button class="btn wa press" onclick="shareEvent(\'' + esc(id) + '\')">Share on WhatsApp</button><button class="btn tint press" onclick="copyEvent(\'' + esc(id) + '\')">Copy full details</button>' : '') +
-    '<button class="btn ' + (e.dossier ? 'tint' : 'fill') + ' press" id="resBtn" onclick="researchNow(\'' + esc(id) + '\')"' + (busy ? ' disabled' : '') + '>' + (queued(e) ? '⏳ Queued — Claude researches it within the hour' : D.researchMode === 'scheduled' ? (e.dossier ? '🔎 Research again' : '🔎 Research this event') : (e.dossier ? 'Research again' : 'Research this event now')) + '</button>' +
+    '<button class="btn ' + (e.dossier ? 'tint' : 'fill') + ' press" id="resBtn" onclick="researchNow(\'' + esc(id) + '\')"' + (busy || queued(e) ? ' disabled' : '') + '>' + (queued(e) ? '⏳ Deep research queued — ready within the hour' : e.dossier ? '🔎 Deep research again' : '🔎 Deep research') + '</button>' +
     (e.researched ? '<p class="muted" style="text-align:center">Researched ' + ago(e.researched) + '</p>' : '') + '</div>';
   $('evCTitle').textContent = e.name;
   $('eventBody').innerHTML = h;
@@ -812,7 +781,7 @@ function clubRow(c) {
 
 function fixRow(f, showDate) {
   const idx = D.fixtures.indexOf(f);
-  const right = !blank(f['Resale from (£)']) ? '<b class="num">' + gbp(f['Resale from (£)']) + '</b><small>' + (!blank(f['LFT from (£)']) ? 'LFT from' : n0(f['Resale listings']) + ' listed') + '</small>' : '<small>no resale data</small>';
+  const right = !blank(f['Resale from (£)']) ? '<b class="num">' + gbp(f['Resale from (£)']) + '</b><small>' + (!blank(f['LFT listings']) ? n0(f['LFT listings']) + ' listed' : !blank(f['LFT from (£)']) ? 'LFT from' : n0(f['Resale listings']) + ' listed') + '</small>' : '<small>no resale data</small>';
   const tags = f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '';
   return '<button class="row press" onclick="openFixture(' + idx + ')"><div class="time num">' + (showDate ? esc(String(f['Date']).slice(8, 10) + '/' + String(f['Date']).slice(5, 7)) + '<br>' : '') + esc(f['KO (UK)']) + '</div>' +
     '<div class="main"><div class="t">' + esc(f['Home']) + ' v ' + esc(f['Away']) + '</div><div class="s">' + esc(f['Competition']) + (f['Round'] ? ' · ' + esc(f['Round']) : '') + ' · ' + esc(f['Venue']) + '</div>' +
@@ -903,7 +872,7 @@ function openClub(x) {
   const q = JSON.stringify(name).replace(/"/g, '&quot;');
   h += '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">' +
     (i.dossier ? '<button class="btn wa press" onclick="window.open(\'https://wa.me/?text=\'+encodeURIComponent(clubText(' + q + ')),\'_blank\')">Share on WhatsApp</button>' : '') +
-    '<button class="btn ' + (i.dossier ? 'tint' : 'fill') + ' press" id="clubResBtn" onclick="queueClub(' + q + ')"' + (clubQueued(name) ? ' disabled' : '') + '>' + (clubQueued(name) ? '⏳ Queued — Claude researches it within the hour' : i.dossier ? '🔎 Research again' : '🔎 Research this club') + '</button>' +
+    '<button class="btn ' + (i.dossier ? 'tint' : 'fill') + ' press" id="clubResBtn" onclick="queueClub(' + q + ')"' + (clubQueued(name) ? ' disabled' : '') + '>' + (clubQueued(name) ? '⏳ Deep research queued — ready within the hour' : i.dossier ? '🔎 Deep research again' : '🔎 Deep research') + '</button>' +
     (i.researched ? '<p class="muted" style="text-align:center">Researched ' + ago(i.researched) + '</p>' : '') + '</div>';
   $('clubCTitle').textContent = c['Club'];
   $('clubBody').innerHTML = h;
@@ -969,7 +938,8 @@ function openFixture(i) {
     '<h2>' + esc(f['Home']) + ' v ' + esc(f['Away']) + '</h2><p>' + esc(dt) + ' · ' + esc(f['KO (UK)']) + ' · ' + esc(f['Competition']) + (f['Round'] ? ' · ' + esc(f['Round']) : '') + '</p>' +
     '<div class="tags">' + (f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '') + (blank(f['Fixture score']) ? '' : scorePill(f['Fixture score'])) + '</div></div>';
   h += '<div class="card cardpad"><div class="cells">' + cell('Venue', f['Venue']) + cell('Capacity', n0(f['Capacity'])) +
-    cell('LiveFootballTickets', blank(f['LFT from (£)']) ? '' : 'from ' + gbp(f['LFT from (£)'])) + cell('Resale listings', n0(f['Resale listings'])) + '</div></div>';
+    cell('LFT from', blank(f['LFT from (£)']) ? (f['LFT listings'] === 0 ? 'None listed' : '') : gbp(f['LFT from (£)'])) + cell('LFT average', blank(f['LFT avg (£)']) ? '' : gbp(f['LFT avg (£)'])) +
+    cell('LFT listings', blank(f['LFT listings']) ? '' : n0(f['LFT listings'])) + cell('Resale listings (all)', n0(f['Resale listings'])) + '</div></div>';
   const ci = D.clubs.findIndex(c => c['Club'] === f['Home']);
   h += '<div style="display:flex;flex-direction:column;gap:10px">' +
  (f['LFT link'] ? '<a class="btn fill press" href="' + esc(f['LFT link']) + '" target="_blank" rel="noopener">LiveFootballTickets listing</a>' : '') +
@@ -1031,12 +1001,7 @@ function openSettings() {
   const opt = (v, l) => '<button class="row plain press" role="radio" aria-checked="' + (theme === v) + '" onclick="setTheme(\'' + v + '\')"><div class="main"><div class="t">' + l + '</div></div><span class="radio"></span></button>';
   openSheet('<div class="sheet-title"><img src="./logo.png" alt="" style="width:64px;height:64px;border-radius:16px;background:#FBFBF8"><h2>Scout Events</h2><p>' +
     (D && D.updated ? 'Data ' + ago(D.updated) : 'No data yet') + (D && D.intelUpdated ? ' · News ' + ago(D.intelUpdated) : '') + '</p></div>' +
-    '<div class="shead" style="padding:4px 4px 0"><h2>Update</h2></div>' +
-    '<div style="display:flex;flex-direction:column;gap:10px"><button class="btn fill press" onclick="rescan()"' + (busy ? ' disabled' : '') + '>Re-scan fixtures, prices & GO (2–4 min)</button>' +
-    '<button class="btn tint press" onclick="scoutNow()"' + (busy ? ' disabled' : '') + '>' + (D && D.researchMode === 'scheduled' ? 'Import latest Claude research' : 'Discover & research events') + '</button>' +
-    (D && D.researchMode === 'scheduled' ? '' : '<button class="btn tint press" onclick="scanRadar()"' + (busy ? ' disabled' : '') + '>Sweep the radar now</button>') +
-    '<button class="btn tint press" onclick="scanNews()"' + (busy ? ' disabled' : '') + '>Scan the web for news</button></div>' +
-    '<p class="muted" style="padding:0 4px">' + (D && D.researchMode === 'scheduled' ? 'Claude only researches what you tap Research on (checked hourly, 7am–10pm) plus one radar sweep a day, on your Max plan.' : 'These also run automatically when auto-refresh is on in the sheet.') + '</p>' +
+    '<div class="card cardpad"><div class="prose">Every morning Claude finds upcoming events and does a quick check on each (dates, venue, capacity, prices, on-sale). Tap <b>🔎 Deep research</b> on any event for the full dossier. Football fixtures and LiveFootballTickets prices update on their own.</div></div>' +
     '<div class="shead" style="padding:4px 4px 0"><h2>Phone alerts</h2></div>' +
     '<div class="card cardpad"><div class="prose">Get a push when something hot hits the radar, an event is rated GO, or a GO event goes on sale within 48 hours.</div>' +
     '<div class="prose"><b>1.</b> Install the free <b>ntfy</b> app (App Store / Google Play).<br><b>2.</b> Tap <b>+</b> and subscribe to this topic:</div>' +
@@ -1078,7 +1043,7 @@ function handleHash() {
   const h = decodeURIComponent(location.hash.slice(1));
   if (!h) return;
   const [k, v] = h.split('=');
-  if (k === 'ev' && findEv(v)) { switchTab('events'); openEvent(v); }
+  if (k === 'ev' && findEv(v)) { switchTab('home'); openEvent(v); }
   else if (k === 'radar') { S.rad = 'radar'; switchTab('intel'); if (v) openRadar(v); }
   history.replaceState(null, '', location.pathname + location.search);
 }
