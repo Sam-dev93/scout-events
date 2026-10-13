@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Scout Events</title>
+<meta name="description" content="Season 2026–27 event & club opportunity scout">
+<meta name="theme-color" id="themeColor" content="#F3F4EF">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Scout Events">
+<meta name="application-name" content="Scout Events">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+<link rel="manifest" href="./manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script>
+  (function () {
+    try {
+      var p = localStorage.getItem('se-theme');
+      if (p === 'light' || p === 'dark') document.documentElement.setAttribute('data-theme', p);
+    } catch (e) {}
+  })();
+</script>
+<style>
+:root {
+  --bg: #F3F4EF; --card: #FFFFFF; --label: #111412; --sec: #6B706C; --ter: #A3A8A4; --chev: #C4C8C5;
+  --sep: #ECEEEA; --fill: #EFF1EC; --track: #E6E9E3; --sub2: #F4F5F1;
+  --acc: #0F5A3C; --acc-bg: rgba(15,90,60,0.11);
+  --gold: #D99A12; --gold-bg: rgba(233,169,34,0.16);
+  --blue: #3A78F2; --blue-bg: rgba(58,120,242,0.12);
+  --green: #1E9E62; --green-bg: rgba(30,158,98,0.12);
+  --red: #E0463F; --red-bg: rgba(224,70,63,0.10);
+  --orange: #E9812A; --orange-bg: rgba(233,129,42,0.13);
+  --purple: #7B61FF; --purple-bg: rgba(123,97,255,0.12);
+  --teal: #159DAE; --teal-bg: rgba(21,157,174,0.12);
+  --glass: rgba(255,255,255,0.74); --g-border: rgba(0,0,0,0.06);
+  --g-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 8px 28px rgba(0,0,0,0.10);
+  --pill: rgba(15,90,60,0.12); --backdrop: rgba(0,0,0,0.32); --sheet: #FFFFFF; --grab: #D4D6D2;
+  --edge: rgba(243,244,239,0.92); --fade: linear-gradient(to bottom, rgba(243,244,239,0), rgba(243,244,239,0.75));
+  --toast: rgba(30,36,32,0.94); --toast-fg: #FFFFFF;
+  color-scheme: light;
+  --font: "Figtree", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --safe-top: env(safe-area-inset-top, 0px); --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000; --card: #161917; --label: #F1F4F2; --sec: #98A09B; --ter: #646B67; --chev: #535955;
+    --sep: #252927; --fill: #212523; --track: #2A2F2C; --sub2: #222624;
+    --acc: #4FC08D; --acc-bg: rgba(79,192,141,0.16); --gold: #F0B94A; --gold-bg: rgba(240,185,74,0.16);
+    --blue: #6E9EF5; --blue-bg: rgba(110,158,245,0.16); --green: #4CB985; --green-bg: rgba(76,185,133,0.15);
+    --red: #E2706A; --red-bg: rgba(226,112,106,0.15); --orange: #DE995A; --orange-bg: rgba(222,153,90,0.15);
+    --purple: #9C8DF2; --purple-bg: rgba(156,141,242,0.15); --teal: #56B5C0; --teal-bg: rgba(86,181,192,0.15);
+    --glass: rgba(40,44,42,0.74); --g-border: rgba(255,255,255,0.12);
+    --g-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 8px 28px rgba(0,0,0,0.5);
+    --pill: rgba(79,192,141,0.18); --backdrop: rgba(0,0,0,0.55); --sheet: #1C1F1D; --grab: #464C48;
+    --edge: rgba(0,0,0,0.92); --fade: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.75));
+    --toast: rgba(56,62,58,0.96); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #000000; --card: #161917; --label: #F1F4F2; --sec: #98A09B; --ter: #646B67; --chev: #535955;
+  --sep: #252927; --fill: #212523; --track: #2A2F2C; --sub2: #222624;
+  --acc: #4FC08D; --acc-bg: rgba(79,192,141,0.16); --gold: #F0B94A; --gold-bg: rgba(240,185,74,0.16);
+  --blue: #6E9EF5; --blue-bg: rgba(110,158,245,0.16); --green: #4CB985; --green-bg: rgba(76,185,133,0.15);
+  --red: #E2706A; --red-bg: rgba(226,112,106,0.15); --orange: #DE995A; --orange-bg: rgba(222,153,90,0.15);
+  --purple: #9C8DF2; --purple-bg: rgba(156,141,242,0.15); --teal: #56B5C0; --teal-bg: rgba(86,181,192,0.15);
+  --glass: rgba(40,44,42,0.74); --g-border: rgba(255,255,255,0.12);
+  --g-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 8px 28px rgba(0,0,0,0.5);
+  --pill: rgba(79,192,141,0.18); --backdrop: rgba(0,0,0,0.55); --sheet: #1C1F1D; --grab: #464C48;
+  --edge: rgba(0,0,0,0.92); --fade: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.75));
+  --toast: rgba(56,62,58,0.96); color-scheme: dark;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); }
+body { font-family: var(--font); color: var(--label); font-size: 16px; -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; user-select: none; -webkit-user-select: none; touch-action: manipulation; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; padding: 0; text-align: inherit; }
+a { color: inherit; text-decoration: none; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+.press { transition: transform .15s ease, opacity .15s ease; }
+.press:active { transform: scale(0.97); opacity: 0.85; }
+.num { font-variant-numeric: tabular-nums; }
+.hidden { display: none !important; }
+
+#app { position: fixed; inset: 0; overflow: clip; background: var(--bg); }
+.view { position: absolute; inset: 0; display: none; background: var(--bg); }
+.view.active { display: block; }
+.scroll { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
+.page { position: relative; max-width: 560px; margin: 0 auto; padding: 0 12px calc(var(--safe-bottom) + 112px); display: flex; flex-direction: column; gap: 10px; }
+.view.push { z-index: 10; display: block; visibility: hidden; transform: translateX(100%); transition: transform .38s cubic-bezier(.2,.9,.3,1), visibility 0s linear .38s; }
+.view.push.open { visibility: visible; transform: none; transition: transform .38s cubic-bezier(.2,.9,.3,1); }
+
+.hero-head { display: flex; flex-direction: column; justify-content: flex-end; padding: 2px 10px 12px; }
+.hero-head h1 { font-size: 34px; font-weight: 700; letter-spacing: -0.4px; line-height: 1.1; }
+.hero-head p { margin-top: 8px; font-size: 15px; color: var(--sec); }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand img { width: 52px; height: 52px; border-radius: 14px; background: #FBFBF8; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+.toolbar { order: -1; display: flex; align-items: center; justify-content: space-between; min-height: 44px; margin: calc(var(--safe-top) + 4px) -4px 0; }
+.toolbar .icons, .nav .icons { display: flex; margin-left: auto; }
+.tb { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: var(--label); border-radius: 999px; }
+.tb:active { background: var(--fill); }
+.spin svg { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.nav { position: absolute; z-index: 6; left: 0; right: 0; top: 0; padding: calc(var(--safe-top) + 4px) 8px 6px 20px; min-height: calc(var(--safe-top) + 54px);
+  display: flex; align-items: center; gap: 4px; background: var(--edge); -webkit-backdrop-filter: blur(20px) saturate(160%); backdrop-filter: blur(20px) saturate(160%);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease; }
+.view.scrolled .nav, .view.push .nav { opacity: 1; pointer-events: auto; }
+.view.push .page { padding-top: calc(var(--safe-top) + 62px); }
+.nav .ctitle { flex: 1; font-size: 20px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.shead { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 12px 14px 0; }
+.shead h2 { font-size: 14px; font-weight: 700; color: var(--sec); flex: 1; }
+.shead .link { font-size: 14px; font-weight: 700; color: var(--acc); }
+.day { font-size: 14px; font-weight: 700; color: var(--sec); padding: 12px 14px 0; }
+
+.card { background: var(--card); border-radius: 26px; }
+.cardpad { padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 12px; width: 100%; text-align: left; }
+.list { background: var(--card); border-radius: 26px; overflow: hidden; }
+.row { position: relative; display: flex; align-items: center; gap: 14px; padding: 12px 16px; min-height: 64px; width: 100%; text-align: left; }
+button.row:active, a.row:active { background: var(--fill); }
+.row::after { content: ""; position: absolute; left: 70px; right: 20px; bottom: 0; height: 1px; background: var(--sep); }
+.row:last-child::after { display: none; }
+.row.plain::after { left: 20px; }
+.row .main { flex: 1; min-width: 0; }
+.row .t { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.row .t.wrap { white-space: normal; line-height: 1.3; }
+.row .s { font-size: 13px; color: var(--sec); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
+.row .right { text-align: right; flex-shrink: 0; }
+.row .right b { display: block; font-size: 17px; font-weight: 700; }
+.row .right small { display: block; font-size: 12px; color: var(--sec); }
+.chev { color: var(--chev); display: flex; flex-shrink: 0; }
+.bar { height: 6px; border-radius: 999px; background: var(--track); overflow: hidden; margin-top: 6px; }
+.bar i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--gold), var(--acc)); }
+.empty { padding: 24px 18px; text-align: center; color: var(--sec); font-size: 15px; line-height: 1.45; }
+
+.badge { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 12px; font-weight: 800; letter-spacing: .2px; color: #fff; }
+.badge.xl { width: 60px; height: 60px; font-size: 18px; }
+.time { width: 40px; flex-shrink: 0; text-align: center; font-size: 13px; font-weight: 700; color: var(--sec); }
+.score { min-width: 44px; height: 30px; padding: 0 8px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; }
+.sc-hi { background: var(--green-bg); color: var(--green); }
+.sc-md { background: var(--gold-bg); color: var(--gold); }
+.sc-lo { background: var(--fill); color: var(--sec); }
+
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.tilecard { background: var(--card); border-radius: 24px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; text-align: left; }
+.tilecard .l { font-size: 13px; font-weight: 600; color: var(--sec); }
+.tilecard .v { font-size: 24px; font-weight: 800; letter-spacing: -0.4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cells { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.cells > div { min-width: 0; background: var(--sub2); border-radius: 14px; padding: 8px 10px; }
+.cells .l { font-size: 11px; font-weight: 700; color: var(--sec); }
+.cells .v { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+
+.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 2px 4px; }
+.chips::-webkit-scrollbar { display: none; }
+.chips button { flex-shrink: 0; height: 36px; padding: 0 16px; border-radius: 999px; font-size: 14px; font-weight: 600; white-space: nowrap; background: var(--card); border: 1px solid var(--sep); }
+.chips button[aria-pressed="true"] { background: var(--acc); color: #FFFFFF; border-color: transparent; }
+:root[data-theme="dark"] .chips button[aria-pressed="true"] { color: #08130D; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chips button[aria-pressed="true"] { color: #08130D; } }
+
+.search { display: none; align-items: center; gap: 8px; height: 48px; border-radius: 999px; padding: 0 8px 0 16px; background: var(--card); color: var(--sec); }
+.search.show { display: flex; }
+.search input { flex: 1; min-width: 0; border: none; background: none; font: inherit; font-size: 16px; color: var(--label); outline: none; user-select: text; -webkit-user-select: text; }
+.search button { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; color: var(--sec); }
+
+.tag { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.t-go { background: var(--acc-bg); color: var(--acc); }
+.t-sold { background: var(--red-bg); color: var(--red); }
+.t-fast { background: var(--orange-bg); color: var(--orange); }
+.t-av { background: var(--green-bg); color: var(--green); }
+.t-big { background: var(--gold-bg); color: var(--gold); }
+.t-new { background: var(--red); color: #fff; }
+.t-partner { background: var(--gold-bg); color: var(--gold); }
+.s-partner-deal { background: var(--purple-bg); color: var(--purple); }
+.s-competitor { background: var(--red-bg); color: var(--red); }
+.s-demand-sell-out { background: var(--orange-bg); color: var(--orange); }
+.s-new-hospitality { background: var(--green-bg); color: var(--green); }
+.s-event-announced { background: var(--blue-bg); color: var(--blue); }
+.s-stadium-capacity { background: var(--teal-bg); color: var(--teal); }
+.s-ownership-money, .s-general { background: var(--fill); color: var(--sec); }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 5px; }
+
+.bottom-fade { position: fixed; z-index: 15; left: 0; right: 0; bottom: 0; height: calc(var(--safe-bottom) + 90px); background: var(--fade); pointer-events: none; }
+.glass { background: var(--glass); border: 1px solid var(--g-border); box-shadow: var(--g-shadow); -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%); }
+.tabbar { position: fixed; z-index: 20; left: 0; right: 0; margin: 0 auto; bottom: max(10px, calc(var(--safe-bottom) - 10px));
+  width: min(calc(100% - 40px), 440px); height: 62px; border-radius: 999px; display: flex; align-items: center; padding: 0 4px; }
+.tab-pill { position: absolute; left: 4px; top: 4px; bottom: 4px; width: calc((100% - 8px) / 4); border-radius: 999px; background: var(--pill); transform: translateX(calc(var(--i, 0) * 100%)); transition: transform .45s cubic-bezier(.3,1.3,.45,1); }
+.tab { position: relative; z-index: 1; flex: 1; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; font-weight: 600; color: var(--label); }
+.tab[aria-selected="true"] { color: var(--acc); }
+.tab .dot { position: absolute; top: 6px; right: calc(50% - 18px); min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: var(--red); color: #fff; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+
+.layer { position: fixed; inset: 0; z-index: 40; pointer-events: none; visibility: hidden; transition: visibility 0s linear .38s; }
+.layer.open { pointer-events: auto; visibility: visible; transition: none; }
+.backdrop { position: absolute; inset: 0; background: var(--backdrop); opacity: 0; transition: opacity .3s ease; }
+.layer.open .backdrop { opacity: 1; }
+.sheet { position: absolute; left: 10px; right: 10px; margin: 0 auto; max-width: 560px; top: auto; bottom: calc(10px + var(--safe-bottom) * 0.5);
+  max-height: calc(100% - var(--safe-top) - 40px); border-radius: 32px; background: var(--sheet); display: flex; flex-direction: column; overflow: hidden;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.25); transform: translateY(110%); transition: transform .38s cubic-bezier(.2,.9,.3,1); }
+.layer.open .sheet { transform: none; }
+.sheet-head { position: relative; padding: 10px 12px 2px; flex-shrink: 0; min-height: 50px; }
+.grab { width: 40px; height: 4px; border-radius: 999px; background: var(--grab); margin: 0 auto; }
+.sheet-head .tb { position: absolute; right: 8px; top: 4px; }
+.sheet-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding: 4px 16px calc(18px + var(--safe-bottom) * 0.5); display: flex; flex-direction: column; gap: 12px; }
+.sheet .list, .sheet .card { background: var(--sub2); }
+.sheet-title { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.sheet-title h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.3px; }
+.sheet-title p { margin-top: -4px; font-size: 14px; color: var(--sec); }
+.btn { flex: 0 0 auto; height: 50px; border-radius: 999px; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; }
+.btn.tint { background: var(--acc-bg); color: var(--acc); }
+.btn.fill { background: var(--acc); color: #FFFFFF; }
+.btn:disabled { opacity: .45; }
+.btns { display: flex; gap: 10px; }
+.btns .btn { flex: 1; }
+.field { display: flex; align-items: center; height: 52px; border-radius: 16px; background: var(--sub2); padding: 0 16px; }
+.field input { flex: 1; border: none; background: none; font: inherit; font-size: 17px; font-weight: 700; letter-spacing: 1px; color: var(--label); outline: none; user-select: text; -webkit-user-select: text; text-transform: uppercase; }
+.radio { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--ter); flex-shrink: 0; }
+[aria-checked="true"] .radio { border: 7px solid var(--acc); }
+.prose { font-size: 15px; line-height: 1.5; }
+.prose .k { font-size: 11px; font-weight: 800; color: var(--sec); text-transform: uppercase; letter-spacing: .4px; margin-top: 10px; }
+.prose p { margin-top: 2px; }
+
+.progress { display: none; padding: 0 4px 4px; }
+body.busy .progress { display: block; }
+.progress .track { height: 6px; border-radius: 999px; background: var(--track); overflow: hidden; }
+.progress i { display: block; height: 100%; width: 35%; border-radius: 999px; background: var(--acc); animation: slide 1.4s ease-in-out infinite; }
+@keyframes slide { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+.progress p { font-size: 13px; color: var(--sec); margin-top: 6px; }
+.banner { display: flex; gap: 12px; align-items: flex-start; padding: 16px; font-size: 14px; line-height: 1.45; }
+.banner .ic { color: var(--red); display: flex; padding-top: 1px; }
+.toast { position: fixed; z-index: 60; left: 50%; bottom: calc(max(10px, calc(var(--safe-bottom) - 10px)) + 76px); transform: translate(-50%, 20px); opacity: 0;
+  transition: transform .3s ease, opacity .3s ease; pointer-events: none; border-radius: 22px; padding: 0 18px; min-height: 46px; font-size: 14px; font-weight: 600;
+  background: var(--toast); color: var(--toast-fg); display: flex; align-items: center; max-width: calc(100% - 32px); }
+.toast.show { transform: translate(-50%, 0); opacity: 1; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 999px; background: var(--card); }
+.seg button { text-align: center; height: 38px; border-radius: 999px; font-size: 15px; font-weight: 700; color: var(--sec); }
+.seg button[aria-pressed="true"] { background: var(--acc); color: #fff; }
+.dateblk { width: 46px; flex-shrink: 0; text-align: center; line-height: 1.05; }
+.dateblk .d { font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
+.dateblk .m { font-size: 11px; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: .5px; }
+.dateblk .w { font-size: 10px; font-weight: 700; color: var(--sec); text-transform: uppercase; }
+.v-go { background: var(--green); color: #fff; }
+.v-maybe { background: var(--gold); color: #fff; }
+.v-skip { background: var(--red-bg); color: var(--red); }
+.v-none { background: var(--fill); color: var(--sec); }
+.stars { color: var(--gold); letter-spacing: 1px; font-size: 13px; }
+.verdict { border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.verdict.go { background: var(--green-bg); } .verdict.maybe { background: var(--gold-bg); } .verdict.skip { background: var(--red-bg); } .verdict.none { background: var(--sub2); }
+.verdict .vh { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.verdict .vl { font-size: 22px; font-weight: 800; letter-spacing: -.3px; }
+.verdict p { font-size: 15px; line-height: 1.45; }
+.verdict .angle { font-size: 14px; color: var(--sec); }
+.btn.wa { background: #25D366; color: #fff; }
+.bul { font-size: 15px; line-height: 1.45; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; }
+.bul li { margin-left: 18px; }
+.src { display: inline-flex; align-items: center; gap: 3px; height: 22px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 700; background: var(--acc-bg); color: var(--acc); white-space: nowrap; vertical-align: middle; }
+.src.off { background: var(--green-bg); color: var(--green); }
+.rad .what { font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; }
+.val-high { background: var(--acc); color: #fff; } .val-medium { background: var(--gold-bg); color: var(--gold); } .val-low { background: var(--fill); color: var(--sec); }
+.code { font-family: ui-monospace, Menlo, monospace; font-size: 15px; font-weight: 700; background: var(--sub2); border-radius: 14px; padding: 12px 14px; user-select: text; -webkit-user-select: text; word-break: break-all; }
+.check li { list-style: none; margin-left: 0 !important; padding-left: 26px; position: relative; }
+.check li::before { content: "☐"; position: absolute; left: 2px; color: var(--acc); font-weight: 800; }
+.offline-pill { display: none; position: fixed; z-index: 16; left: 50%; transform: translateX(-50%); top: calc(var(--safe-top) + 10px); height: 34px; padding: 0 14px; border-radius: 999px; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--sec); }
+body.offline .offline-pill { display: flex; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ================= HOME ================= -->
+  <section class="view active" id="view-home">
+    <div class="nav"><div class="ctitle">Scout Events</div><div class="icons">
+      <button class="tb press reloadBtn" onclick="reload()" aria-label="Reload"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></button>
+      <button class="tb press" onclick="openSettings()" aria-label="Settings"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button></div></div>
+    <div class="scroll"><div class="page">
+      <header class="hero-head"><div class="brand"><img src="./logo.png" alt=""><div><h1>Scout Events</h1><p id="homeSub">Season 2026–27</p></div></div></header>
+      <div class="toolbar"><span></span><div class="icons">
+        <button class="tb press reloadBtn" onclick="reload()" aria-label="Reload"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></button>
+        <button class="tb press" onclick="openSettings()" aria-label="Settings"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button></div></div>
+      <div class="progress"><div class="track"><i></i></div><p id="progressText">Loading…</p></div>
+      <div id="statusMessages"></div>
+      <div id="homeBody" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div></div>
+  </section>
+
+  <!-- ================= EVENTS ================= -->
+  <section class="view" id="view-events">
+    <div class="nav"><div class="ctitle">Events</div><div class="icons"><button class="tb press" onclick="toggleSearch('ev')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button></div></div>
+    <div class="scroll"><div class="page">
+      <header class="hero-head"><h1>Events</h1><p id="evSub">&nbsp;</p></header>
+      <div class="toolbar"><span></span><div class="icons"><button class="tb press" onclick="toggleSearch('ev')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button></div></div>
+      <label class="search" id="search-ev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="search" placeholder="Search events, venues, cities" oninput="S.ev.q=this.value;renderEvents()" autocomplete="off"><button onclick="toggleSearch('ev')" aria-label="Close search">✕</button></label>
+      <div class="chips" id="evVerdict"></div>
+      <div class="chips" id="evWhen"></div>
+      <div class="chips" id="evCats"></div>
+      <div id="evBody" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div></div>
+  </section>
+
+  <!-- ================= FOOTBALL ================= -->
+  <section class="view" id="view-football">
+    <div class="nav"><div class="ctitle">Football</div><div class="icons"><button class="tb press" onclick="toggleSearch('fb')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button></div></div>
+    <div class="scroll"><div class="page">
+      <header class="hero-head"><h1>Football</h1><p id="fbSub">&nbsp;</p></header>
+      <div class="toolbar"><span></span><div class="icons"><button class="tb press" onclick="toggleSearch('fb')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button></div></div>
+      <label class="search" id="search-fb"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="search" placeholder="Search clubs, teams, stadiums" oninput="S.clubs.q=S.fix.q=this.value;renderFootball()" autocomplete="off"><button onclick="toggleSearch('fb')" aria-label="Close search">✕</button></label>
+      <div class="seg" id="fbSeg"><button class="press" data-v="clubs" onclick="S.fb='clubs';renderFootball()">Clubs</button><button class="press" data-v="fix" onclick="S.fb='fix';renderFootball()">Fixtures</button></div>
+      <div id="fbClubs"><div class="chips" id="clubLeagues"></div><div class="chips" id="clubSort" style="margin-top:8px"></div><div id="clubsBody" style="margin-top:10px"></div></div>
+      <div id="fbFix"><div class="chips" id="fixPeriod"></div><div class="chips" id="fixComps" style="margin-top:8px"></div><div id="fixBody" style="display:flex;flex-direction:column;gap:10px;margin-top:10px"></div></div>
+    </div></div>
+  </section>
+
+  <!-- ================= RADAR (radar + news) ================= -->
+  <section class="view" id="view-intel">
+    <div class="nav"><div class="ctitle">Radar</div><div class="icons"><button class="tb press" onclick="toggleSearch('intel')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button></div></div>
+    <div class="scroll"><div class="page">
+      <header class="hero-head"><h1>Radar</h1><p id="intelSub">&nbsp;</p></header>
+      <div class="toolbar"><span></span><div class="icons"><button class="tb press" onclick="toggleSearch('intel')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button></div></div>
+      <label class="search" id="search-intel"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="search" placeholder="Search radar & news" oninput="S.intel.q=this.value;renderIntel()" autocomplete="off"><button onclick="toggleSearch('intel')" aria-label="Close search">✕</button></label>
+      <div class="seg" id="radSeg"><button class="press" data-v="radar" onclick="S.rad='radar';renderIntel()">Radar</button><button class="press" data-v="news" onclick="S.rad='news';renderIntel()">News</button></div>
+      <div class="chips" id="intelChips"></div>
+      <div id="intelBody" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div></div>
+  </section>
+
+  <!-- ================= EVENT DETAIL (pushed) ================= -->
+  <section class="view push" id="view-event">
+    <div class="nav"><button class="tb press" onclick="closeEvent()" aria-label="Back" style="margin-left:-12px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><div class="ctitle" id="evCTitle"></div>
+      <div class="icons"><button class="tb press" onclick="shareEvent(curEvent)" aria-label="Share"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button></div></div>
+    <div class="scroll"><div class="page" id="eventBody"></div></div>
+  </section>
+
+  <!-- ================= CLUB DETAIL (pushed) ================= -->
+  <section class="view push" id="view-club">
+    <div class="nav"><button class="tb press" onclick="closeClub()" aria-label="Back" style="margin-left:-12px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><div class="ctitle" id="clubCTitle"></div></div>
+    <div class="scroll"><div class="page" id="clubBody"></div></div>
+  </section>
+</div>
+
+<div class="offline-pill glass">Offline · showing saved data</div>
+<div class="bottom-fade" aria-hidden="true"></div>
+<nav class="tabbar glass" role="tablist" id="tabbar">
+  <span class="tab-pill" aria-hidden="true"></span>
+  <button class="tab" role="tab" data-tab="home" aria-selected="true" onclick="switchTab('home')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Briefing</span></button>
+  <button class="tab" role="tab" data-tab="events" aria-selected="false" onclick="switchTab('events')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 0 0 6v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3a2 2 0 0 0 0-6V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M14 4v16" stroke-dasharray="2 3"/></svg><span>Events</span></button>
+  <button class="tab" role="tab" data-tab="football" aria-selected="false" onclick="switchTab('football')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/><path d="M12 7V3M16 10l4-1.5M14.5 14.5l2.5 3.5M9.5 14.5L7 18M8 10L4 8.5"/></svg><span>Football</span></button>
+  <button class="tab" role="tab" data-tab="intel" aria-selected="false" onclick="switchTab('intel')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1A10 10 0 0 1 12 2M19.1 4.9A10 10 0 0 1 12 22"/><path d="M8.5 15.5a5 5 0 0 1 0-7M15.5 8.5a5 5 0 0 1 0 7"/><circle cx="12" cy="12" r="1.5"/></svg><span>Radar</span><span class="dot hidden" id="intelDot"></span></button>
+</nav>
+
+<div class="layer" id="sheetLayer"><div class="backdrop" onclick="closeSheet()"></div>
+  <div class="sheet" role="dialog" aria-modal="true"><div class="sheet-head"><div class="grab"></div>
+    <button class="tb press" onclick="closeSheet()" aria-label="Close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="sheet-body" id="sheetBody"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= Config ================= */
+const API_URL = 'https://script.google.com/macros/s/AKfycbzf_xkYr-xh1UDU9BgSE5OAk-wewK7EwMFX8dRxLYf-Atx5HhV-PsbUyj5QLloabHnQcA/exec';
+const CACHE_KEY = 'se-data-v1';
+const SIGNALS = ['Partner deal','Competitor','Demand / sell-out','New hospitality','Event announced','Stadium / capacity','Ownership / money','General'];
+const TABS = ['home','events','football','intel'];
+
+let D = null, busy = false, curTab = 'home', curEvent = null;
+const S = { rad: 'radar', radar: { what: '', high: false }, fb: 'clubs', ev: { q:'', verdict:'', when:'all', cat:'' }, clubs: { q:'', league:'', sort:'score' }, fix: { q:'', days:14, comp:'', notGo:false }, intel: { q:'', sig:'', newOnly:false, club:'' } };
+
+/* ================= Utils ================= */
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const blank = v => v === '' || v == null;
+const gbp = v => blank(v) ? '' : '£' + Number(v).toLocaleString('en-GB');
+const n0 = v => blank(v) ? '' : Number(v).toLocaleString('en-GB');
+const pc = v => blank(v) ? '' : Math.round(v * 100) + '%';
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+const ago = iso => { if (!iso) return ''; const m = Math.round((Date.now() - new Date(iso)) / 60000); return m < 1 ? 'just now' : m < 60 ? m + ' min ago' : m < 1440 ? Math.round(m / 60) + ' h ago' : Math.round(m / 1440) + ' d ago'; };
+const todayStr = () => new Date().toLocaleDateString('en-CA', { timeZone: 'Europe/London' });
+const addDaysStr = n => new Date(Date.now() + n * 86400000).toLocaleDateString('en-CA', { timeZone: 'Europe/London' });
+const slug = s => 's-' + String(s || 'general').toLowerCase().replace(/[^a-z]+/g, '-').replace(/-$/, '');
+const CHEV = '<span class="chev"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span>';
+const PALETTE = ['#0F5A3C','#D99A12','#3A78F2','#E0463F','#7B61FF','#159DAE','#E9812A','#1E9E62','#B5446E','#5B6B7A'];
+function badge(name, xl) {
+  let h = 0; for (const c of String(name)) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  const ini = String(name).replace(/&/g, '').split(/\s+/).filter(w => w && !/^(fc|afc|the|of)$/i.test(w)).slice(0, 3).map(w => w[0]).join('').toUpperCase();
+  return '<div class="badge' + (xl ? ' xl' : '') + '" style="background:' + PALETTE[h % PALETTE.length] + '">' + esc(ini) + '</div>';
+}
+function scorePill(v) { if (blank(v)) return ''; const c = v >= 60 ? 'sc-hi' : v >= 35 ? 'sc-md' : 'sc-lo'; return '<span class="score ' + c + '">' + v + '</span>'; }
+function goTag(s) { if (!s) return ''; const c = /sold/i.test(s) ? 't-sold' : /fast|few|last/i.test(s) ? 't-fast' : 't-av'; return '<span class="tag ' + c + '">GO · ' + esc(s) + '</span>'; }
+function sigTag(s) { return '<span class="tag ' + slug(s) + '">' + esc(s || 'General') + '</span>'; }
+function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 3500); }
+function chips(el, items, cur, fn) {
+  $(el).innerHTML = items.map(([v, l]) => '<button class="press" aria-pressed="' + (String(v) === String(cur)) + '" data-v="' + esc(v) + '">' + esc(l) + '</button>').join('');
+  $(el).querySelectorAll('button').forEach(b => b.onclick = () => fn(b.dataset.v));
+}
+
+/* ================= API ================= */
+function key() { return store.get('se-key') || ''; }
+async function api(action, extra) {
+  const url = API_URL + '?api=' + encodeURIComponent(action) + '&key=' + encodeURIComponent(key()) + (extra || '') + '&t=' + Date.now();
+  const res = await fetch(url, { redirect: 'follow' });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const j = await res.json();
+  if (!j.ok) throw new Error(j.error || 'error');
+  return j;
+}
+function setBusy(on, text) {
+  busy = on; document.body.classList.toggle('busy', on);
+  $('progressText').textContent = text || 'Loading…';
+  document.querySelectorAll('.reloadBtn').forEach(b => b.classList.toggle('spin', on));
+}
+async function reload(action) {
+  if (busy) return;
+  if (!key()) { openKeySheet(); return; }
+  action = action || 'data';
+  const msg = { data: 'Loading latest data…', refresh: 'Re-scanning every fixture, price and GO listing (2–4 min)…', intel: 'Searching the web for news…', scout: 'Discovering & researching events (up to 5 min)…', radar: 'Sweeping official sites, socials, news & forums (up to 5 min)…' }[action];
+  setBusy(true, msg);
+  if (action !== 'data') switchTab('home');
+  try {
+    const j = await api(action);
+    D = j; store.set(CACHE_KEY, JSON.stringify(j));
+    $('statusMessages').innerHTML = '';
+    renderAll();
+    if (action === 'intel') toast(D.intel.filter(i => i['New']).length + ' new headlines');
+    else if (action === 'radar') toast(newRadar().length + ' new on the radar');
+    else if (action === 'refresh') toast('Data refreshed');
+  } catch (e) {
+    if (e.message === 'bad-key') { store.set('se-key', ''); openKeySheet('That key didn’t work — check it in the sheet (GO Scout → Show app key).'); }
+    else $('statusMessages').innerHTML = '<div class="card banner"><span class="ic">⚠︎</span><div><b>Couldn’t reach the scout service</b><br><span class="muted">' + esc(e.message) + (D ? ' — showing saved data.' : '') + '</span></div></div>';
+  } finally { setBusy(false); if (D) renderIntel(); }
+}
+const scanNews = () => { closeSheet(); reload('intel'); };
+const rescan = () => { closeSheet(); reload('refresh'); };
+const scoutNow = () => { closeSheet(); reload('scout'); };
+const scanRadar = () => { closeSheet(); reload('radar'); };
+
+/* ================= Navigation ================= */
+function switchTab(t) {
+  curTab = t;
+  document.querySelectorAll('.view:not(.push)').forEach(v => v.classList.toggle('active', v.id === 'view-' + t));
+  document.querySelectorAll('.tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === t));
+  document.querySelector('.tab-pill').style.setProperty('--i', TABS.indexOf(t));
+  closeClub(); closeEvent();
+  if (t === 'intel' && D) { renderIntel(); }
+}
+document.querySelectorAll('.scroll').forEach(sc => sc.addEventListener('scroll', () => sc.parentElement.classList.toggle('scrolled', sc.scrollTop > 56), { passive: true }));
+function toggleSearch(k) {
+  const el = $('search-' + k); el.classList.toggle('show');
+  if (el.classList.contains('show')) { el.querySelector('input').focus(); return; }
+  el.querySelector('input').value = '';
+  if (k === 'fb') { S.clubs.q = ''; S.fix.q = ''; } else S[k].q = '';
+  renderAll();
+}
+
+function openSheet(html) { $('sheetBody').innerHTML = html; $('sheetBody').scrollTop = 0; $('sheetLayer').classList.add('open'); }
+function closeSheet() { $('sheetLayer').classList.remove('open'); }
+
+/* ================= Render ================= */
+function renderAll() {
+  if (!D) return;
+  const nNew = newRadar().length;
+  $('intelDot').textContent = nNew; $('intelDot').classList.toggle('hidden', !nNew);
+  renderHome(); renderEvents(); renderFootball(); renderIntel();
+}
+
+function radarSeen() { return store.get('se-radar-seen') || ''; }
+function newRadar() { const seen = radarSeen(); return (D.radar || []).filter(r => r.found > seen && r.value !== 'Low'); }
+function markRadarSeen() { if (D && (D.radar || []).length) { store.set('se-radar-seen', D.radar.map(r => r.found).sort().pop()); } }
+const host = u => String(u || '').replace(/^https?:\/\/(www\.)?/, '').split('/')[0];
+const srcChip = (u, label) => u && /^https?:/.test(u) ? '<a class="src press' + (/official/i.test(label || '') ? ' off' : '') + '" href="' + esc(u) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">' + esc(label || host(u)) + ' ↗</a>' : '';
+function radarRow(r) {
+  const isNew = r.found > radarSeen();
+  return '<button class="row plain press rad" onclick="openRadar(\'' + esc(r.key) + '\')"><div class="main">' +
+    '<div class="tags" style="margin:0 0 4px">' + (isNew ? '<span class="tag t-new">NEW</span>' : '') + '<span class="tag val-' + esc(String(r.value || 'medium').toLowerCase()) + '">' + esc(r.what || 'News') + '</span>' +
+    (r.category ? '<span class="tag s-general">' + esc(catEmoji(r.category) + ' ' + r.category) + '</span>' : '') + '</div>' +
+    '<div class="t wrap">' + esc(r.title) + '</div>' +
+    (r.saleDate ? '<div class="s" style="white-space:normal;margin-top:3px"><b style="color:var(--label)">🗓 ' + esc(r.saleDate) + '</b>' + (r.where ? ' · ' + esc(r.where) : '') + '</div>' : (r.where ? '<div class="s" style="white-space:normal">' + esc(r.where) + '</div>' : '')) +
+    '<div class="tags">' + srcChip(r.source, (r.sourceType || 'Source') + ' · ' + host(r.source)) + '</div></div></button>';
+}
+function openRadar(k) {
+  const r = (D.radar || []).find(x => x.key === k); if (!r) return;
+  const ev = r.eventId && findEv(r.eventId);
+  openSheet('<div class="sheet-title"><div class="tags" style="justify-content:center"><span class="tag val-' + esc(String(r.value || 'medium').toLowerCase()) + '">' + esc(r.value || '') + ' value</span><span class="tag s-general">' + esc(r.what) + '</span></div>' +
+    '<h2>' + esc(r.title) + '</h2><p>' + esc([r.category, r.eventDate ? 'event ' + fmtDay(r.eventDate) : ''].filter(Boolean).join(' · ')) + '</p></div>' +
+    '<div class="card bul">' + (r.saleDate ? '<div>🗓 <b>Sale / ballot:</b> ' + esc(r.saleDate) + '</div>' : '') + (r.where ? '<div>🛒 <b>Where:</b> ' + esc(r.where) + '</div>' : '') +
+    (r.details ? '<div>' + esc(r.details) + '</div>' : '') + (r.why ? '<div class="muted">💡 ' + esc(r.why) + '</div>' : '') +
+    '<div class="muted">Found ' + ago(r.found) + (r.announced ? ' · announced ' + esc(r.announced) : '') + '</div></div>' +
+    '<div style="display:flex;flex-direction:column;gap:10px">' +
+    (r.source ? '<a class="btn fill press" href="' + esc(r.source) + '" target="_blank" rel="noopener">Open source · ' + esc(host(r.source)) + '</a>' : '') +
+    (ev ? '<button class="btn tint press" onclick="closeSheet();openEvent(\'' + esc(ev.id) + '\')">Full event dossier</button>' : '') +
+    '<button class="btn wa press" onclick="window.open(\'https://wa.me/?text=\'+encodeURIComponent(radarText(\'' + esc(r.key) + '\')),\'_blank\')">Share on WhatsApp</button></div>');
+}
+function radarText(k) {
+  const r = (D.radar || []).find(x => x.key === k); if (!r) return '';
+  return [catEmoji(r.category) + ' *' + r.title + '*', '📌 ' + (r.what || '') + (r.value ? ' · ' + r.value + ' value' : ''),
+    r.eventDate ? '📅 Event: ' + fmtRange(r.eventDate) : '', r.saleDate ? '🗓 *Sale / ballot:* ' + r.saleDate : '', r.where ? '🛒 ' + r.where : '',
+    r.details ? '\n' + r.details : '', r.why ? '💡 _' + r.why + '_' : '', r.source ? '\n🔗 ' + r.source : '', '\n_Scout Events radar_'].filter(Boolean).join('\n');
+}
+
+function untapped() {
+  return D.clubs.filter(c => !c['On GO now (games)'] && c['Status'] !== 'Partner' && c['Status'] !== 'Not interested')
+    .sort((a, b) => b['Opportunity score'] - a['Opportunity score']);
+}
+function intelFor(club) { return D.intel.filter(i => i['Club / topic'] === club); }
+
+function renderHome() {
+  const evs = D.events || [];
+  $('homeSub').textContent = D.updated || D.eventsUpdated ? 'Updated ' + ago([D.updated, D.eventsUpdated, D.intelUpdated].filter(Boolean).sort().pop()) : 'Season 2026–27';
+  if (!evs.length && !D.clubs.length) { $('homeBody').innerHTML = '<div class="card empty">Nothing scouted yet.<div style="margin-top:12px;display:flex;flex-direction:column;gap:10px"><button class="btn fill press" onclick="scoutNow()">Discover & research events</button><button class="btn tint press" onclick="rescan()">Scan football fixtures</button></div></div>'; return; }
+  const researched = evs.filter(e => e.dossier);
+  const go = researched.filter(e => e.verdict === 'GO').sort((a, b) => b.score - a.score);
+  const soonLim = addDaysStr(21), today = todayStr();
+  const onSale = evs.filter(e => e.nextSale && e.nextSale >= today && e.nextSale <= soonLim).sort((a, b) => a.nextSale.localeCompare(b.nextSale));
+  let h = '<div class="tiles">' +
+    tile('Events scouted', researched.length + ' / ' + evs.length, "S.ev.verdict='';switchTab('events')") +
+    tile('Worth it (GO)', go.length, "S.ev.verdict='GO';renderEvents();switchTab('events')") +
+    tile('On sale in 3 weeks', onSale.length, "S.ev.when='onsale';renderEvents();switchTab('events')") +
+    tile('New on radar', newRadar().length, "S.rad='radar';switchTab('intel')") + '</div>';
+
+  const hotRadar = (D.radar || []).filter(r => r.value === 'High').sort((a, b) => String(b.found).localeCompare(String(a.found))).slice(0, 4);
+  if (hotRadar.length) h += '<div class="shead"><h2>🔥 On the radar</h2><button class="link press" onclick="S.rad=\'radar\';switchTab(\'intel\')">All</button></div><div class="list">' + hotRadar.map(radarRow).join('') + '</div>';
+  if (onSale.length) h += '<div class="shead"><h2>Going on sale soon</h2><button class="link press" onclick="S.ev.when=\'onsale\';renderEvents();switchTab(\'events\')">All</button></div><div class="list">' + onSale.slice(0, 6).map(e => eventRow(e, true)).join('') + '</div>';
+  h += '<div class="shead"><h2>Top picks</h2><button class="link press" onclick="S.ev.verdict=\'GO\';renderEvents();switchTab(\'events\')">All</button></div>';
+  h += go.length ? '<div class="list">' + go.slice(0, 8).map(e => eventRow(e)).join('') + '</div>' :
+    '<div class="card empty">' + (researched.length ? 'No GO verdicts yet.' : 'Events are being researched in batches — or start now.') + '<div style="margin-top:12px"><button class="btn tint press" onclick="scoutNow()">Discover & research events</button></div></div>';
+
+  if (D.clubs.length) h += '<div class="shead"><h2>Football · who to call next</h2><button class="link press" onclick="S.fb=\'clubs\';switchTab(\'football\');renderFootball()">All clubs</button></div><div class="list">' + untapped().slice(0, 4).map(clubRow).join('') + '</div>';
+
+  const pri = ['Partner deal','Competitor','Demand / sell-out','New hospitality','Event announced'];
+  const sig = D.intel.filter(i => pri.indexOf(i['Signal']) > -1).sort((a, b) => (b['New'] - a['New']) || String(b['Date']).localeCompare(String(a['Date']))).slice(0, 4);
+  if (sig.length) h += '<div class="shead"><h2>Signals</h2><button class="link press" onclick="switchTab(\'intel\')">All intel</button></div><div class="list">' + sig.map(intelRow).join('') + '</div>';
+  h += '<div class="list" style="margin-top:6px"><button class="row plain press" onclick="openGuide()"><div class="main"><div class="t">How competitions work</div><div class="s">Formats, key dates & the hospitality angle</div></div>' + CHEV + '</button></div>';
+  $('homeBody').innerHTML = h;
+}
+
+/* ---------- Events ---------- */
+const CAT_EMOJI = [[/football/i,'⚽'],[/boxing/i,'🥊'],[/ufc|mma/i,'🥋'],[/darts/i,'🎯'],[/snooker/i,'🎱'],[/tennis/i,'🎾'],[/golf/i,'⛳'],[/horse/i,'🏇'],[/cricket/i,'🏏'],[/rugby/i,'🏉'],[/f1|motor/i,'🏎️'],[/nfl|us sports/i,'🏈'],[/wrestl/i,'🤼'],[/comedy/i,'🎤'],[/theatre|musical/i,'🎭'],[/./,'🏟️']];
+const catEmoji = c => CAT_EMOJI.find(x => x[0].test(c || ''))[1];
+const vClass = v => ({ GO: 'v-go', MAYBE: 'v-maybe', SKIP: 'v-skip' }[v] || 'v-none');
+const stars = n => n ? '<span class="stars">' + '★'.repeat(n) + '<span style="opacity:.3">' + '★'.repeat(Math.max(0, 5 - n)) + '</span></span>' : '';
+const fmtDay = d => d ? new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) : '';
+const fmtRange = (a, b) => !a ? 'Date TBC' : (!b || b === a) ? new Date(a + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }) :
+  fmtDay(a) + ' – ' + new Date(b + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+const findEv = id => (D.events || []).find(e => e.id === id);
+const queued = e => (D.priorityIds || []).indexOf(e.id) > -1;
+
+function eventRow(e, saleFirst) {
+  const dd = new Date((saleFirst ? e.nextSale : e.start) + 'T12:00:00');
+  const blk = '<div class="dateblk"><div class="w">' + (saleFirst ? 'sale' : dd.toLocaleDateString('en-GB', { weekday: 'short' })) + '</div><div class="d num">' + dd.getDate() + '</div><div class="m">' + dd.toLocaleDateString('en-GB', { month: 'short' }) + '</div></div>';
+  const tags = [
+    '<span class="tag ' + vClass(e.verdict) + '">' + (queued(e) ? '⏳ Queued' : e.verdict || (e.error ? 'Retry' : 'Awaiting research')) + '</span>',
+    e.status ? '<span class="tag ' + (/sold/i.test(e.status) ? 't-sold' : /fast|ballot/i.test(e.status) ? 't-fast' : 's-general') + '">' + esc(e.status) + '</span>' : '',
+    !blank(e.faceFrom) ? '<span class="tag s-general">from ' + gbp(e.faceFrom) + '</span>' : '',
+    stars(Number(e.demand) || 0),
+    e.teamStatus ? '<span class="tag t-go">' + esc(e.teamStatus) + '</span>' : ''].join('');
+  const sub = [catEmoji(e.category) + ' ' + e.category, [e.venue, e.city].filter(Boolean).join(', '), saleFirst ? 'event ' + fmtDay(e.start) : ''].filter(Boolean).join(' · ');
+  return '<button class="row press" onclick="openEvent(\'' + esc(e.id) + '\')">' + blk + '<div class="main"><div class="t">' + esc(e.name) + '</div><div class="s">' + esc(sub) + '</div><div class="tags">' + tags + '</div></div>' + scorePill(e.score) + '</button>';
+}
+
+function renderEvents() {
+  if (!D) return;
+  const evs = D.events || [];
+  const counts = { GO: 0, MAYBE: 0, SKIP: 0, '': 0 }; evs.forEach(e => counts[e.verdict || ''] = (counts[e.verdict || ''] || 0) + 1);
+  chips('evVerdict', [['', 'All · ' + evs.length], ['GO', '✅ GO · ' + counts.GO], ['MAYBE', '🤔 Maybe · ' + counts.MAYBE], ['SKIP', '⛔ Skip · ' + counts.SKIP], ['none', 'Not researched · ' + counts['']]], S.ev.verdict, v => { S.ev.verdict = v; renderEvents(); });
+  chips('evWhen', [['all', '2026–27'], ['30', 'Next 30 days'], ['90', 'Next 3 months'], ['2026', '2026'], ['2027', '2027'], ['onsale', 'On sale soon']], S.ev.when, v => { S.ev.when = v; renderEvents(); });
+  const cats = [...new Set(evs.map(e => e.category).filter(Boolean))].sort();
+  chips('evCats', [['', 'All categories']].concat(cats.map(c => [c, catEmoji(c) + ' ' + c])), S.ev.cat, v => { S.ev.cat = v; renderEvents(); });
+  const q = S.ev.q.toLowerCase(), w = S.ev.when, today = todayStr();
+  let rows = evs.filter(e =>
+    (!S.ev.verdict || (S.ev.verdict === 'none' ? !e.verdict : e.verdict === S.ev.verdict)) &&
+    (!S.ev.cat || e.category === S.ev.cat) &&
+    (w === 'all' || (w === '2026' || w === '2027') ? (w === 'all' || String(e.start).slice(0, 4) === w) :
+      w === 'onsale' ? (e.nextSale && e.nextSale >= today && e.nextSale <= addDaysStr(45)) : e.start <= addDaysStr(Number(w))) &&
+    (!q || [e.name, e.venue, e.city, e.category].join(' ').toLowerCase().includes(q)));
+  if (w === 'onsale') rows.sort((a, b) => a.nextSale.localeCompare(b.nextSale));
+  $('evSub').textContent = rows.length + ' events · ' + (D.eventsUpdated ? 'scouted ' + ago(D.eventsUpdated) : 'not scouted yet');
+  if (!evs.length) { $('evBody').innerHTML = '<div class="card empty">No events yet. Scout Events searches the web for every sport, comedy and theatre event in 2026–27, then researches each one.<div style="margin-top:12px"><button class="btn fill press" onclick="scoutNow()">Discover & research events</button></div></div>'; return; }
+  if (!rows.length) { $('evBody').innerHTML = '<div class="card empty">No events match.</div>'; return; }
+  const byMonth = {};
+  rows.slice(0, 500).forEach(e => { const k = w === 'onsale' ? 'On sale ' + new Date(e.nextSale + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }) : new Date(e.start + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); (byMonth[k] = byMonth[k] || []).push(e); });
+  $('evBody').innerHTML = Object.keys(byMonth).map(m => '<div class="day">' + esc(m) + '</div><div class="list">' + byMonth[m].map(e => eventRow(e, w === 'onsale')).join('') + '</div>').join('');
+}
+
+function openEvent(id) {
+  const e = findEv(id); if (!e) return;
+  curEvent = id;
+  const d = e.dossier || {};
+  const cell = (l, v) => '<div><div class="l">' + esc(l) + '</div><div class="v">' + (blank(v) ? '—' : esc(v)) + '</div></div>';
+  const range = (a, b) => blank(a) && blank(b) ? '' : blank(b) || a === b ? gbp(a) : gbp(a) + ' – ' + gbp(b);
+  const t = d.tickets || {}, hsp = d.hospitality || {}, dm = d.demand || {}, vd = d.verdict || {};
+  const vcls = { GO: 'go', MAYBE: 'maybe', SKIP: 'skip' }[vd.label || e.verdict] || 'none';
+
+  let h = '<div class="card cardpad"><div style="display:flex;gap:12px;align-items:center"><div style="font-size:40px;line-height:1">' + catEmoji(e.category) + '</div><div style="min-width:0">' +
+    '<div class="muted">' + esc(e.category) + (e.tier ? ' · Tier ' + esc(e.tier) : '') + '</div>' +
+    '<div style="font-size:24px;font-weight:800;letter-spacing:-.3px;line-height:1.15">' + esc(d.name || e.name) + '</div></div></div>' +
+    '<div style="font-size:15px;line-height:1.5">📅 ' + esc(d.date_text || fmtRange(e.start, e.end)) + '<br>📍 ' + esc([d.venue || e.venue, d.city || e.city, d.country || e.country].filter(Boolean).join(', ')) + '</div>';
+  h += '<div class="verdict ' + vcls + '"><div class="vh"><span class="vl">' + ({ go: '✅ GO', maybe: '🤔 MAYBE', skip: '⛔ SKIP', none: e.error ? '⚠️ Research failed' : '🔎 Not researched yet' }[vcls]) + '</span>' + scorePill(vd.score != null ? vd.score : e.score) + '</div>' +
+    (vd.why ? '<p>' + esc(vd.why) + '</p>' : '<p class="muted">' + esc(e.error || e.note || 'Tap research to build the full dossier.') + '</p>') +
+    (vd.angle ? '<div class="angle">💡 ' + esc(vd.angle) + '</div>' : '') + '</div></div>';
+
+  if (e.dossier) {
+    h += '<div class="shead"><h2>Key numbers</h2></div><div class="card cardpad"><div class="cells">' +
+      cell('Capacity', n0(d.capacity || e.capacity)) + cell('Sessions', d.sessions) +
+      cell('Face value', range(t.face_from, t.face_to)) + cell('Hospitality', range(hsp.from, hsp.to)) +
+      cell('Resale from', gbp(dm.resale_from)) + cell('Ticket status', d.ticket_status) +
+      '<div><div class="l">Demand</div><div class="v">' + (stars(Number(dm.score) || 0) || '—') + '</div></div>' + cell('Next on-sale', e.nextSale ? fmtDay(e.nextSale) : '') + '</div>' +
+      (d.capacity_note || d.capacity_source ? '<div class="muted">👥 ' + esc(d.capacity_note || 'Capacity') + ' ' + srcChip(d.capacity_source) + '</div>' : '') +
+      (t.notes || t.source ? '<div class="muted">🎟 ' + esc(t.notes || 'Ticket prices') + ' ' + srcChip(t.source) + '</div>' : '') +
+      (dm.resale_source ? '<div class="muted">💷 Resale prices ' + srcChip(dm.resale_source) + '</div>' : '') + '</div>';
+    if ((d.prepare || []).filter(Boolean).length) h += '<div class="shead"><h2>How to prepare</h2></div><div class="card bul"><ul class="check">' + d.prepare.filter(Boolean).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>';
+    if ((d.on_sale || []).length) h += '<div class="shead"><h2>On-sale timeline</h2></div><div class="list">' + d.on_sale.map(o => '<div class="row plain"><div class="main"><div class="t wrap">' + esc(o.phase) + '</div>' +
+      '<div class="s" style="white-space:normal">' + esc([o.where, o.requirements].filter(Boolean).join(' · ')) + '</div>' + (o.source ? '<div class="tags">' + srcChip(o.source, 'Source · ' + host(o.source)) + '</div>' : '') + '</div><div class="right"><b style="font-size:15px">' + esc(o.date || 'TBC') + '</b></div></div>').join('') + '</div>';
+    if ((d.official_sellers || []).length) h += '<div class="shead"><h2>Official sellers</h2></div><div class="list">' + d.official_sellers.map(o =>
+      (o.url ? '<a class="row plain press" href="' + esc(o.url) + '" target="_blank" rel="noopener">' : '<div class="row plain">') + '<div class="main"><div class="t">' + esc(o.name) + '</div><div class="s">' + esc(o.type || '') + (o.url ? ' · ' + esc(o.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]) : '') + '</div></div>' + (o.url ? CHEV + '</a>' : '</div>')).join('') + '</div>';
+    if ((d.official_socials || []).filter(x => x && x.url).length) h += '<div class="shead"><h2>Official socials</h2></div><div class="list">' + d.official_socials.filter(x => x && x.url).map(o => '<a class="row plain press" href="' + esc(o.url) + '" target="_blank" rel="noopener"><div class="main"><div class="t">' + esc(o.platform) + '</div><div class="s">' + esc(o.handle || host(o.url)) + '</div></div>' + CHEV + '</a>').join('') + '</div>';
+    if (hsp.official_provider || hsp.notes) h += '<div class="shead"><h2>Hospitality</h2></div><div class="card bul">' + (hsp.official_provider ? '<div><b>Official provider:</b> ' + esc(hsp.official_provider) + '</div>' : '') + (hsp.notes ? '<div>' + esc(hsp.notes) + '</div>' : '') + (hsp.source ? '<div>' + srcChip(hsp.source, 'Source · ' + host(hsp.source)) + '</div>' : '') + '</div>';
+    h += '<div class="shead"><h2>Demand</h2></div><div class="card bul">' + (dm.summary ? '<div>' + esc(dm.summary) + '</div>' : '') +
+      ((dm.sellout_history || []).length ? '<ul>' + dm.sellout_history.map(x => '<li><b>' + esc(x.edition) + ':</b> ' + esc(x.how_fast) + ' ' + srcChip(x.source) + '</li>').join('') + '</ul>' : '') +
+      (dm.resale_note ? '<div class="muted">' + esc(dm.resale_note) + '</div>' : '') + (d.audience ? '<div><b>Who buys:</b> ' + esc(d.audience) + '</div>' : '') + '</div>';
+    const list = (title, arr) => (arr || []).filter(Boolean).length ? '<div class="shead"><h2>' + title + '</h2></div><div class="card bul"><ul>' + arr.filter(Boolean).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '';
+    if ((d.fan_buzz || []).filter(x => x && x.summary).length) h += '<div class="shead"><h2>What fans are saying</h2></div><div class="list">' + d.fan_buzz.filter(x => x && x.summary).map(x =>
+      (x.url ? '<a class="row plain press" href="' + esc(x.url) + '" target="_blank" rel="noopener">' : '<div class="row plain">') + '<div class="main"><div class="t wrap" style="font-weight:500;font-size:15px">' + esc(x.summary) + '</div><div class="s">' + esc(x.where || host(x.url)) + '</div></div>' + (x.url ? CHEV + '</a>' : '</div>')).join('') + '</div>';
+    if ((d.latest_news || []).filter(x => x && x.headline).length) h += '<div class="shead"><h2>Latest news</h2></div><div class="list">' + d.latest_news.filter(x => x && x.headline).map(x =>
+      (x.url ? '<a class="row plain press" href="' + esc(x.url) + '" target="_blank" rel="noopener">' : '<div class="row plain">') + '<div class="main"><div class="t wrap" style="font-size:15px">' + esc(x.headline) + '</div><div class="s">' + esc([x.date, host(x.url)].filter(Boolean).join(' · ')) + '</div></div>' + (x.url ? CHEV + '</a>' : '</div>')).join('') + '</div>';
+    const radarHits = (D.radar || []).filter(r => r.eventId === e.id);
+    if (radarHits.length) h += '<div class="shead"><h2>On the radar</h2></div><div class="list">' + radarHits.map(radarRow).join('') + '</div>';
+    h += list('Competitors already selling', d.competitors) + list('Risks', d.risks);
+    if ((d.sources || []).length) h += '<div class="shead"><h2>All sources</h2></div><div class="list">' + d.sources.slice(0, 12).map(x => '<a class="row plain press" href="' + esc(x.url) + '" target="_blank" rel="noopener"><div class="main"><div class="t" style="font-size:14px">' + esc(x.title) + '</div><div class="s">' + esc(x.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]) + '</div></div>' + CHEV + '</a>').join('') + '</div>';
+  }
+  if (e.teamStatus || e.owner || e.teamNotes) h += '<div class="shead"><h2>Team</h2></div><div class="card bul">' + [e.teamStatus && '<div><b>Status:</b> ' + esc(e.teamStatus) + '</div>', e.owner && '<div><b>Owner:</b> ' + esc(e.owner) + '</div>', e.teamNotes && '<div>' + esc(e.teamNotes) + '</div>'].filter(Boolean).join('') + '</div>';
+
+  h += '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">' +
+    (e.dossier ? '<button class="btn wa press" onclick="shareEvent(\'' + esc(id) + '\')">Share on WhatsApp</button><button class="btn tint press" onclick="copyEvent(\'' + esc(id) + '\')">Copy full details</button>' : '') +
+    '<button class="btn ' + (e.dossier ? 'tint' : 'fill') + ' press" id="resBtn" onclick="researchNow(\'' + esc(id) + '\')"' + (busy ? ' disabled' : '') + '>' + (queued(e) ? '⏳ Queued for next research run' : D.researchMode === 'scheduled' ? (e.dossier ? 'Queue a fresh research' : 'Queue for research (next run)') : (e.dossier ? 'Research again' : 'Research this event now')) + '</button>' +
+    (e.researched ? '<p class="muted" style="text-align:center">Researched ' + ago(e.researched) + '</p>' : '') + '</div>';
+  $('evCTitle').textContent = e.name;
+  $('eventBody').innerHTML = h;
+  $('view-event').querySelector('.scroll').scrollTop = 0;
+  $('view-event').classList.add('open');
+}
+function closeEvent() { $('view-event').classList.remove('open'); }
+
+async function researchNow(id) {
+  if (busy) return;
+  const b = $('resBtn'); if (b) { b.disabled = true; b.textContent = D.researchMode === 'scheduled' ? 'Adding to research queue…' : 'Researching on the web (30–90s)…'; }
+  setBusy(true, 'Researching event…');
+  try {
+    const j = await api('research', '&id=' + encodeURIComponent(id));
+    D = j; store.set(CACHE_KEY, JSON.stringify(j)); renderAll(); openEvent(id);
+    toast(j.queued ? 'Queued — Claude researches it at the next run (~7am / 1pm)' : 'Dossier updated');
+  } catch (e) { toast('Research failed: ' + e.message); if (b) { b.disabled = false; b.textContent = 'Try again'; } }
+  finally { setBusy(false); }
+}
+
+/* WhatsApp-formatted dossier (*bold*, _italic_, emojis) */
+function eventText(e) {
+  const d = e.dossier || {}, t = d.tickets || {}, hsp = d.hospitality || {}, dm = d.demand || {}, vd = d.verdict || {};
+  const range = (a, b) => blank(a) && blank(b) ? null : blank(b) || a === b ? gbp(a) : gbp(a) + ' – ' + gbp(b);
+  const L = [];
+  L.push(catEmoji(e.category) + ' *' + (d.name || e.name) + '*');
+  L.push('📅 ' + (d.date_text || fmtRange(e.start, e.end)));
+  L.push('📍 ' + [d.venue || e.venue, d.city || e.city, d.country || e.country].filter(Boolean).join(', '));
+  const cap = d.capacity || e.capacity;
+  if (cap || d.sessions) L.push('👥 Capacity: ' + (cap ? n0(cap) : 'TBC') + (d.sessions ? ' · ' + d.sessions : ''));
+  L.push('');
+  if (vd.label) {
+    L.push({ GO: '✅', MAYBE: '🤔', SKIP: '⛔' }[vd.label] + ' *Verdict: ' + vd.label + (vd.score != null ? ' — ' + vd.score + '/100' : '') + '*');
+    if (vd.why) L.push(vd.why);
+    if (vd.angle) L.push('💡 _' + vd.angle + '_');
+    L.push('');
+  }
+  L.push('🎟 *Tickets*');
+  L.push('• Face value: ' + (range(t.face_from, t.face_to) || 'TBC'));
+  L.push('• Hospitality: ' + (range(hsp.from, hsp.to) || 'TBC') + (hsp.official_provider ? ' (' + hsp.official_provider + ')' : ''));
+  if (!blank(dm.resale_from)) L.push('• Resale: from ' + gbp(dm.resale_from));
+  if (d.ticket_status) L.push('• Status: ' + d.ticket_status);
+  if (t.source) L.push('  ↳ ' + t.source);
+  if ((d.on_sale || []).length) { L.push(''); L.push('🗓 *On sale*'); d.on_sale.forEach(o => { L.push('• ' + o.phase + ': ' + (o.date || 'TBC') + (o.where ? ' (' + o.where + ')' : '') + (o.requirements ? ' — ' + o.requirements : '')); if (o.source) L.push('  ↳ ' + o.source); }); }
+  if ((d.official_sellers || []).length) { L.push(''); L.push('🛒 *Official sellers*'); d.official_sellers.forEach(o => L.push('• ' + o.name + (o.type ? ' — ' + o.type : '') + (o.url ? '\n  ' + o.url : ''))); }
+  L.push(''); L.push('🔥 *Demand: ' + (dm.score ? '★'.repeat(dm.score) + '☆'.repeat(Math.max(0, 5 - dm.score)) : 'TBC') + '*');
+  if (dm.summary) L.push(dm.summary);
+  (dm.sellout_history || []).forEach(x => L.push('• ' + x.edition + ': ' + x.how_fast + (x.source ? '\n  ↳ ' + x.source : '')));
+  (d.fan_buzz || []).filter(x => x && x.summary).slice(0, 2).forEach(x => L.push('💬 ' + x.summary + (x.where ? ' (' + x.where + ')' : '')));
+  if (d.audience) L.push('👔 Buyers: ' + d.audience);
+  if ((d.competitors || []).filter(Boolean).length) { L.push(''); L.push('🏁 *Competitors:* ' + d.competitors.filter(Boolean).join(', ')); }
+  if ((d.risks || []).filter(Boolean).length) { L.push(''); L.push('⚠️ *Risks*'); d.risks.filter(Boolean).forEach(x => L.push('• ' + x)); }
+  if ((d.prepare || []).filter(Boolean).length) { L.push(''); L.push('📝 *To prepare*'); d.prepare.filter(Boolean).forEach(x => L.push('☐ ' + x)); }
+  const src = (d.sources || []).filter(x => !x.uncited).slice(0, 3);
+  if (src.length) { L.push(''); L.push('🔗 Sources: ' + src.map(x => x.url).join(' , ')); }
+  L.push(''); L.push('_Scouted with Scout Events · ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) + '_');
+  return L.join('\n');
+}
+function shareEvent(id) {
+  const e = findEv(id); if (!e) return;
+  window.open('https://wa.me/?text=' + encodeURIComponent(eventText(e)), '_blank');
+}
+async function copyEvent(id) {
+  const e = findEv(id); if (!e) return;
+  const txt = eventText(e);
+  try { await navigator.clipboard.writeText(txt); toast('Copied — paste into WhatsApp'); }
+  catch (err) { if (navigator.share) navigator.share({ text: txt }).catch(() => {}); else toast('Copy not available'); }
+}
+
+/* ---------- Football (clubs + fixtures) ---------- */
+function renderFootball() {
+  if (!D) return;
+  $('fbSeg').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === S.fb));
+  $('fbClubs').classList.toggle('hidden', S.fb !== 'clubs');
+  $('fbFix').classList.toggle('hidden', S.fb !== 'fix');
+  renderClubs(); renderFix();
+}
+
+function tile(l, v, on) { return '<button class="tilecard press" onclick="' + on + '"><span class="l">' + esc(l) + '</span><span class="v num">' + esc(v) + '</span></button>'; }
+
+function clubRow(c) {
+  const idx = D.clubs.indexOf(c);
+  const news = intelFor(c['Club']).length;
+  const sub = [c['League'], c['Stadium'], c['Capacity'] ? n0(c['Capacity']) + ' seats' : ''].filter(Boolean).join(' · ');
+  const tags = [c['Status'] === 'Partner' ? '<span class="tag t-partner">Partner</span>' : '',
+    c['On GO now (games)'] ? '<span class="tag t-go">On GO · ' + c['On GO now (games)'] + '</span>' : '',
+    news ? '<span class="tag s-event-announced">' + news + ' news</span>' : '',
+    !blank(c['Avg resale from (£)']) ? '<span class="tag s-general">Resale ' + gbp(c['Avg resale from (£)']) + '</span>' : ''].join('');
+  return '<button class="row press" onclick="openClub(' + idx + ')">' + badge(c['Club']) + '<div class="main"><div class="t">' + esc(c['Club']) + '</div><div class="s">' + esc(sub) + '</div>' +
+    (tags.replace(/<\/?span[^>]*>/g, '').trim() ? '<div class="tags">' + tags + '</div>' : '') + '</div>' + scorePill(c['Opportunity score']) + '</button>';
+}
+
+function fixRow(f, showDate) {
+  const idx = D.fixtures.indexOf(f);
+  const right = !blank(f['Resale from (£)']) ? '<b class="num">' + gbp(f['Resale from (£)']) + '</b><small>' + n0(f['Resale listings']) + ' listed</small>' : (f['On GO'] ? '' : '<small>no resale data</small>');
+  const tags = [f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '', goTag(f['GO status'])].join('');
+  return '<button class="row press" onclick="openFixture(' + idx + ')"><div class="time num">' + (showDate ? esc(String(f['Date']).slice(8, 10) + '/' + String(f['Date']).slice(5, 7)) + '<br>' : '') + esc(f['KO (UK)']) + '</div>' +
+    '<div class="main"><div class="t">' + esc(f['Home']) + ' v ' + esc(f['Away']) + '</div><div class="s">' + esc(f['Competition']) + (f['Round'] ? ' · ' + esc(f['Round']) : '') + ' · ' + esc(f['Venue']) + '</div>' +
+    (tags ? '<div class="tags">' + tags + '</div>' : '') + '</div><div class="right">' + right + '</div></button>';
+}
+
+function intelRow(i) {
+  const isClub = D.clubs.some(c => c['Club'] === i['Club / topic']);
+  return '<a class="row plain press" href="' + esc(i['Link']) + '" target="_blank" rel="noopener"><div class="main"><div class="t wrap">' + esc(i['Headline']) + '</div>' +
+    '<div class="tags">' + (i['New'] ? '<span class="tag t-new">NEW</span>' : '') + sigTag(i['Signal']) +
+    '<span class="tag ' + (isClub ? 't-go' : 's-general') + '">' + esc(i['Club / topic']) + '</span></div>' +
+    '<div class="s" style="margin-top:4px">' + esc(i['Source']) + ' · ' + esc(i['Date']) + '</div></div></a>';
+}
+
+/* ---------- Clubs ---------- */
+function renderClubs() {
+  if (!D) return;
+  const leagues = [...new Set(D.clubs.map(c => c['League']).filter(Boolean))];
+  chips('clubLeagues', [['', 'All leagues']].concat(leagues.map(l => [l, l])), S.clubs.league, v => { S.clubs.league = v; renderClubs(); });
+  chips('clubSort', [['score','Best opportunity'],['untapped','Not on GO'],['cap','Biggest'],['resale','Hottest resale'],['news','Most news'],['az','A–Z']], S.clubs.sort, v => { S.clubs.sort = v; renderClubs(); });
+  const q = S.clubs.q.toLowerCase();
+  let rows = D.clubs.filter(c => (!S.clubs.league || c['League'] === S.clubs.league) && (!q || (c['Club'] + ' ' + c['Stadium']).toLowerCase().includes(q)));
+  const num = v => blank(v) ? -1 : Number(v);
+  const sorts = {
+    score: (a, b) => b['Opportunity score'] - a['Opportunity score'],
+    untapped: (a, b) => b['Opportunity score'] - a['Opportunity score'],
+    cap: (a, b) => num(b['Capacity']) - num(a['Capacity']),
+    resale: (a, b) => num(b['Avg resale from (£)']) - num(a['Avg resale from (£)']),
+    news: (a, b) => intelFor(b['Club']).length - intelFor(a['Club']).length,
+    az: (a, b) => String(a['Club']).localeCompare(String(b['Club']))
+  };
+  if (S.clubs.sort === 'untapped') rows = rows.filter(c => !c['On GO now (games)'] && c['Status'] !== 'Partner');
+  rows.sort(sorts[S.clubs.sort]);
+  if (S.fb === 'clubs') $('fbSub').textContent = rows.length + ' clubs · tap one for details';
+  $('clubsBody').innerHTML = rows.length ? '<div class="list">' + rows.map(clubRow).join('') + '</div>' : '<div class="card empty">No clubs match.</div>';
+}
+
+function openClub(i) {
+  const c = D.clubs[i]; if (!c) return;
+  const fx = D.fixtures.filter(f => f['Home'] === c['Club']).slice(0, 12);
+  const news = intelFor(c['Club']).slice(0, 15);
+  const cell = (l, v) => '<div><div class="l">' + esc(l) + '</div><div class="v">' + (blank(v) || v === '' ? '—' : esc(v)) + '</div></div>';
+  let h = '<div class="card cardpad" style="align-items:center;text-align:center">' + badge(c['Club'], true) +
+    '<div><div style="font-size:24px;font-weight:800;letter-spacing:-.3px">' + esc(c['Club']) + '</div><div class="muted">' + esc(c['League']) + ' · #' + esc(c['Rank']) + ' opportunity</div></div>' +
+    '<div style="width:100%"><div style="display:flex;justify-content:space-between;font-size:13px;color:var(--sec);font-weight:600"><span>Opportunity score</span><b style="color:var(--label)">' + esc(c['Opportunity score']) + ' / 100</b></div><div class="bar" style="height:10px"><i style="width:' + Number(c['Opportunity score']) + '%"></i></div></div>' +
+    '<div class="cells" style="width:100%;text-align:left">' +
+    cell('Stadium', c['Stadium']) + cell('Capacity', n0(c['Capacity'])) +
+    cell('Home games left', c['Home games left']) + cell('Avg attendance', n0(c['Avg attendance'])) +
+    cell('Avg fill', pc(c['Avg fill %'])) + cell('Avg resale from', gbp(c['Avg resale from (£)'])) +
+    cell('Top resale', gbp(c['Top resale (£)'])) + cell('Listings / 1k seats', c['Listings per 1k seats']) +
+    cell('On GO now', c['On GO now (games)'] ? c['On GO now (games)'] + ' games' : 'No') + cell('GO avg from', gbp(c['GO avg from (£)'])) + '</div></div>';
+  const man = [['Status', c['Status']], ['Hospitality partner(s)', c['Hospitality partner(s)']], ['Club hospitality from', gbp(c['Club hospitality from (£)'])], ['Contact', c['Contact']], ['Notes', c['Notes']]].filter(x => !blank(x[1]));
+  if (man.length) h += '<div class="shead"><h2>Your notes</h2></div><div class="list">' + man.map(m => '<div class="row plain"><div class="main"><div class="s">' + esc(m[0]) + '</div><div class="t wrap" style="user-select:text">' + esc(m[1]) + '</div></div></div>').join('') + '</div>';
+  h += '<div class="shead"><h2>Upcoming home fixtures</h2></div>' + (fx.length ? '<div class="list">' + fx.map(f => fixRow(f, true)).join('') + '</div>' : '<div class="card empty">None in range.</div>');
+  h += '<div class="shead"><h2>News & signals</h2><button class="link press" onclick="S.intel={q:\'\',sig:\'\',newOnly:false,club:' + JSON.stringify(c['Club']).replace(/"/g, '&quot;') + '};closeClub();switchTab(\'intel\');renderIntel()">All</button></div>' +
+    (news.length ? '<div class="list">' + news.map(intelRow).join('') + '</div>' : '<div class="card empty">No headlines yet' + (D.intelUpdated ? ' in the last scan.' : ' — run a news scan.') + '</div>');
+  $('clubCTitle').textContent = c['Club'];
+  $('clubBody').innerHTML = h;
+  $('view-club').querySelector('.scroll').scrollTop = 0;
+  $('view-club').classList.add('open');
+}
+function closeClub() { $('view-club').classList.remove('open'); }
+
+/* ---------- Fixtures ---------- */
+function renderFix() {
+  if (!D) return;
+  chips('fixPeriod', [[3,'3 days'],[7,'7 days'],[14,'14 days'],[30,'30 days'],[90,'90 days'],['all','Season'],['notgo', S.fix.notGo ? '✓ Not on GO' : 'Not on GO']], S.fix.notGo ? 'notgo' : S.fix.days, v => {
+    if (v === 'notgo') S.fix.notGo = !S.fix.notGo; else S.fix.days = v === 'all' ? 'all' : Number(v);
+    renderFix();
+  });
+  // keep the period chip highlighted alongside the toggle
+  $('fixPeriod').querySelectorAll('button').forEach(b => { if (b.dataset.v === String(S.fix.days)) b.setAttribute('aria-pressed', 'true'); });
+  const comps = [...new Set(D.fixtures.map(f => f['Competition']).filter(Boolean))];
+  chips('fixComps', [['', 'All competitions']].concat(comps.map(c => [c, c])), S.fix.comp, v => { S.fix.comp = v; renderFix(); });
+  const lim = S.fix.days === 'all' ? '9999' : addDaysStr(S.fix.days);
+  const q = S.fix.q.toLowerCase();
+  const rows = D.fixtures.filter(f => String(f['Date']) <= lim && (!S.fix.comp || f['Competition'] === S.fix.comp) && (!S.fix.notGo || !f['On GO']) &&
+    (!q || (f['Home'] + ' ' + f['Away'] + ' ' + f['Venue']).toLowerCase().includes(q)));
+  const onGo = rows.filter(f => f['On GO']).length;
+  if (S.fb === 'fix') $('fbSub').textContent = rows.length + ' fixtures · ' + onGo + ' on GO';
+  if (!rows.length) { $('fixBody').innerHTML = '<div class="card empty">No fixtures match.</div>'; return; }
+  const byDay = {};
+  rows.slice(0, 600).forEach(f => (byDay[f['Date']] = byDay[f['Date']] || []).push(f));
+  $('fixBody').innerHTML = Object.keys(byDay).map(d => {
+    const dt = new Date(d + 'T12:00:00');
+    const label = d === todayStr() ? 'Today' : d === addDaysStr(1) ? 'Tomorrow' : dt.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+    return '<div class="day">' + esc(label) + '</div><div class="list">' + byDay[d].map(f => fixRow(f, false)).join('') + '</div>';
+  }).join('') + (rows.length > 600 ? '<div class="empty">Showing first 600 — narrow the filters.</div>' : '');
+}
+
+function openFixture(i) {
+  const f = D.fixtures[i]; if (!f) return;
+  const cell = (l, v) => '<div><div class="l">' + esc(l) + '</div><div class="v">' + (blank(v) ? '—' : esc(v)) + '</div></div>';
+  const dt = new Date(f['Date'] + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+  let h = '<div class="sheet-title"><div style="display:flex;gap:10px;align-items:center">' + badge(f['Home']) + '<span class="muted">v</span>' + badge(f['Away']) + '</div>' +
+    '<h2>' + esc(f['Home']) + ' v ' + esc(f['Away']) + '</h2><p>' + esc(dt) + ' · ' + esc(f['KO (UK)']) + ' · ' + esc(f['Competition']) + (f['Round'] ? ' · ' + esc(f['Round']) : '') + '</p>' +
+    '<div class="tags">' + (f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '') + goTag(f['GO status']) + (blank(f['Fixture score']) ? '' : scorePill(f['Fixture score'])) + '</div></div>';
+  h += '<div class="card cardpad"><div class="cells">' + cell('Venue', f['Venue']) + cell('Capacity', n0(f['Capacity'])) +
+    cell('Resale from', gbp(f['Resale from (£)'])) + cell('Resale listings', n0(f['Resale listings'])) +
+    cell('GO from', gbp(f['GO from (£)'])) + cell('GO status', f['GO status'] || 'Not listed') + '</div></div>';
+  const ci = D.clubs.findIndex(c => c['Club'] === f['Home']);
+  h += '<div style="display:flex;flex-direction:column;gap:10px">' +
+    (f['GO link'] ? '<a class="btn fill press" href="' + esc(f['GO link']) + '" target="_blank" rel="noopener">View on GO Official</a>' : '') +
+    (f['Resale link'] ? '<a class="btn tint press" href="' + esc(f['Resale link']) + '" target="_blank" rel="noopener">Resale listings</a>' : '') +
+    (ci > -1 ? '<button class="btn tint press" onclick="closeSheet();openClub(' + ci + ')">' + esc(f['Home']) + ' club profile</button>' : '') +
+    (f['ESPN link'] ? '<a class="btn tint press" href="' + esc(f['ESPN link']) + '" target="_blank" rel="noopener">Match page</a>' : '') + '</div>';
+  openSheet(h);
+}
+
+/* ---------- Intel ---------- */
+function renderIntel() {
+  if (!D) return;
+  $('radSeg').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === S.rad));
+  const q = S.intel.q.toLowerCase();
+  if (S.rad === 'radar') {
+    const all = D.radar || [];
+    const whats = [...new Set(all.map(r => r.what).filter(Boolean))];
+    chips('intelChips', [['', 'All · ' + all.length], ['__high', '🔥 High value']].concat(whats.map(w => [w, w])), S.radar.high ? '__high' : S.radar.what, v => {
+      if (v === '__high') { S.radar.high = !S.radar.high; } else { S.radar.what = v; S.radar.high = false; } renderIntel();
+    });
+    const rows = all.filter(r => (!S.radar.what || r.what === S.radar.what) && (!S.radar.high || r.value === 'High') &&
+      (!q || [r.title, r.details, r.where, r.event, r.category].join(' ').toLowerCase().includes(q)))
+      .sort((a, b) => (a.value === 'High' ? 0 : 1) - (b.value === 'High' ? 0 : 1) || String(b.found).localeCompare(String(a.found)));
+    $('intelSub').textContent = D.radarUpdated ? rows.length + ' items · swept ' + ago(D.radarUpdated) : 'Not swept yet';
+    let h = D.researchMode === 'scheduled' ? '' : '<button class="btn tint press" onclick="scanRadar()"' + (busy ? ' disabled' : '') + '>Sweep official sites, socials & forums now</button>';
+    h += rows.length ? '<div class="list">' + rows.slice(0, 200).map(radarRow).join('') + '</div>' :
+      '<div class="card empty">' + (all.length ? 'Nothing matches.' : 'The radar sweeps official club, promoter & venue sites, their Instagram/X, ticketing platforms, news and fan forums for on-sale windows, ballots, new events and sell-outs — every item with its source link.') + '</div>';
+    $('intelBody').innerHTML = h;
+    if (curTab === 'intel') setTimeout(markRadarSeen, 1500);
+    return;
+  }
+  const counts = {}; D.intel.forEach(i => counts[i['Signal']] = (counts[i['Signal']] || 0) + 1);
+  const nNew = D.intel.filter(i => i['New']).length;
+  const items = [['', 'All']].concat(nNew ? [['__new', 'New · ' + nNew]] : []).concat(S.intel.club ? [['__club', '✕ ' + S.intel.club]] : [])
+    .concat(SIGNALS.filter(x => counts[x]).map(x => [x, x + ' · ' + counts[x]]));
+  chips('intelChips', items, S.intel.newOnly ? '__new' : S.intel.club ? '__club' : S.intel.sig, v => {
+    if (v === '__new') S.intel.newOnly = !S.intel.newOnly; else if (v === '__club') S.intel.club = ''; else { S.intel.sig = v; S.intel.newOnly = false; }
+    renderIntel();
+  });
+  const rows = D.intel.filter(i => (!S.intel.sig || i['Signal'] === S.intel.sig) && (!S.intel.newOnly || i['New']) && (!S.intel.club || i['Club / topic'] === S.intel.club) &&
+    (!q || String(i['Headline']).toLowerCase().includes(q)));
+  $('intelSub').textContent = D.intelUpdated ? rows.length + ' headlines · scanned ' + ago(D.intelUpdated) : 'Not scanned yet';
+  let h = '<button class="btn tint press" onclick="scanNews()"' + (busy ? ' disabled' : '') + '>Scan news now</button>';
+  h += rows.length ? '<div class="list">' + rows.slice(0, 250).map(intelRow).join('') + '</div>' : '<div class="card empty">' + (D.intel.length ? 'No headlines match.' : 'No news yet.') + '</div>';
+  $('intelBody').innerHTML = h;
+}
+
+/* ---------- Sheets ---------- */
+function openGuide() {
+  const g = (D && D.guide) || [];
+  openSheet('<div class="sheet-title"><h2>How competitions work</h2><p>Formats, key dates & the hospitality angle</p></div>' +
+    g.map(x => '<div class="card cardpad prose"><div style="font-size:17px;font-weight:800">' + esc(x['Competition']) + '</div><p>' + esc(x['Format']) + '</p>' +
+      '<div class="k">Season</div><p>' + esc(x['Season window']) + '</p><div class="k">Key stages</div><p>' + esc(x['Key stages']) + '</p>' +
+      '<div class="k">Hospitality angle</div><p>' + esc(x['What it means for selling hospitality']) + '</p></div>').join(''));
+}
+
+function openSettings() {
+  const theme = store.get('se-theme') || 'system';
+  const opt = (v, l) => '<button class="row plain press" role="radio" aria-checked="' + (theme === v) + '" onclick="setTheme(\'' + v + '\')"><div class="main"><div class="t">' + l + '</div></div><span class="radio"></span></button>';
+  openSheet('<div class="sheet-title"><img src="./logo.png" alt="" style="width:64px;height:64px;border-radius:16px;background:#FBFBF8"><h2>Scout Events</h2><p>' +
+    (D && D.updated ? 'Data ' + ago(D.updated) : 'No data yet') + (D && D.intelUpdated ? ' · News ' + ago(D.intelUpdated) : '') + '</p></div>' +
+    '<div class="shead" style="padding:4px 4px 0"><h2>Update</h2></div>' +
+    '<div style="display:flex;flex-direction:column;gap:10px"><button class="btn fill press" onclick="rescan()"' + (busy ? ' disabled' : '') + '>Re-scan fixtures, prices & GO (2–4 min)</button>' +
+    '<button class="btn tint press" onclick="scoutNow()"' + (busy ? ' disabled' : '') + '>' + (D && D.researchMode === 'scheduled' ? 'Import latest Claude research' : 'Discover & research events') + '</button>' +
+    (D && D.researchMode === 'scheduled' ? '' : '<button class="btn tint press" onclick="scanRadar()"' + (busy ? ' disabled' : '') + '>Sweep the radar now</button>') +
+    '<button class="btn tint press" onclick="scanNews()"' + (busy ? ' disabled' : '') + '>Scan the web for news</button></div>' +
+    '<p class="muted" style="padding:0 4px">' + (D && D.researchMode === 'scheduled' ? 'Claude researches on your Max plan at ~7am and ~1pm; the sheet imports it within 15 min.' : 'These also run automatically when auto-refresh is on in the sheet.') + '</p>' +
+    '<div class="shead" style="padding:4px 4px 0"><h2>Phone alerts</h2></div>' +
+    '<div class="card cardpad"><div class="prose">Get a push when something hot hits the radar, an event is rated GO, or a GO event goes on sale within 48 hours.</div>' +
+    '<div class="prose"><b>1.</b> Install the free <b>ntfy</b> app (App Store / Google Play).<br><b>2.</b> Tap <b>+</b> and subscribe to this topic:</div>' +
+    '<div class="code" id="topicCode">' + esc((D && D.alertTopic) || 'Load data first') + '</div>' +
+    '<div class="btns"><button class="btn tint press" onclick="copyTopic()">Copy topic</button><button class="btn fill press" onclick="testAlert()">Send test</button></div>' +
+    '<div class="muted">Keep the topic private. Tapping an alert opens the event here. Background sweeps run every 15 min from the sheet.</div></div>' +
+    '<div class="shead" style="padding:4px 4px 0"><h2>Appearance</h2></div><div class="list" role="radiogroup">' + opt('system', 'System') + opt('light', 'Light') + opt('dark', 'Dark') + '</div>' +
+    '<div class="shead" style="padding:4px 4px 0"><h2>Access</h2></div><div class="list"><button class="row plain press" onclick="openKeySheet()"><div class="main"><div class="t">App key</div><div class="s">' + (key() ? '••••••' + esc(key().slice(-3)) : 'Not set') + '</div></div>' + CHEV + '</button>' +
+    '<button class="row plain press" onclick="openGuide()"><div class="main"><div class="t">How competitions work</div></div>' + CHEV + '</button></div>');
+}
+async function copyTopic() { try { await navigator.clipboard.writeText(D.alertTopic); toast('Topic copied'); } catch (e) { toast('Long-press the topic to copy'); } }
+async function testAlert() { try { await api('testalert'); toast('Test alert sent — check ntfy'); } catch (e) { toast('Failed: ' + e.message); } }
+
+function setTheme(v) {
+  store.set('se-theme', v === 'system' ? '' : v);
+  if (v === 'system') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme', v);
+  syncThemeColor(); openSettings();
+}
+function syncThemeColor() { $('themeColor').setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() || '#F3F4EF'); }
+
+function openKeySheet(msg) {
+  openSheet('<div class="sheet-title"><img src="./logo.png" alt="" style="width:64px;height:64px;border-radius:16px;background:#FBFBF8"><h2>Enter app key</h2><p>' +
+    esc(msg || 'In the Google Sheet: GO Scout → Show app key') + '</p></div>' +
+    '<label class="field"><input id="keyInput" placeholder="APP KEY" autocomplete="off" autocapitalize="characters" value="' + esc(key()) + '"></label>' +
+    '<button class="btn fill press" onclick="saveKey()">Connect</button>');
+  setTimeout(() => { const i = $('keyInput'); if (i) i.focus(); }, 350);
+}
+function saveKey() { const v = ($('keyInput').value || '').trim().toUpperCase(); if (!v) return; store.set('se-key', v); closeSheet(); reload(); }
+
+/* ================= Boot ================= */
+window.addEventListener('online', () => document.body.classList.remove('offline'));
+window.addEventListener('offline', () => document.body.classList.add('offline'));
+if (!navigator.onLine) document.body.classList.add('offline');
+syncThemeColor();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', syncThemeColor);
+
+function handleHash() {
+  if (!D) return;
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (!h) return;
+  const [k, v] = h.split('=');
+  if (k === 'ev' && findEv(v)) { switchTab('events'); openEvent(v); }
+  else if (k === 'radar') { S.rad = 'radar'; switchTab('intel'); if (v) openRadar(v); }
+  history.replaceState(null, '', location.pathname + location.search);
+}
+window.addEventListener('hashchange', handleHash);
+try { const c = store.get(CACHE_KEY); if (c) { D = JSON.parse(c); renderAll(); handleHash(); } } catch (e) {}
+if (key()) reload().then(handleHash); else openKeySheet();
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && D && D.updated && Date.now() - new Date(D.updated) > 30 * 60000 && !busy && key()) reload();
+});
+
+if ('serviceWorker' in navigator) {
+  let hasController = !!navigator.serviceWorker.controller, pending = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (hasController) pending = true; hasController = true; });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden' && pending) location.reload(); });
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then(reg => {
+      const activate = w => { if (w && navigator.serviceWorker.controller) w.postMessage({ type: 'SKIP_WAITING' }); };
+      activate(reg.waiting);
+      reg.addEventListener('updatefound', () => { const w = reg.installing; if (w) w.addEventListener('statechange', () => { if (w.state === 'installed') activate(w); }); });
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); });
+    }).catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
