@@ -191,7 +191,7 @@ button.row:active, a.row:active { background: var(--fill); }
 .glass { background: var(--glass); border: 1px solid var(--g-border); box-shadow: var(--g-shadow); -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%); }
 .tabbar { position: fixed; z-index: 20; left: 0; right: 0; margin: 0 auto; bottom: max(10px, calc(var(--safe-bottom) - 10px));
   width: min(calc(100% - 40px), 440px); height: 62px; border-radius: 999px; display: flex; align-items: center; padding: 0 4px; }
-.tab-pill { position: absolute; left: 4px; top: 4px; bottom: 4px; width: calc((100% - 8px) / 3); border-radius: 999px; background: var(--pill); transform: translateX(calc(var(--i, 0) * 100%)); transition: transform .45s cubic-bezier(.3,1.3,.45,1); }
+.tab-pill { position: absolute; left: 4px; top: 4px; bottom: 4px; width: calc((100% - 8px) / 4); border-radius: 999px; background: var(--pill); transform: translateX(calc(var(--i, 0) * 100%)); transition: transform .45s cubic-bezier(.3,1.3,.45,1); }
 .tab { position: relative; z-index: 1; flex: 1; height: 54px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; font-size: 10px; font-weight: 600; color: var(--label); }
 .tab[aria-selected="true"] { color: var(--acc); }
 .tab .dot { position: absolute; top: 6px; right: calc(50% - 18px); min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: var(--red); color: #fff; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
@@ -298,6 +298,55 @@ body.busy .progress { display: block; }
 .lv { height: 22px; padding: 0 9px; border-radius: 999px; font-size: 10.5px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; display: inline-flex; align-items: center; flex-shrink: 0; }
 .lv.high { background: var(--acc); color: #fff; } .lv.medium { background: var(--gold-bg); color: var(--gold); } .lv.low { background: var(--fill); color: var(--sec); }
 .lv.go { background: var(--green); color: #fff; } .lv.maybe { background: var(--gold); color: #fff; } .lv.skip { background: var(--red-bg); color: var(--red); } .lv.none { background: var(--fill); color: var(--sec); }
+.filterbar { display: flex; gap: 8px; align-items: center; }
+.fbtn { flex: 1; min-width: 0; height: 44px; border-radius: 14px; background: var(--card); border: 1px solid var(--sep); display: flex; align-items: center; gap: 8px; padding: 0 14px; font-size: 15px; font-weight: 700; color: var(--label); }
+.fbtn .lbl { flex: 1; min-width: 0; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fbtn .cnt { font-size: 13px; color: var(--sec); font-weight: 600; }
+.ftog { flex-shrink: 0; height: 44px; border-radius: 14px; padding: 0 14px; background: var(--card); border: 1px solid var(--sep); font-size: 14px; font-weight: 700; color: var(--label); }
+.ftog[aria-pressed="true"], .fbtn.on { background: var(--acc); color: #fff; border-color: var(--acc); }
+.fbtn.on .cnt { color: rgba(255,255,255,.8); }
+.catgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.cattile { border-radius: 16px; background: var(--sub2); padding: 12px; display: flex; flex-direction: column; gap: 4px; text-align: left; min-height: 78px; }
+.cattile .e { font-size: 22px; line-height: 1; }
+.cattile .n { font-size: 14px; font-weight: 700; line-height: 1.2; }
+.cattile .c { font-size: 12px; color: var(--sec); font-weight: 600; }
+.cattile[aria-pressed="true"] { background: var(--acc); color: #fff; }
+.cattile[aria-pressed="true"] .c { color: rgba(255,255,255,.8); }
+.quota { background: var(--card); border-radius: 24px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.quota .big { font-size: 30px; font-weight: 800; letter-spacing: -.5px; line-height: 1; }
+.quota .big small { font-size: 15px; font-weight: 600; color: var(--sec); letter-spacing: 0; }
+.slots { display: grid; grid-template-columns: repeat(var(--n, 6), 1fr); gap: 6px; }
+.slots i { height: 10px; border-radius: 999px; background: var(--fill); }
+.slots i.used { background: var(--gold); }
+.qx { width: 36px; height: 36px; border-radius: 50%; background: var(--fill); color: var(--sec); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.star { width: 34px; height: 34px; margin: -6px -6px -6px 0; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 19px; color: var(--ter); flex-shrink: 0; }
+.star.on { color: var(--gold); }
+.fsq { flex-shrink: 0; width: 44px; height: 44px; border-radius: 14px; background: var(--card); border: 1px solid var(--sep); font-size: 18px; color: var(--sec); }
+.fsq[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: #fff; }
+.archlink { text-align: center; padding: 14px; font-size: 14px; font-weight: 700; color: var(--sec); }
+.chg { background: var(--gold-bg); border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.chg .ln { font-size: 14.5px; line-height: 1.4; }
+.ptable { background: var(--card); border-radius: 22px; overflow: hidden; }
+.ptable .pr { display: flex; gap: 10px; align-items: flex-start; padding: 11px 16px; border-top: 1px solid var(--sep); }
+.ptable .pr:first-child { border-top: none; }
+.ptable .pr .nm { flex: 1; min-width: 0; font-size: 15px; font-weight: 600; line-height: 1.3; }
+.ptable .pr .nm small { display: block; font-size: 12.5px; font-weight: 500; color: var(--sec); margin-top: 2px; }
+.ptable .pr .pp { text-align: right; font-size: 15px; font-weight: 800; white-space: nowrap; }
+.ptable .pr .pp small { display: block; font-size: 11.5px; font-weight: 700; }
+.ptable .grp { padding: 8px 16px; font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; color: var(--sec); background: var(--sub2); }
+.sheet-body > * { flex-shrink: 0; }
+.calc { background: var(--card); border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.calc .in { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.calc label { display: flex; flex-direction: column; gap: 4px; font-size: 11px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase; color: var(--sec); }
+.calc label.wide { grid-column: 1 / -1; }
+.calc input, .calc select { height: 42px; border-radius: 12px; border: 1px solid var(--sep); background: var(--sub2); color: var(--label); font: inherit; font-size: 16px; font-weight: 700; padding: 0 10px; width: 100%; min-width: 0; }
+.calc .out { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.calc .out div { background: var(--sub2); border-radius: 14px; padding: 10px; }
+.calc .out b { display: block; font-size: 19px; font-weight: 800; letter-spacing: -.3px; }
+.calc .out span { font-size: 11px; font-weight: 700; color: var(--sec); text-transform: uppercase; letter-spacing: .3px; }
+.pos { color: var(--green); } .neg { color: var(--red); }
+.spark { width: 100%; height: 70px; display: block; }
+.trend { font-size: 11px; font-weight: 800; }
 .offline-pill { display: none; position: fixed; z-index: 16; left: 50%; transform: translateX(-50%); top: calc(var(--safe-top) + 10px); height: 34px; padding: 0 14px; border-radius: 999px; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--sec); }
 body.offline .offline-pill { display: flex; }
 </style>
@@ -309,19 +358,30 @@ body.offline .offline-pill { display: flex; }
   <section class="view active" id="view-home">
     <div class="nav"><div class="ctitle">Scout Events</div><div class="icons">
       <button class="tb press" onclick="toggleSearch('ev')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+      <button class="tb press" onclick="openCalendar()" aria-label="On-sale calendar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button>
       <button class="tb press reloadBtn" onclick="reload()" aria-label="Reload"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></button>
       <button class="tb press" onclick="openSettings()" aria-label="Settings"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button></div></div>
     <div class="scroll"><div class="page">
       <header class="hero-head"><div class="brand"><img src="./logo.png" alt=""><div><h1>Scout Events</h1><p id="homeSub">Season 2026–27</p></div></div></header>
       <div class="toolbar"><span></span><div class="icons">
         <button class="tb press" onclick="toggleSearch('ev')" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+      <button class="tb press" onclick="openCalendar()" aria-label="On-sale calendar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></button>
       <button class="tb press reloadBtn" onclick="reload()" aria-label="Reload"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 5v6h-6"/></svg></button>
         <button class="tb press" onclick="openSettings()" aria-label="Settings"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button></div></div>
       <div class="progress"><div class="track"><i></i></div><p id="progressText">Loading…</p></div>
       <div id="statusMessages"></div>
       <label class="search" id="search-ev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input type="search" placeholder="Search events, venues, cities" oninput="S.ev.q=this.value;renderEvents()" autocomplete="off"><button onclick="toggleSearch('ev')" aria-label="Close search">✕</button></label>
-      <div class="chips" id="evCats"></div>
+      <div class="filterbar" id="evFilter"></div>
       <div id="evBody" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div></div>
+  </section>
+
+  <!-- ================= DEEP RESEARCH ================= -->
+  <section class="view" id="view-research">
+    <div class="nav"><div class="ctitle">Deep research</div><div class="icons"></div></div>
+    <div class="scroll"><div class="page">
+      <header class="hero-head"><h1>Deep research</h1><p id="rsSub">&nbsp;</p></header>
+      <div id="rsBody" style="display:flex;flex-direction:column;gap:10px"></div>
     </div></div>
   </section>
 
@@ -370,6 +430,7 @@ body.offline .offline-pill { display: flex; }
 <nav class="tabbar glass" role="tablist" id="tabbar">
   <span class="tab-pill" aria-hidden="true"></span>
   <button class="tab" role="tab" data-tab="home" aria-selected="true" onclick="switchTab('home')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9a2 2 0 0 0 0 6v3a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3a2 2 0 0 0 0-6V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M14 4v16" stroke-dasharray="2 3"/></svg><span>Events</span></button>
+  <button class="tab" role="tab" data-tab="research" aria-selected="false" onclick="switchTab('research')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/><path d="M8 10.5h5M10.5 8v5"/></svg><span class="dot hidden" id="rsDot"></span><span>Research</span></button>
   <button class="tab" role="tab" data-tab="football" aria-selected="false" onclick="switchTab('football')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/><path d="M12 7V3M16 10l4-1.5M14.5 14.5l2.5 3.5M9.5 14.5L7 18M8 10L4 8.5"/></svg><span>Football</span></button>
   <button class="tab" role="tab" data-tab="intel" aria-selected="false" onclick="switchTab('intel')"><svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1A10 10 0 0 1 12 2M19.1 4.9A10 10 0 0 1 12 22"/><path d="M8.5 15.5a5 5 0 0 1 0-7M15.5 8.5a5 5 0 0 1 0 7"/><circle cx="12" cy="12" r="1.5"/></svg><span>Radar</span><span class="dot hidden" id="intelDot"></span></button>
 </nav>
@@ -385,10 +446,10 @@ body.offline .offline-pill { display: flex; }
 const API_URL = 'https://script.google.com/macros/s/AKfycbzf_xkYr-xh1UDU9BgSE5OAk-wewK7EwMFX8dRxLYf-Atx5HhV-PsbUyj5QLloabHnQcA/exec';
 const CACHE_KEY = 'se-data-v1';
 const SIGNALS = ['Partner deal','Competitor','Demand / sell-out','New hospitality','Event announced','Stadium / capacity','Ownership / money','General'];
-const TABS = ['home','football','intel'];
+const TABS = ['home','research','football','intel'];
 
 let D = null, busy = false, curTab = 'home', curEvent = null;
-const S = { rad: 'radar', radar: { what: '', high: false }, fb: 'clubs', ev: { q:'', verdict:'', when:'all', cat:'' }, clubs: { q:'', league:'', sort:'score' }, fix: { q:'', days:14, comp:'', notGo:false }, intel: { q:'', sig:'', newOnly:false, club:'' } };
+const S = { rad: 'radar', radar: { what: '', high: false }, fb: 'clubs', ev: { q:'', verdict:'', when:'all', cat:'', soon:false, star:false, arch:false }, clubs: { q:'', league:'', sort:'score' }, fix: { q:'', days:14, comp:'', notGo:false }, intel: { q:'', sig:'', newOnly:false, club:'' } };
 
 /* ================= Utils ================= */
 const $ = id => document.getElementById(id);
@@ -465,6 +526,7 @@ function switchTab(t) {
   document.querySelector('.tab-pill').style.setProperty('--i', TABS.indexOf(t));
   closeClub(); closeEvent();
   if (t === 'intel' && D) { renderIntel(); }
+  if (t === 'research' && D) { renderResearch(); }
 }
 document.querySelectorAll('.scroll').forEach(sc => sc.addEventListener('scroll', () => sc.parentElement.classList.toggle('scrolled', sc.scrollTop > 56), { passive: true }));
 function toggleSearch(k) {
@@ -483,7 +545,7 @@ function renderAll() {
   if (!D) return;
   const nNew = newRadar().length;
   $('intelDot').textContent = nNew; $('intelDot').classList.toggle('hidden', !nNew);
-  renderHome(); renderEvents(); renderFootball(); renderIntel();
+  renderHome(); renderEvents(); renderResearch(); renderFootball(); renderIntel();
 }
 
 const MONS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -564,7 +626,7 @@ function renderHome() {
 
 /* ---------- Events ---------- */
 const CAT_EMOJI = [[/football/i,'⚽'],[/boxing/i,'🥊'],[/ufc|mma/i,'🥋'],[/darts/i,'🎯'],[/snooker/i,'🎱'],[/tennis/i,'🎾'],[/golf/i,'⛳'],[/horse/i,'🏇'],[/cricket/i,'🏏'],[/rugby/i,'🏉'],[/f1|motor/i,'🏎️'],[/nfl|us sports/i,'🏈'],[/wrestl/i,'🤼'],[/comedy/i,'🎤'],[/theatre|musical/i,'🎭'],[/./,'🏟️']];
-const catEmoji = c => CAT_EMOJI.find(x => x[0].test(c || ''))[1];
+const catEmoji = c => (CAT_EMOJI.find(x => x[0].test(c || '')) || [0, '🏟️'])[1];
 const vClass = v => ({ GO: 'v-go', MAYBE: 'v-maybe', SKIP: 'v-skip' }[v] || 'v-none');
 const stars = n => n ? '<span class="stars">' + '★'.repeat(n) + '<span style="opacity:.3">' + '★'.repeat(Math.max(0, 5 - n)) + '</span></span>' : '';
 const fmtDay = d => d ? new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) : '';
@@ -573,44 +635,280 @@ const fmtRange = (a, b) => !a ? 'Date TBC' : (!b || b === a) ? new Date(a + 'T12
 const findEv = id => (D.events || []).find(e => e.id === id);
 const queued = e => (D.priorityIds || []).indexOf(e.id) > -1;
 
+const isStar = e => e.teamStatus === 'Following';
+const isArch = e => e.teamStatus === 'Not interested';
+async function markEvent(id, mark, ev) {
+  if (ev) { ev.stopPropagation(); ev.preventDefault(); }
+  const e = findEv(id); if (!e) return;
+  const before = e.teamStatus;
+  if (mark === 'seen') { e.changes = ''; } else e.teamStatus = { star: 'Following', archive: 'Not interested', clear: '' }[mark];
+  store.set(CACHE_KEY, JSON.stringify(D)); renderEvents(); renderResearch();
+  if ($('view-event').classList.contains('open') && curEvent === id) openEvent(id);
+  toast({ seen: 'Marked as seen', star: '⭐ Following', archive: 'Archived — find it under "Archived" at the bottom', clear: isArch({ teamStatus: before }) ? 'Restored to the list' : 'Unfollowed' }[mark]);
+  try { await api('mark', '&id=' + encodeURIComponent(id) + '&mark=' + mark); }
+  catch (err) { if (mark !== 'seen') e.teamStatus = before; renderEvents(); toast('Couldn’t save: ' + err.message); }
+}
 function eventRow(e, saleFirst) {
   const v = queued(e) ? ['none', '⏳ Researching'] : e.dossier && e.verdict ? [e.verdict.toLowerCase(), e.verdict] : null;
   const where = [e.venue, e.city].filter(Boolean).join(', ');
   const st = dparts(e.start), sale = dparts(e.nextSale);
   const pills = [
+    e.changes && isStar(e) ? pill('🔔 Updated', 'gold') : '',
     pill('📅 ' + (st ? esc(st.wd + ' ' + st.d + ' ' + st.mon + (e.end && e.end !== e.start ? ' →' : '')) : 'Date TBC'), saleFirst ? '' : 'acc'),
     !blank(e.faceFrom) ? pill('🎟 from ' + gbp(e.faceFrom)) : '',
     !blank(e.hospFrom) ? pill('🥂 from ' + gbp(e.hospFrom)) : '',
     !blank(e.capacity) ? pill('👥 ' + n0(e.capacity)) : '',
     sale && e.nextSale >= todayStr() ? pill('On sale ' + esc(sale.d + ' ' + sale.mon + (sale.time ? ' ' + sale.time : '')), 'gold') :
-      e.status ? pill(esc(e.status), /sold out/i.test(e.status) ? 'red' : /on sale|selling/i.test(e.status) ? 'acc' : 'dim') : ''
+      e.status ? pill(esc(e.status), /sold out/i.test(e.status) ? 'red' : /on sale|selling/i.test(e.status) ? 'acc' : 'dim') : '',
+    e.dossier && e.researched ? pill('🔎 ' + esc(ago(e.researched)), 'dim') : ''
   ].join('');
   return '<button class="fc press" onclick="openEvent(\'' + esc(e.id) + '\')">' +
-    '<div class="top"><span class="cat">' + catEmoji(e.category) + ' ' + esc(e.category || 'Event') + '</span>' + (v ? '<span class="lv ' + v[0] + '">' + esc(v[1]) + '</span>' : '') + '</div>' +
+    '<div class="top"><span class="cat">' + catEmoji(e.category) + ' ' + esc(e.category || 'Event') + '</span>' + (v ? '<span class="lv ' + v[0] + '">' + esc(v[1]) + '</span>' : '') +
+    '<span class="star press' + (isStar(e) ? ' on' : '') + '" role="button" aria-label="Follow" onclick="markEvent(\'' + esc(e.id) + '\',\'' + (isStar(e) ? 'clear' : 'star') + '\',event)">' + (isStar(e) ? '★' : '☆') + '</span></div>' +
     '<div class="hd"><span>' + esc(e.name) + '</span></div>' + (where ? '<div class="sub">📍 ' + esc(where) + '</div>' : '') +
     '<div class="pills">' + pills + '</div></button>';
 }
 
+function evCounts() {
+  const evs = D.events || [], today = todayStr(), soon = addDaysStr(30), by = {};
+  evs.forEach(e => { by[e.category || 'Other'] = (by[e.category || 'Other'] || 0) + 1; });
+  return { all: evs.length, by: by, soon: evs.filter(e => e.nextSale && e.nextSale >= today && e.nextSale <= soon).length };
+}
+function openCatPicker() {
+  const c = evCounts(), cur = S.ev.cat;
+  const tile = (v, e, n, k) => '<button class="cattile press" aria-pressed="' + (cur === v) + '" onclick="S.ev.cat=' + esc(JSON.stringify(v)).replace(/"/g, '&quot;') + ';closeSheet();renderEvents()"><span class="e">' + e + '</span><span class="n">' + esc(n) + '</span><span class="c">' + k + (k === 1 ? ' event' : ' events') + '</span></button>';
+  const cats = Object.keys(c.by).sort((a, b) => c.by[b] - c.by[a]);
+  openSheet('<div class="sheet-title"><h2>Categories</h2><p>Tap one to filter the list</p></div><div class="catgrid">' +
+    tile('', '🗂', 'All categories', c.all) + cats.map(k => tile(k, catEmoji(k), k, c.by[k])).join('') + '</div>');
+}
 function renderEvents() {
   if (!D) return;
-  const evs = D.events || [], today = todayStr(), soon = addDaysStr(30);
-  const nSoon = evs.filter(e => e.nextSale && e.nextSale >= today && e.nextSale <= soon).length;
-  const nDeep = evs.filter(e => e.dossier).length;
-  const cats = [...new Set(evs.map(e => e.category).filter(Boolean))].sort();
-  chips('evCats', [['', 'All · ' + evs.length], ['__soon', '🎟 On sale soon · ' + nSoon], ['__deep', '🔎 Deep researched · ' + nDeep]]
-    .concat(cats.map(c => [c, catEmoji(c) + ' ' + c])), S.ev.cat, v => { S.ev.cat = v; renderEvents(); });
-  const q = S.ev.q.toLowerCase(), f = S.ev.cat;
-  let rows = evs.filter(e =>
-    (!f || (f === '__soon' ? e.nextSale && e.nextSale >= today && e.nextSale <= soon : f === '__deep' ? !!e.dossier : e.category === f)) &&
+  const evs = D.events || [], today = todayStr(), soon = addDaysStr(30), c = evCounts();
+  const f = S.ev.cat, onlySoon = !!S.ev.soon, onlyStar = !!S.ev.star, showArch = !!S.ev.arch;
+  const nStar = evs.filter(isStar).length, nArch = evs.filter(isArch).length, nChg = evs.filter(e => isStar(e) && e.changes).length;
+  $('evFilter').innerHTML = '<button class="fbtn press' + (f ? ' on' : '') + '" onclick="openCatPicker()"><span>' + (f ? catEmoji(f) : '🗂') + '</span><span class="lbl">' + esc(f || 'All categories') + '</span><span class="cnt">' + (f ? c.by[f] || 0 : c.all) + '</span><span>▾</span></button>' +
+    '<button class="ftog press" aria-pressed="' + onlySoon + '" onclick="S.ev.soon=!S.ev.soon;renderEvents()">🎟 Soon · ' + c.soon + '</button>' +
+    '<button class="fsq press" aria-pressed="' + onlyStar + '" aria-label="Following only" onclick="S.ev.star=!S.ev.star;renderEvents()" style="width:auto;min-width:44px;padding:0 10px">' + (onlyStar ? '★' : '☆') + (nChg ? ' <b style="color:' + (onlyStar ? '#fff' : 'var(--gold)') + '">🔔' + nChg + '</b>' : '') + '</button>';
+  const q = S.ev.q.toLowerCase();
+  let rows = evs.filter(e => (showArch ? isArch(e) : !isArch(e)) && (!onlyStar || isStar(e)) && (!f || e.category === f) && (!onlySoon || (e.nextSale && e.nextSale >= today && e.nextSale <= soon)) &&
     (!q || [e.name, e.venue, e.city, e.category].join(' ').toLowerCase().includes(q)));
-  rows.sort((a, b) => f === '__soon' ? a.nextSale.localeCompare(b.nextSale) : String(a.start).localeCompare(String(b.start)));
+  rows.sort((a, b) => onlySoon ? a.nextSale.localeCompare(b.nextSale) : String(a.start).localeCompare(String(b.start)));
+  if (onlyStar && !onlySoon && rows.some(e => e.changes)) {
+    const chg = rows.filter(e => e.changes);
+    $('evBody').innerHTML = '<div class="day">🔔 Changed since last check · ' + chg.length + '</div><div class="feed">' + chg.map(e => eventRow(e)).join('') + '</div>';
+    rows = rows.filter(e => !e.changes);
+    if (!rows.length) return;
+  } else $('evBody').innerHTML = '';
   if (!evs.length) { $('evBody').innerHTML = '<div class="card empty">No events yet — Claude looks for upcoming events every morning and fills this list automatically.</div>'; return; }
-  if (!rows.length) { $('evBody').innerHTML = '<div class="card empty">No events match.</div>'; return; }
+  const archLink = showArch ? '<button class="archlink press" onclick="S.ev.arch=false;renderEvents()">‹ Back to events</button>' :
+    nArch ? '<button class="archlink press" onclick="S.ev.arch=true;renderEvents();window.scrollTo(0,0)">🗃 Archived · ' + nArch + ' ›</button>' : '';
+  if (!rows.length) { $('evBody').innerHTML = '<div class="card empty">' + (onlyStar && !nStar ? 'Nothing followed yet — tap ☆ on any event.' : showArch ? 'Nothing archived.' : 'No events match.') + (f || onlySoon || onlyStar ? '<div style="margin-top:12px"><button class="btn tint press" onclick="S.ev.cat=\'\';S.ev.soon=false;S.ev.star=false;renderEvents()">Clear filters</button></div>' : '') + '</div>' + archLink; return; }
   const byMonth = {};
-  rows.slice(0, 500).forEach(e => { const d = f === '__soon' ? e.nextSale : e.start; const k = new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); (byMonth[k] = byMonth[k] || []).push(e); });
-  $('evBody').innerHTML = Object.keys(byMonth).map(m => '<div class="day">' + esc((f === '__soon' ? 'On sale · ' : '') + m) + '</div><div class="feed">' + byMonth[m].map(e => eventRow(e, f === '__soon')).join('') + '</div>').join('');
+  rows.slice(0, 600).forEach(e => { const d = onlySoon ? e.nextSale : e.start; const k = new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { month: 'long', year: 'numeric' }); (byMonth[k] = byMonth[k] || []).push(e); });
+  $('evBody').innerHTML += Object.keys(byMonth).map(m => '<div class="day">' + esc((onlySoon ? 'On sale · ' : '') + m) + ' · ' + byMonth[m].length + '</div><div class="feed">' + byMonth[m].map(e => eventRow(e, onlySoon)).join('') + '</div>').join('') + archLink;
+  if (showArch) $('evBody').insertAdjacentHTML('afterbegin', '<div class="card cardpad" style="flex-direction:row;align-items:center;gap:10px"><span style="font-size:22px">🗃</span><div style="flex:1"><b>Archived events</b><div class="muted" style="font-size:13px">Marked not interested — skipped by the daily checks. Open one to restore it.</div></div></div>');
 }
 
+/* ---------- Deep research tab ---------- */
+function deepCap() { return Number(D && D.deepCap) || 6; }
+function deepUsed() { return ((D && D.priorityIds) || []).length + ((D && D.priorityClubs) || []).length; }
+function deepLeft() { return Math.max(0, deepCap() - deepUsed()); }
+function nextRun() { // Claude checks the queue at :07 past each hour, 7am–10pm
+  const n = new Date(), t = new Date(n);
+  t.setSeconds(0, 0); t.setMinutes(7);
+  if (n >= t) t.setHours(t.getHours() + 1);
+  if (t.getHours() < 7) t.setHours(7, 7);
+  if (t.getHours() > 22) { t.setDate(t.getDate() + 1); t.setHours(7, 7); }
+  return t;
+}
+const hm = d => d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+function nextRunText() {
+  const t = nextRun(), mins = Math.round((t - Date.now()) / 60000), today = t.toDateString() === new Date().toDateString();
+  return (today ? hm(t) : 'tomorrow ' + hm(t)) + (mins < 120 ? ' (in ' + mins + ' min)' : '');
+}
+function renderResearch() {
+  if (!D) return;
+  const cap = deepCap(), used = deepUsed(), left = deepLeft();
+  $('rsDot').textContent = used; $('rsDot').classList.toggle('hidden', !used);
+  $('rsSub').textContent = left + ' of ' + cap + ' slots free · next run ' + nextRunText();
+  const ready = new Date(nextRun().getTime() + 35 * 60000);
+  let h = '<div class="quota"><div style="display:flex;justify-content:space-between;align-items:flex-end;gap:10px"><div class="big">' + left + '<small> of ' + cap + ' slots free</small></div><div class="muted" style="text-align:right;font-size:13px">Next run<br><b style="color:var(--label)">' + esc(nextRunText()) + '</b></div></div>' +
+    '<div class="slots" style="--n:' + cap + '">' + Array.from({ length: cap }, (_, i) => '<i class="' + (i < used ? 'used' : '') + '"></i>').join('') + '</div>' +
+    '<div class="muted" style="font-size:13px;line-height:1.4">Each hourly run (7am–10pm) deep-researches up to ' + cap + ' events or clubs. Queued items are ready by about <b>' + hm(ready) + '</b>, then the slots free up again.</div></div>';
+  const at = D.priorityAt || {}, cat = D.priorityClubsAt || {};
+  const qEv = (D.priorityIds || []).map(id => findEv(id)).filter(Boolean);
+  const qCl = D.priorityClubs || [];
+  h += '<div class="shead"><h2>⏳ Queued · ' + used + '</h2></div>';
+  h += used ? '<div class="list">' +
+    qEv.map(e => '<div class="row plain"><div class="main press" onclick="openEvent(\'' + esc(e.id) + '\')"><div class="t">' + catEmoji(e.category) + ' ' + esc(e.name) + '</div><div class="s">' + esc([fmtDay(e.start), at[e.id] ? 'queued ' + ago(new Date(at[e.id]).toISOString()) : ''].filter(Boolean).join(' · ')) + '</div></div><button class="qx press" aria-label="Remove" onclick="unqueue(\'id\',\'' + esc(e.id) + '\')">✕</button></div>').join('') +
+    qCl.map(n => '<div class="row plain"><div class="main press" onclick="openClub(' + esc(JSON.stringify(n)).replace(/"/g, '&quot;') + ')"><div class="t">⚽ ' + esc(n) + '</div><div class="s">Club' + (cat[n] ? ' · queued ' + ago(new Date(cat[n]).toISOString()) : '') + '</div></div><button class="qx press" aria-label="Remove" onclick="unqueue(\'club\',' + esc(JSON.stringify(n)).replace(/"/g, '&quot;') + ')">✕</button></div>').join('') + '</div>'
+    : '<div class="card empty">Nothing queued. Open any event or club and tap <b>🔎 Deep research</b>.</div>';
+  const done = (D.events || []).filter(e => e.dossier).sort((a, b) => String(b.researched).localeCompare(String(a.researched)));
+  const doneCl = (D.clubIntel || []).filter(c => c.dossier).sort((a, b) => String(b.researched).localeCompare(String(a.researched)));
+  h += '<div class="shead"><h2>✅ Researched · ' + (done.length + doneCl.length) + '</h2></div>';
+  if (!done.length && !doneCl.length) h += '<div class="card empty">Finished deep research shows up here.</div>';
+  if (done.length) h += '<div class="feed">' + done.map(e => eventRow(e)).join('') + '</div>';
+  if (doneCl.length) h += '<div class="shead"><h2>Clubs</h2></div><div class="feed">' + doneCl.map(ci => clubRow(allClubs().find(c => c._i === ci) || { Club: ci.club, League: ci.league, _i: ci })).join('') + '</div>';
+  h += '<div class="list" style="margin-top:6px"><button class="row plain press" onclick="openDigest()"><div class="main"><div class="t">📰 This week’s digest</div><div class="s">On-sales, changes & new events — share on WhatsApp</div></div>' + CHEV + '</button>' +
+    '<button class="row plain press" onclick="openCalendar()"><div class="main"><div class="t">📅 On-sale calendar</div><div class="s">Next 3 weeks · add any to your calendar</div></div>' + CHEV + '</button></div>';
+  $('rsBody').innerHTML = h;
+}
+async function unqueue(kind, v) {
+  try { const j = await api('unqueue', '&' + kind + '=' + encodeURIComponent(v)); D = j; store.set(CACHE_KEY, JSON.stringify(j)); renderAll(); toast('Removed from the queue'); }
+  catch (e) { toast('Failed: ' + e.message); }
+}
+
+/* ---------- profit calculator ---------- */
+function profitCard(d) {
+  const pb = (d.price_breakdown || []).filter(x => x && x.name && !blank(x.price_from) && x.type !== 'Resale');
+  const rc = (d.resale_check || []).filter(x => x && !blank(x.avg || x.from));
+  const dm = d.demand || {}, t = d.tickets || {};
+  const buys = pb.length ? pb : (!blank(t.face_from) ? [{ name: 'Face value (lowest)', price_from: t.face_from, type: 'Ticket' }] : []);
+  if (!buys.length) return '';
+  const resale0 = (b) => !blank(b.resale_from) ? b.resale_from : rc.length ? Math.round(Math.min(...rc.map(x => Number(x.avg || x.from)))) : !blank(dm.resale_from) ? dm.resale_from : Math.round(b.price_from * 1.5);
+  const opts = buys.map((b, i) => '<option value="' + i + '">' + esc(({ Hospitality: '🥂 ', Ticket: '🎟 ' }[b.type] || '') + b.name + ' · ' + gbp(b.price_from)) + '</option>').join('');
+  window._calcBuys = buys; window._calcResale = resale0;
+  return '<div class="shead"><h2>Profit calculator</h2></div><div class="calc" id="calc">' +
+    '<div class="in"><label class="wide">Buy<select id="cBuy" onchange="calcPick()">' + opts + '</select></label>' +
+    '<label>Buy price £<input id="cCost" type="number" inputmode="decimal" value="' + buys[0].price_from + '" oninput="calcRun()"></label>' +
+    '<label>Resale price £<input id="cSell" type="number" inputmode="decimal" value="' + resale0(buys[0]) + '" oninput="calcRun()"></label>' +
+    '<label>Quantity<input id="cQty" type="number" inputmode="numeric" value="10" oninput="calcRun()"></label>' +
+    '<label>Fees %<input id="cFee" type="number" inputmode="decimal" value="15" oninput="calcRun()"></label></div>' +
+    '<div class="out"><div><span>Markup</span><b id="cMk">–</b></div><div><span>Profit each</span><b id="cEach">–</b></div><div><span>Total</span><b id="cTot">–</b></div></div>' +
+    '<div class="muted" style="font-size:12px">Resale defaults to the deep-research figure for that area (or the lowest resale average found). Fees = marketplace/seller fees taken off the sale price.</div></div>';
+}
+function calcPick() { const b = window._calcBuys[Number($('cBuy').value)]; $('cCost').value = b.price_from; $('cSell').value = window._calcResale(b); calcRun(); }
+function calcRun() {
+  const c = Number($('cCost').value) || 0, sP = Number($('cSell').value) || 0, q = Number($('cQty').value) || 0, fee = Number($('cFee').value) || 0;
+  const net = sP * (1 - fee / 100), each = net - c, mk = c ? (sP / c - 1) * 100 : 0;
+  const cls = v => v >= 0 ? 'pos' : 'neg';
+  const set = (id, txt, ok) => { $(id).textContent = txt; $(id).className = ok ? 'pos' : 'neg'; };
+  set('cMk', (mk >= 0 ? '+' : '') + Math.round(mk) + '%', mk >= 0);
+  set('cEach', (each < 0 ? '−' : '') + gbp(Math.abs(Math.round(each))), each >= 0);
+  set('cTot', (each < 0 ? '−' : '') + gbp(Math.abs(Math.round(each * q))), each >= 0);
+}
+
+/* ---------- on-sale calendar ---------- */
+function saleItems(days) {
+  const today = todayStr(), lim = addDaysStr(days), out = [], seen = {};
+  const add = (date, title, sub, ev, kind) => {
+    const dd = String(date || '').slice(0, 10); if (!/^\d{4}-\d{2}-\d{2}$/.test(dd) || dd < today || dd > lim) return;
+    const k = dd + '|' + title; if (seen[k]) return; seen[k] = 1;
+    out.push({ date: String(date).slice(0, 16), day: dd, title: title, sub: sub, ev: ev, kind: kind });
+  };
+  (D.events || []).filter(e => !isArch(e)).forEach(e => {
+    const os = ((e.dossier && e.dossier.on_sale) || []);
+    os.forEach(o => add(o.date, e.name, [o.phase, o.where].filter(Boolean).join(' · '), e.id, 'sale'));
+    if (!os.length && e.nextSale) add(e.nextSale, e.name, 'On sale' + (e.status ? ' · ' + e.status : ''), e.id, 'sale');
+  });
+  (D.radar || []).forEach(r => add(r.saleDate, r.title, [r.what, r.where].filter(Boolean).join(' · '), r.eventId || '', 'radar'));
+  return out.sort((a, b) => a.date.localeCompare(b.date));
+}
+function calLinks(title, date, details) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?/.exec(date); if (!m) return '';
+  const pad = n => String(n).padStart(2, '0');
+  const hasT = !!m[4];
+  const s = m[1] + m[2] + m[3] + (hasT ? 'T' + m[4] + m[5] + '00' : '');
+  const endD = new Date(+m[1], +m[2] - 1, +m[3] + (hasT ? 0 : 1), hasT ? +m[4] + 1 : 0, hasT ? +m[5] : 0);
+  const e = endD.getFullYear() + pad(endD.getMonth() + 1) + pad(endD.getDate()) + (hasT ? 'T' + pad(endD.getHours()) + pad(endD.getMinutes()) + '00' : '');
+  const g = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent('🎟 ' + title) + '&dates=' + s + '/' + e + '&ctz=Europe/London&details=' + encodeURIComponent(details || '');
+  const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Scout Events//EN', 'BEGIN:VEVENT', 'UID:' + s + '-' + Math.random().toString(36).slice(2) + '@scoutevents',
+    'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z', hasT ? 'DTSTART;TZID=Europe/London:' + s : 'DTSTART;VALUE=DATE:' + s, hasT ? 'DTEND;TZID=Europe/London:' + e : 'DTEND;VALUE=DATE:' + e,
+    'SUMMARY:' + ('🎟 ' + title).replace(/[,;]/g, ' '), 'DESCRIPTION:' + String(details || '').replace(/\n/g, '\\n').replace(/[,;]/g, ' '),
+    'BEGIN:VALARM', 'TRIGGER:-PT1H', 'ACTION:DISPLAY', 'DESCRIPTION:On sale in 1 hour', 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+  return '<div class="btns"><a class="btn tint press" style="height:40px;font-size:14px" href="' + esc(g) + '" target="_blank" rel="noopener">Google Calendar</a>' +
+    '<a class="btn tint press" style="height:40px;font-size:14px" href="data:text/calendar;charset=utf-8,' + encodeURIComponent(ics) + '" download="on-sale.ics">Apple / Outlook</a></div>';
+}
+function openCalendar() {
+  const items = saleItems(21);
+  const byDay = {};
+  items.forEach(x => (byDay[x.day] = byDay[x.day] || []).push(x));
+  let h = '<div class="sheet-title"><h2>📅 On-sale calendar</h2><p>Sales, presales & ballots in the next 3 weeks</p></div>';
+  if (!items.length) h += '<div class="card empty">Nothing opening in the next 3 weeks yet.</div>';
+  Object.keys(byDay).forEach(d => {
+    const lbl = d === todayStr() ? 'Today' : d === addDaysStr(1) ? 'Tomorrow' : new Date(d + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'short' });
+    h += '<div class="day" style="padding-left:4px">' + esc(lbl) + '</div><div class="list">' + byDay[d].map(x => {
+      const t = dparts(x.date);
+      return '<div class="row plain" style="flex-direction:column;align-items:stretch;gap:8px"><div style="display:flex;gap:10px;align-items:center"' + (x.ev ? ' class="press" onclick="closeSheet();openEvent(\'' + esc(x.ev) + '\')"' : '') + '><div class="time num" style="min-width:44px">' + (t && t.time ? t.time : 'All day') + '</div><div class="main"><div class="t">' + esc(x.title) + '</div><div class="s">' + esc(x.sub || '') + '</div></div></div>' +
+        calLinks(x.title, x.date, x.sub) + '</div>';
+    }).join('') + '</div>';
+  });
+  openSheet(h);
+}
+function eventCalendar(id) {
+  const e = findEv(id); if (!e) return;
+  const os = ((e.dossier && e.dossier.on_sale) || []).filter(o => /^\d{4}-\d{2}-\d{2}/.test(String(o.date || '')));
+  const list = os.length ? os.map(o => ({ date: String(o.date), sub: [o.phase, o.where, o.requirements].filter(Boolean).join(' · ') })) : e.nextSale ? [{ date: e.nextSale, sub: 'On sale' }] : [];
+  openSheet('<div class="sheet-title"><h2>📅 Add to calendar</h2><p>' + esc(e.name) + '</p></div>' + (list.length ? '<div class="list">' + list.map(x =>
+    '<div class="row plain" style="flex-direction:column;align-items:stretch;gap:8px"><div class="main"><div class="t">' + esc(fmtWhen(x.date)) + '</div><div class="s" style="white-space:normal">' + esc(x.sub) + '</div></div>' + calLinks(e.name, x.date, x.sub) + '</div>').join('') + '</div>' :
+    '<div class="card empty">No on-sale date known yet.</div>') + '<div class="muted" style="padding:0 4px;font-size:13px">Each entry has a reminder 1 hour before.</div>');
+}
+
+/* ---------- LFT price history ---------- */
+function lftHist(f) { return ((D.lftHistory || {})[f['LFT link']] || []).filter(p => p[1] != null || p[2] != null); }
+function lftTrend(f) {
+  const h = lftHist(f).filter(p => p[1] != null); if (h.length < 2) return '';
+  const a = h[Math.max(0, h.length - 8)][1], b = h[h.length - 1][1]; if (!a) return '';
+  const pc = Math.round((b / a - 1) * 100); if (!pc) return '<span class="trend" style="color:var(--sec)">→ 0%</span>';
+  return '<span class="trend ' + (pc > 0 ? 'pos' : 'neg') + '">' + (pc > 0 ? '↑' : '↓') + Math.abs(pc) + '%</span>';
+}
+function sparkSvg(vals, color) {
+  const v = vals.filter(x => x != null); if (v.length < 2) return '';
+  const mn = Math.min(...v), mx = Math.max(...v), W = 300, Hh = 60, n = vals.length;
+  const pts = vals.map((x, i) => x == null ? null : [i * W / (n - 1), Hh - 6 - (mx === mn ? 0.5 : (x - mn) / (mx - mn)) * (Hh - 12)]).filter(Boolean);
+  return '<svg class="spark" viewBox="0 0 ' + W + ' ' + Hh + '" preserveAspectRatio="none"><polyline fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" points="' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join(' ') + '"/></svg>';
+}
+function historyCard(f) {
+  const h = lftHist(f); if (h.length < 2) return '<div class="card cardpad"><div class="muted" style="font-size:13px">📈 Price history builds up daily — check back in a few days.</div></div>';
+  const fr = h.map(p => p[1]), ls = h.map(p => p[2]);
+  const first = h[0], last = h[h.length - 1];
+  return '<div class="card cardpad"><div style="display:flex;justify-content:space-between;align-items:baseline"><b>📈 LFT "from" price · ' + h.length + ' days</b>' + lftTrend(f) + '</div>' + sparkSvg(fr, 'var(--acc)') +
+    '<div class="muted" style="font-size:12px;display:flex;justify-content:space-between"><span>' + esc(first[0]) + ': ' + (first[1] != null ? gbp(first[1]) : '—') + '</span><span>' + esc(last[0]) + ': ' + (last[1] != null ? gbp(last[1]) : '—') + '</span></div>' +
+    (ls.some(x => x != null) ? '<b style="margin-top:6px">🎟 Listings</b>' + sparkSvg(ls, 'var(--gold)') + '<div class="muted" style="font-size:12px;display:flex;justify-content:space-between"><span>' + (first[2] != null ? n0(first[2]) + ' listed' : '—') + '</span><span>' + (last[2] != null ? n0(last[2]) + ' listed' : '—') + '</span></div>' : '') + '</div>';
+}
+
+/* ---------- weekly digest ---------- */
+function digestData() {
+  const evs = (D.events || []).filter(e => !isArch(e)), wk = Date.now() - 7 * 86400000;
+  return { sales: saleItems(7).filter(x => x.kind === 'sale'),
+    changed: evs.filter(e => isStar(e) && e.changedAt && new Date(e.changedAt) >= wk),
+    fresh: evs.filter(e => e.discovered && new Date(e.discovered) >= wk).sort((a, b) => String(a.start).localeCompare(String(b.start))),
+    deep: evs.filter(e => e.dossier && e.researched && new Date(e.researched) >= wk) };
+}
+function digestText() {
+  const g = digestData(), L = ['📰 *Scout Events — week of ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) + '*', ''];
+  L.push('🎟 *On sale this week* (' + g.sales.length + ')'); g.sales.slice(0, 12).forEach(x => L.push('• ' + fmtWhen(x.date) + ' — ' + x.title + (x.sub ? ' (' + x.sub + ')' : '')));
+  if (g.changed.length) { L.push(''); L.push('🔔 *Changes on followed events*'); g.changed.forEach(e => L.push('• ' + e.name + ': ' + e.changes.split('\n')[0].replace(/^[^·]*·\s*/, ''))); }
+  if (g.deep.length) { L.push(''); L.push('🔎 *Deep-researched*'); g.deep.forEach(e => L.push('• ' + e.name + ' — ' + (e.verdict || '?') + (e.score ? ' ' + e.score + '/100' : ''))); }
+  if (g.fresh.length) { L.push(''); L.push('🆕 *New events found* (' + g.fresh.length + ')'); g.fresh.slice(0, 10).forEach(e => L.push('• ' + e.name + ' — ' + fmtDay(e.start))); }
+  L.push(''); L.push('_Scout Events_');
+  return L.join('\n');
+}
+function openDigest() {
+  const g = digestData();
+  const sec = (t, rows) => rows ? '<div class="shead"><h2>' + t + '</h2></div>' + rows : '';
+  openSheet('<div class="sheet-title"><h2>📰 Your scouting week</h2><p>' + g.sales.length + ' on sale · ' + g.changed.length + ' changes · ' + g.fresh.length + ' new</p></div>' +
+    '<button class="btn wa press" onclick="window.open(\'https://wa.me/?text=\'+encodeURIComponent(digestText()),\'_blank\')">Share on WhatsApp</button>' +
+    sec('🎟 On sale this week', g.sales.length ? '<div class="list">' + g.sales.map(x => '<div class="row plain' + (x.ev ? ' press" onclick="closeSheet();openEvent(\'' + esc(x.ev) + '\')' : '') + '"><div class="main"><div class="t">' + esc(x.title) + '</div><div class="s">' + esc(fmtWhen(x.date) + (x.sub ? ' · ' + x.sub : '')) + '</div></div></div>').join('') + '</div>' : '<div class="card empty">Nothing opening this week.</div>') +
+    sec('🔔 Changes on followed events', g.changed.length ? '<div class="feed">' + g.changed.map(e => eventRow(e)).join('') + '</div>' : '') +
+    sec('🔎 Deep-researched this week', g.deep.length ? '<div class="feed">' + g.deep.map(e => eventRow(e)).join('') + '</div>' : '') +
+    sec('🆕 New events found', g.fresh.length ? '<div class="feed">' + g.fresh.slice(0, 15).map(e => eventRow(e)).join('') + '</div>' : ''));
+}
+
+function priceTable(d) {
+  const pb = (d.price_breakdown || []).filter(x => x && x.name);
+  if (!pb.length) return '';
+  {
+      const av = a => !a ? '' : '<small style="color:' + (/sold/i.test(a) ? 'var(--red)' : /limited|few/i.test(a) ? 'var(--gold)' : /available|on sale/i.test(a) ? 'var(--green)' : 'var(--sec)') + '">' + esc(a) + '</small>';
+      const prc = x => blank(x.price_from) && blank(x.price_to) ? '—' : blank(x.price_to) || x.price_from === x.price_to ? gbp(x.price_from) : blank(x.price_from) ? 'to ' + gbp(x.price_to) : gbp(x.price_from) + '–' + gbp(x.price_to);
+      const grp = t => pb.filter(x => (x.type || 'Ticket') === t);
+    return '<div class="shead"><h2>Prices by category</h2></div><div class="ptable">' + ['Ticket', 'Hospitality', 'Resale'].map(t => grp(t).length ? '<div class="grp">' + ({ Ticket: '🎟 Tickets', Hospitality: '🥂 Hospitality', Resale: '💷 Resale by section' }[t]) + '</div>' +
+        grp(t).map(x => '<div class="pr"><div class="nm">' + esc(x.name) + (x.includes ? '<small>' + esc(x.includes) + '</small>' : '') +
+          (!blank(x.resale_from) && !blank(x.price_from) ? '<small>♻️ resale from ' + gbp(x.resale_from) + ' · <b class="' + (x.resale_from >= x.price_from ? 'pos' : 'neg') + '">' + (x.resale_from >= x.price_from ? '+' : '') + Math.round((x.resale_from / x.price_from - 1) * 100) + '%</b></small>' : '') +
+          '</div><div class="pp">' + prc(x) + av(x.availability) + '</div></div>').join('') : '').join('') + '</div>' +
+        (pb.some(x => x.source) ? '<div class="tags" style="padding:0 4px">' + [...new Set(pb.map(x => x.source).filter(Boolean))].slice(0, 4).map(u => srcChip(u, 'Source · ' + host(u))).join('') + '</div>' : '');
+    }
+}
 function openEvent(id) {
   const e = findEv(id); if (!e) return;
   curEvent = id;
@@ -623,7 +921,13 @@ function openEvent(id) {
   let h = '<div class="card cardpad"><div style="display:flex;gap:12px;align-items:center"><div style="font-size:40px;line-height:1">' + catEmoji(e.category) + '</div><div style="min-width:0">' +
     '<div class="muted">' + esc(e.category) + (e.tier ? ' · Tier ' + esc(e.tier) : '') + '</div>' +
     '<div style="font-size:24px;font-weight:800;letter-spacing:-.3px;line-height:1.15">' + esc(d.name || e.name) + '</div></div></div>' +
-    '<div style="font-size:15px;line-height:1.5">📅 ' + esc(d.date_text || fmtRange(e.start, e.end)) + '<br>📍 ' + esc([d.venue || e.venue, d.city || e.city, d.country || e.country].filter(Boolean).join(', ')) + '</div>';
+    '<div style="font-size:15px;line-height:1.5">📅 ' + esc(d.date_text || fmtRange(e.start, e.end)) + '<br>📍 ' + esc([d.venue || e.venue, d.city || e.city, d.country || e.country].filter(Boolean).join(', ')) + '</div>' +
+    '<div class="muted" style="font-size:13px">🔎 ' + (e.researched ? 'Last deep research <b style="color:var(--label)">' + esc(ago(e.researched)) + '</b> · ' + esc(new Date(e.researched).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })) : 'Not deep-researched yet') + (isStar(e) ? ' · ★ Following' : '') + '</div>';
+  if (e.changes) {
+    h = '<div class="chg"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="font-size:16px">🔔 Changed since last check</b><span class="muted" style="font-size:12px">' + esc(e.changedAt ? ago(e.changedAt) : '') + '</span></div>' +
+      e.changes.split('\n').filter(Boolean).map(l => '<div class="ln">• ' + esc(l) + '</div>').join('') +
+      '<div class="btns"><button class="btn fill press" onclick="researchNow(\'' + esc(id) + '\')"' + (queued(e) || !deepLeft() ? ' disabled' : '') + '>' + (queued(e) ? '⏳ Queued' : '🔎 Research again') + '</button><button class="btn tint press" onclick="markEvent(\'' + esc(id) + '\',\'seen\')">✓ Mark seen</button></div></div>' + h;
+  }
   if (!e.dossier) {
     const rng = (a, b) => blank(a) && blank(b) ? '' : blank(b) || a === b ? gbp(a) : gbp(a) + ' – ' + gbp(b);
     h += '</div><div class="shead"><h2>Basic details</h2></div><div class="card cardpad"><div class="cells">' +
@@ -651,6 +955,7 @@ function openEvent(id) {
       '<div class="main"><div class="t">' + esc(x.platform) + '</div><div class="s" style="white-space:normal">' +
       esc([!blank(x.listings) ? n0(x.listings) + ' listed' : '', !blank(x.avg) ? 'avg ' + gbp(x.avg) : '', x.note || ''].filter(Boolean).join(' · ') || (blank(x.from) ? 'No price found' : '')) + '</div></div>' +
       '<div class="right"><b class="num" style="font-size:16px">' + (blank(x.from) ? '—' : gbp(x.from)) + '</b>' + (blank(x.from) ? '' : '<small>from</small>') + '</div>' + (x.url ? '</a>' : '</div>')).join('') + '</div>';
+    h += priceTable(d) + profitCard(d);
     if ((d.prepare || []).filter(Boolean).length) h += '<div class="shead"><h2>How to prepare</h2></div><div class="card bul"><ul class="check">' + d.prepare.filter(Boolean).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>';
     if ((d.on_sale || []).length) h += '<div class="shead"><h2>On-sale timeline</h2></div><div class="list">' + d.on_sale.map(o => '<div class="row plain"><div class="main"><div class="t wrap">' + esc(o.phase) + '</div>' +
       '<div class="s" style="white-space:normal">' + esc([o.where, o.requirements].filter(Boolean).join(' · ')) + '</div>' + (o.source ? '<div class="tags">' + srcChip(o.source, 'Source · ' + host(o.source)) + '</div>' : '') + '</div><div class="right"><b style="font-size:15px">' + esc(fmtWhen(o.date)) + '</b></div></div>').join('') + '</div>';
@@ -671,14 +976,19 @@ function openEvent(id) {
     h += list('Competitors already selling', d.competitors) + list('Risks', d.risks);
     if ((d.sources || []).length) h += '<div class="shead"><h2>All sources</h2></div><div class="list">' + d.sources.slice(0, 12).map(x => '<a class="row plain press" href="' + esc(x.url) + '" target="_blank" rel="noopener"><div class="main"><div class="t" style="font-size:14px">' + esc(x.title) + '</div><div class="s">' + esc(x.url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]) + '</div></div>' + CHEV + '</a>').join('') + '</div>';
   }
-  if (e.teamStatus || e.owner || e.teamNotes) h += '<div class="shead"><h2>Team</h2></div><div class="card bul">' + [e.teamStatus && '<div><b>Status:</b> ' + esc(e.teamStatus) + '</div>', e.owner && '<div><b>Owner:</b> ' + esc(e.owner) + '</div>', e.teamNotes && '<div>' + esc(e.teamNotes) + '</div>'].filter(Boolean).join('') + '</div>';
+  if (e.owner || e.teamNotes) h += '<div class="shead"><h2>Team</h2></div><div class="card bul">' + [e.teamStatus && '<div><b>Status:</b> ' + esc(e.teamStatus) + '</div>', e.owner && '<div><b>Owner:</b> ' + esc(e.owner) + '</div>', e.teamNotes && '<div>' + esc(e.teamNotes) + '</div>'].filter(Boolean).join('') + '</div>';
 
+  if (e.nextSale || ((e.dossier && e.dossier.on_sale) || []).length) h += '<button class="btn tint press" style="margin-top:6px" onclick="eventCalendar(\'' + esc(id) + '\')">📅 Add on-sale to calendar</button>';
+  h += '<div class="btns" style="margin-top:6px">' +
+    '<button class="btn ' + (isStar(e) ? 'fill' : 'tint') + ' press" onclick="markEvent(\'' + esc(id) + '\',\'' + (isStar(e) ? 'clear' : 'star') + '\')">' + (isStar(e) ? '★ Following' : '☆ Follow') + '</button>' +
+    '<button class="btn tint press" onclick="markEvent(\'' + esc(id) + '\',\'' + (isArch(e) ? 'clear' : 'archive') + '\');' + (isArch(e) ? '' : 'closeEvent()') + '">' + (isArch(e) ? '↩︎ Restore' : '🙈 Not interested') + '</button></div>';
   h += '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">' +
     (e.dossier ? '<button class="btn wa press" onclick="shareEvent(\'' + esc(id) + '\')">Share on WhatsApp</button><button class="btn tint press" onclick="copyEvent(\'' + esc(id) + '\')">Copy full details</button>' : '') +
-    '<button class="btn ' + (e.dossier ? 'tint' : 'fill') + ' press" id="resBtn" onclick="researchNow(\'' + esc(id) + '\')"' + (busy || queued(e) ? ' disabled' : '') + '>' + (queued(e) ? '⏳ Deep research queued — ready within the hour' : e.dossier ? '🔎 Deep research again' : '🔎 Deep research') + '</button>' +
+    '<button class="btn ' + (e.dossier ? 'tint' : 'fill') + ' press" id="resBtn" onclick="researchNow(\'' + esc(id) + '\')"' + (busy || queued(e) || !deepLeft() ? ' disabled' : '') + '>' + (queued(e) ? '⏳ Queued — runs ' + esc(nextRunText()) : !deepLeft() ? 'Queue full (' + deepCap() + '/' + deepCap() + ') — next run ' + esc(nextRunText()) : (e.dossier ? '🔎 Deep research again' : '🔎 Deep research') + ' · ' + deepLeft() + ' of ' + deepCap() + ' slots left') + '</button>' +
     (e.researched ? '<p class="muted" style="text-align:center">Researched ' + ago(e.researched) + '</p>' : '') + '</div>';
   $('evCTitle').textContent = e.name;
   $('eventBody').innerHTML = h;
+  if ($('calc')) calcRun();
   $('view-event').querySelector('.scroll').scrollTop = 0;
   $('view-event').classList.add('open');
 }
@@ -691,7 +1001,7 @@ async function researchNow(id) {
   try {
     const j = await api('research', '&id=' + encodeURIComponent(id));
     D = j; store.set(CACHE_KEY, JSON.stringify(j)); renderAll(); openEvent(id);
-    toast(j.queued ? 'Queued — Claude researches it within the hour' : 'Dossier updated');
+    toast(j.full ? 'Queue full — wait for the ' + nextRunText() + ' run' : j.queued ? 'Queued for the ' + nextRunText() + ' run · ' + deepLeft() + ' slots left' : 'Dossier updated');
   } catch (e) { toast('Research failed: ' + e.message); if (b) { b.disabled = false; b.textContent = 'Try again'; } }
   finally { setBusy(false); }
 }
@@ -718,6 +1028,11 @@ function eventText(e) {
   L.push('• Hospitality: ' + (range(hsp.from, hsp.to) || 'TBC') + (hsp.official_provider ? ' (' + hsp.official_provider + ')' : ''));
   if (!blank(dm.resale_from)) L.push('• Resale: from ' + gbp(dm.resale_from));
   (d.resale_check || []).filter(x => x && x.platform && !blank(x.from)).forEach(x => L.push('   – ' + x.platform + ': from ' + gbp(x.from) + (blank(x.listings) ? '' : ' (' + n0(x.listings) + ' listed)')));
+  const pbw = (d.price_breakdown || []).filter(x => x && x.name);
+  if (pbw.length) {
+    L.push(''); L.push('💷 *Prices by category*');
+    pbw.forEach(x => L.push('• ' + ({ Hospitality: '🥂 ', Resale: '♻️ ' }[x.type] || '') + x.name + ': ' + (blank(x.price_from) ? '' : gbp(x.price_from)) + (!blank(x.price_to) && x.price_to !== x.price_from ? '–' + gbp(x.price_to) : '') + (x.availability ? ' (' + x.availability + ')' : '')));
+  }
   if (d.ticket_status) L.push('• Status: ' + d.ticket_status);
   if (t.source) L.push('  ↳ ' + t.source);
   if ((d.on_sale || []).length) { L.push(''); L.push('🗓 *On sale*'); d.on_sale.forEach(o => { L.push('• ' + o.phase + ': ' + (o.date || 'TBC') + (o.where ? ' (' + o.where + ')' : '') + (o.requirements ? ' — ' + o.requirements : '')); if (o.source) L.push('  ↳ ' + o.source); }); }
@@ -789,7 +1104,7 @@ function clubRow(c) {
 function fixRow(f, showDate) {
   const idx = D.fixtures.indexOf(f);
   const right = !blank(f['Resale from (£)']) ? '<b class="num">' + gbp(f['Resale from (£)']) + '</b><small>' + (!blank(f['LFT listings']) ? n0(f['LFT listings']) + ' listed' : !blank(f['LFT from (£)']) ? 'LFT from' : n0(f['Resale listings']) + ' listed') + '</small>' : '<small>no resale data</small>';
-  const tags = f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '';
+  const tags = (f['Big match'] ? '<span class="tag t-big">★ Big match</span>' : '') + (lftTrend(f) ? '<span class="tag s-general">7d ' + lftTrend(f) + '</span>' : '');
   return '<button class="row press" onclick="openFixture(' + idx + ')"><div class="time num">' + (showDate ? esc(String(f['Date']).slice(8, 10) + '/' + String(f['Date']).slice(5, 7)) + '<br>' : '') + esc(f['KO (UK)']) + '</div>' +
     '<div class="main"><div class="t">' + esc(f['Home']) + ' v ' + esc(f['Away']) + '</div><div class="s">' + esc(f['Competition']) + (f['Round'] ? ' · ' + esc(f['Round']) : '') + ' · ' + esc(f['Venue']) + '</div>' +
     (tags ? '<div class="tags">' + tags + '</div>' : '') + '</div><div class="right">' + right + '</div></button>';
@@ -851,6 +1166,7 @@ function openClub(x) {
     (c['Avg resale from (£)'] !== undefined ? cell('Resale avg', gbp(c['Avg resale from (£)'])) + cell('Home games left', c['Home games left']) : '') + '</div></div>';
 
   if (i.dossier) {
+    h += priceTable(d);
     if (d.reseller_route) h += '<div class="shead"><h2>Route in</h2></div><div class="card bul"><div>' + esc(d.reseller_route) + '</div>' + (hsp.contact ? '<div><b>Contact:</b> <span style="user-select:text">' + esc(hsp.contact) + '</span></div>' : '') + '</div>';
     if ((d.prepare || []).filter(Boolean).length) h += '<div class="shead"><h2>Next steps</h2></div><div class="card bul"><ul class="check">' + d.prepare.filter(Boolean).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>';
     if (tk.how_sales_work || tk.price_categories) h += '<div class="shead"><h2>How tickets sell</h2></div><div class="card bul">' + (tk.how_sales_work ? '<div>' + esc(tk.how_sales_work) + '</div>' : '') + (tk.price_categories ? '<div class="muted">💷 ' + esc(tk.price_categories) + '</div>' : '') + (tk.source ? '<div>' + srcChip(tk.source, 'Official · ' + host(tk.source)) + '</div>' : '') + '</div>';
@@ -879,7 +1195,7 @@ function openClub(x) {
   const q = JSON.stringify(name).replace(/"/g, '&quot;');
   h += '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px">' +
     (i.dossier ? '<button class="btn wa press" onclick="window.open(\'https://wa.me/?text=\'+encodeURIComponent(clubText(' + q + ')),\'_blank\')">Share on WhatsApp</button>' : '') +
-    '<button class="btn ' + (i.dossier ? 'tint' : 'fill') + ' press" id="clubResBtn" onclick="queueClub(' + q + ')"' + (clubQueued(name) ? ' disabled' : '') + '>' + (clubQueued(name) ? '⏳ Deep research queued — ready within the hour' : i.dossier ? '🔎 Deep research again' : '🔎 Deep research') + '</button>' +
+    '<button class="btn ' + (i.dossier ? 'tint' : 'fill') + ' press" id="clubResBtn" onclick="queueClub(' + q + ')"' + (clubQueued(name) || !deepLeft() ? ' disabled' : '') + '>' + (clubQueued(name) ? '⏳ Queued — runs ' + esc(nextRunText()) : !deepLeft() ? 'Queue full (' + deepCap() + '/' + deepCap() + ') — next run ' + esc(nextRunText()) : (i.dossier ? '🔎 Deep research again' : '🔎 Deep research') + ' · ' + deepLeft() + ' of ' + deepCap() + ' slots left') + '</button>' +
     (i.researched ? '<p class="muted" style="text-align:center">Researched ' + ago(i.researched) + '</p>' : '') + '</div>';
   $('clubCTitle').textContent = c['Club'];
   $('clubBody').innerHTML = h;
@@ -888,7 +1204,7 @@ function openClub(x) {
 }
 async function queueClub(name) {
   const b = $('clubResBtn'); if (b) { b.disabled = true; b.textContent = 'Adding to research queue…'; }
-  try { const j = await api('researchclub', '&club=' + encodeURIComponent(name)); D = j; store.set(CACHE_KEY, JSON.stringify(j)); renderAll(); openClub(name); toast('Queued — Claude researches it within the hour'); }
+  try { const j = await api('researchclub', '&club=' + encodeURIComponent(name)); D = j; store.set(CACHE_KEY, JSON.stringify(j)); renderAll(); openClub(name); toast(j.full ? 'Queue full — wait for the ' + nextRunText() + ' run' : 'Queued for the ' + nextRunText() + ' run · ' + deepLeft() + ' slots left'); }
   catch (e) { toast('Failed: ' + e.message); if (b) { b.disabled = false; b.textContent = 'Try again'; } }
 }
 function clubText(name) {
@@ -947,6 +1263,7 @@ function openFixture(i) {
   h += '<div class="card cardpad"><div class="cells">' + cell('Venue', f['Venue']) + cell('Capacity', n0(f['Capacity'])) +
     cell('LFT from', blank(f['LFT from (£)']) ? (f['LFT listings'] === 0 ? 'None listed' : '') : gbp(f['LFT from (£)'])) + cell('LFT average', blank(f['LFT avg (£)']) ? '' : gbp(f['LFT avg (£)'])) +
     cell('LFT listings', blank(f['LFT listings']) ? '' : n0(f['LFT listings'])) + cell('Resale listings (all)', n0(f['Resale listings'])) + '</div></div>';
+  if (f['LFT link']) h += historyCard(f);
   const ci = D.clubs.findIndex(c => c['Club'] === f['Home']);
   h += '<div style="display:flex;flex-direction:column;gap:10px">' +
  (f['LFT link'] ? '<a class="btn fill press" href="' + esc(f['LFT link']) + '" target="_blank" rel="noopener">LiveFootballTickets listing</a>' : '') +
@@ -1052,6 +1369,8 @@ function handleHash() {
   const [k, v] = h.split('=');
   if (k === 'ev' && findEv(v)) { switchTab('home'); openEvent(v); }
   else if (k === 'radar') { S.rad = 'radar'; switchTab('intel'); if (v) openRadar(v); }
+  else if (k === 'digest') { switchTab('research'); openDigest(); }
+  else if (k === 'calendar') { openCalendar(); }
   history.replaceState(null, '', location.pathname + location.search);
 }
 window.addEventListener('hashchange', handleHash);
