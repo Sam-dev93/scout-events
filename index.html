@@ -475,7 +475,7 @@ const SIGNALS = ['Partner deal','Competitor','Demand / sell-out','New hospitalit
 const TABS = ['home','next','research','football','intel'];
 
 let D = null, busy = false, curTab = 'home', curEvent = null;
-const S = { rad: 'radar', radar: { what: '', high: false }, fb: 'clubs', ev: { q:'', verdict:'', when:'all', cat:'', soon:false, star:false, arch:false }, clubs: { q:'', league:'', sort:'score' }, fix: { q:'', days:14, comp:'', notGo:false }, intel: { q:'', sig:'', newOnly:false, club:'' } };
+const S = { nx: 'all', rad: 'radar', radar: { what: '', high: false }, fb: 'clubs', ev: { q:'', verdict:'', when:'all', cat:'', soon:false, star:false, arch:false }, clubs: { q:'', league:'', sort:'score' }, fix: { q:'', days:14, comp:'', notGo:false }, intel: { q:'', sig:'', newOnly:false, club:'' } };
 
 /* ================= Utils ================= */
 const $ = id => document.getElementById(id);
@@ -845,6 +845,14 @@ function saleItems(days) {
     if (!os.length && e.nextSale) add(e.nextSale, e.name, 'Next on-sale' + (e.status && !/not on sale|unknown/i.test(e.status) ? ' · ' + e.status : ''), e.id, 'sale');
   });
   (D.radar || []).forEach(r => add(r.saleDate, r.title, [r.what, r.where].filter(Boolean).join(' · '), r.eventId || '', 'radar'));
+  (D.footballSales || []).forEach((x, i) => {
+    const n0_ = out.length, t = x.match || x.club, who = [x.who, x.where].filter(Boolean).join(' · ');
+    const op = String(x.opens || ''), cl = String(x.closes || '');
+    if (op && op.slice(0, 10) >= today) add(op, t, [x.phase, who].filter(Boolean).join(' · '), '', 'fb');
+    else if (op && cl && cl.slice(0, 10) >= today) add(today, t, [x.phase + ' — open now', who].filter(Boolean).join(' · '), '', 'fb');
+    if (cl && cl.slice(0, 10) >= today && cl.slice(0, 10) !== op.slice(0, 10)) add(cl, t, [x.phase + ' closes', who].filter(Boolean).join(' · '), '', 'fb');
+    for (let j = n0_; j < out.length; j++) out[j].fb = i;
+  });
   return out.sort((a, b) => a.date.localeCompare(b.date));
 }
 function calLinks(title, date, details) {
@@ -914,6 +922,8 @@ function historyCard(f) {
 function saleKind(t) {
   t = String(t || '');
   if (/ballot/i.test(t)) return /clos|deadline|ends?\b/i.test(t) ? ['🎲 Ballot closes', 'k-close'] : /result|winner|success/i.test(t) ? ['🎲 Ballot results', 'k-ballot'] : ['🎲 Ballot', 'k-ballot'];
+  if (/exchange|resale|re-sale/i.test(t)) return /clos/i.test(t) ? ['♻️ Exchange closes', 'k-close'] : ['♻️ Exchange', 'k-pre'];
+  if (/\baway\b/i.test(t)) return ['🚌 Away', 'k-mem'];
   if (/pre-?sale|priority|early/i.test(t)) return ['⏰ Presale', 'k-pre'];
   if (/member|season|loyalty|debenture|supporter/i.test(t)) return ['👥 Members', 'k-mem'];
   if (/hospitality/i.test(t)) return ['🥂 Hospitality', 'k-mem'];
@@ -922,15 +932,18 @@ function saleKind(t) {
 }
 function renderNext() {
   if (!D) return;
-  const items = saleItems(14).map(x => { const e = x.ev ? findEv(x.ev) : null; return Object.assign(x, { e: e, star: !!(e && isStar(e)), kind2: saleKind(x.sub + ' ' + x.title) }); });
+  const all = saleItems(14), F = S.nx || 'all';
+  const items = all.filter(x => F === 'all' || (F === 'fb' ? x.kind === 'fb' || (x.e && x.e.category === 'Football') : x.kind !== 'fb' && !(x.e && x.e.category === 'Football'))).map(x => { const e = x.ev ? findEv(x.ev) : null; return Object.assign(x, { e: e, star: !!(e && isStar(e)), kind2: saleKind(x.sub + ' ' + x.title) }); });
   window._nx = items;
   const wk = addDaysStr(7), thisWk = items.filter(x => x.day <= wk);
   const ballots = items.filter(x => /k-ballot|k-close/.test(x.kind2[1])).length;
-  const changed = (D.events || []).filter(e => !isArch(e) && isStar(e) && e.changes);
+  const changed = (D.events || []).filter(e => !isArch(e) && isStar(e) && e.changes && (F === 'all' || (F === 'fb') === (e.category === 'Football')));
   const today = items.filter(x => x.day === todayStr()).length;
   $('nxDot').textContent = today + changed.length; $('nxDot').classList.toggle('hidden', !(today + changed.length));
   $('nxSub').textContent = 'Next 14 days · ' + items.length + ' sale moment' + (items.length === 1 ? '' : 's');
-  let h = '<div class="nx-sum"><div><b>' + thisWk.length + '</b><span>on sale this week</span></div><div><b>' + ballots + '</b><span>ballots</span></div><div><b' + (changed.length ? ' style="color:var(--gold)"' : '') + '>' + changed.length + '</b><span>changes</span></div></div>' +
+  const nFb = all.filter(x => x.kind === 'fb' || (x.e && x.e.category === 'Football')).length;
+  let h = '<div class="seg" style="margin-bottom:2px;display:grid;grid-template-columns:1fr 1fr 1.3fr">' + [['all', 'All · ' + all.length], ['ev', 'Events · ' + (all.length - nFb)], ['fb', '⚽ Football · ' + nFb]].map(c => '<button class="press" aria-pressed="' + (F === c[0]) + '" onclick="S.nx=\'' + c[0] + '\';renderNext()">' + c[1] + '</button>').join('') + '</div>' +
+    '<div class="nx-sum"><div><b>' + thisWk.length + '</b><span>on sale this week</span></div><div><b>' + ballots + '</b><span>ballots</span></div><div><b' + (changed.length ? ' style="color:var(--gold)"' : '') + '>' + changed.length + '</b><span>changes</span></div></div>' +
     '<button class="btn wa press" onclick="window.open(\'https://wa.me/?text=\'+encodeURIComponent(digestText()),\'_blank\')">Share weekly digest on WhatsApp</button>';
   if (changed.length) h += '<div class="shead"><h2>🔔 Needs a look</h2></div><div class="feed">' + changed.map(e => eventRow(e)).join('') + '</div>';
   if (!items.length) h += '<div class="card empty">No sales, presales or ballots found for the next 2 weeks yet. Deep research and Radar fill this in.</div>';
@@ -939,15 +952,33 @@ function renderNext() {
     const rows = byDay[d].sort((a, b) => (b.star - a.star) || a.date.localeCompare(b.date));
     const p = dparts(d), lbl = d === todayStr() ? 'Today' : d === addDaysStr(1) ? 'Tomorrow' : p.wd + ' ' + p.d + ' ' + p.mon;
     h += '<div class="nx-day">' + esc(lbl) + (d === todayStr() || d === addDaysStr(1) ? '<small>' + esc(p.wd + ' ' + p.d + ' ' + p.mon) + '</small>' : '') + '<small style="margin-left:auto">' + rows.length + '</small></div><div class="list">' + rows.map(x => {
-      const t = dparts(x.date), cat = x.e ? catEmoji(x.e.category) + ' ' : x.kind === 'radar' ? '📡 ' : '';
+      const t = dparts(x.date), cat = x.e ? catEmoji(x.e.category) + ' ' : x.kind === 'radar' ? '📡 ' : x.kind === 'fb' ? '⚽ ' : '';
       return '<div class="row plain nx-row"><div class="time num" style="min-width:44px">' + (t && t.time ? t.time : 'All day') + '</div>' +
-        '<div class="main' + (x.ev ? ' press" onclick="openEvent(\'' + esc(x.ev) + '\')' : '') + '"><div class="t">' + (x.star ? '<span class="star-mark">★</span> ' : '') + cat + esc(x.title) + '</div>' +
+        '<div class="main' + (x.ev ? ' press" onclick="openEvent(\'' + esc(x.ev) + '\')' : x.kind === 'fb' ? ' press" onclick="openFbSale(' + x.fb + ')' : '') + '"><div class="t">' + (x.star ? '<span class="star-mark">★</span> ' : '') + cat + esc(x.title) + '</div>' +
         '<div class="s" style="display:flex;gap:6px;align-items:center"><span class="kind ' + x.kind2[1] + '">' + x.kind2[0] + '</span><span style="overflow:hidden;text-overflow:ellipsis">' + esc(x.sub || '') + '</span></div></div>' +
         '<button class="nx-cal press" aria-label="Add to calendar" onclick="nxCal(' + x.i + ')">📅</button></div>';
     }).join('') + '</div>';
   });
   h += '<div class="muted" style="padding:6px 4px;font-size:13px">★ = events you follow (shown first). Tap 📅 to add a reminder 1 hour before.</div>';
   $('nxBody').innerHTML = h;
+}
+function openFbSale(i) {
+  const x = (D.footballSales || [])[i]; if (!x) return;
+  const k = saleKind(x.kind + ' ' + x.phase);
+  const row = (l, v) => v ? '<div class="row plain"><div class="main"><div class="s">' + esc(l) + '</div><div class="t wrap">' + esc(v) + '</div></div></div>' : '';
+  openSheet('<div class="sheet-title"><h2>⚽ ' + esc(x.match || x.club) + '</h2><p>' + esc([x.matchDate ? fmtDay(x.matchDate) : '', x.comp].filter(Boolean).join(' · ')) + '</p><div class="tags"><span class="kind ' + k[1] + '">' + k[0] + '</span></div></div>' +
+    '<div class="list">' + row('Phase', x.phase) + row('Opens', x.opens ? fmtWhen(x.opens) : '') + row('Closes', x.closes ? fmtWhen(x.closes) : '') + row('Who can buy', x.who) + row('Where', x.where) + '</div>' +
+    (x.opens ? '<div class="shead"><h2>Opens</h2></div>' + calLinks((x.match || x.club) + ' — ' + x.phase, x.opens, [x.who, x.where].filter(Boolean).join(' · ')) : '') +
+    (x.closes ? '<div class="shead"><h2>Closes</h2></div>' + calLinks((x.match || x.club) + ' — ' + x.phase + ' closes', x.closes, x.who || '') : '') +
+    (x.source ? '<a class="btn tint press" href="' + esc(x.source) + '" target="_blank" rel="noopener">Official page · ' + esc(host(x.source)) + '</a>' : ''));
+}
+function fbSalesFor(f) {
+  const tk = s => String(s || '').toLowerCase().replace(/\b(fc|afc|the|and|hove|albion|hotspur|wanderers)\b/g, '').replace(/[^a-z ]/g, '').trim();
+  const h = tk(f['Home']), a = tk(f['Away']);
+  return (D.footballSales || []).map((x, i) => Object.assign({ i: i }, x)).filter(x => {
+    const m = tk(x.match); if (x.matchDate && x.matchDate !== f['Date']) return false;
+    return m && (m.includes(h.split(' ')[0]) && m.includes(a.split(' ')[0]));
+  });
 }
 function nxCal(i) {
   const x = (window._nx || [])[i]; if (!x) return;
@@ -1353,6 +1384,9 @@ function openFixture(i) {
     cell('LFT from', blank(f['LFT from (£)']) ? (f['LFT listings'] === 0 ? 'None listed' : '') : gbp(f['LFT from (£)'])) + cell('LFT average', blank(f['LFT avg (£)']) ? '' : gbp(f['LFT avg (£)'])) +
     cell('LFT listings', blank(f['LFT listings']) ? '' : n0(f['LFT listings'])) + cell('Resale listings (all)', n0(f['Resale listings'])) + '</div></div>';
   if (f['LFT link']) h += historyCard(f);
+  const fbs = fbSalesFor(f);
+  if (fbs.length) h += '<div class="shead"><h2>🎟 Ticket sale dates</h2></div><div class="list">' + fbs.map(x => { const k = saleKind(x.kind + ' ' + x.phase);
+    return '<button class="row plain press" onclick="openFbSale(' + x.i + ')"><div class="main"><div class="t">' + esc(x.phase) + '</div><div class="s" style="display:flex;gap:6px;align-items:center"><span class="kind ' + k[1] + '">' + k[0] + '</span><span>' + esc([x.opens ? fmtWhen(x.opens) : '', x.closes ? '→ ' + fmtWhen(x.closes) : ''].filter(Boolean).join(' ')) + '</span></div></div>' + CHEV + '</button>'; }).join('') + '</div>';
   const ci = D.clubs.findIndex(c => c['Club'] === f['Home']);
   h += '<div style="display:flex;flex-direction:column;gap:10px">' +
  (f['LFT link'] ? '<a class="btn fill press" href="' + esc(f['LFT link']) + '" target="_blank" rel="noopener">LiveFootballTickets listing</a>' : '') +
