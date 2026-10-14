@@ -805,6 +805,20 @@ function profitCard(d) {
     '<div class="out"><div><span>Markup</span><b id="cMk">–</b></div><div><span>Profit each</span><b id="cEach">–</b></div><div><span>Total</span><b id="cTot">–</b></div></div>' +
     '<div class="muted" style="font-size:12px">Resale defaults to the deep-research figure for that area (or the lowest resale average found). Fees = marketplace/seller fees taken off the sale price.</div></div>';
 }
+const SC_W = [['demand', 'Demand', 30, 'How badly people want it — sell-outs, ballots, buzz'], ['margin', 'Margin', 30, 'Resale vs face value, per category'],
+  ['scarcity', 'Scarcity', 20, 'How hard it is to get at face value'], ['timing', 'Timing', 10, 'Where prices are heading / is now the moment'], ['competition', 'Competition', 10, 'How crowded resale is (higher = less crowded)']];
+function scorecardCard(d) {
+  const sc = d && d.scorecard; if (!sc) return '';
+  const rows = SC_W.filter(w => sc[w[0]] && sc[w[0]].score != null);
+  if (!rows.length) return '';
+  const col = v => v >= 7 ? 'var(--green)' : v >= 4 ? 'var(--gold)' : 'var(--red)';
+  return '<div class="shead"><h2>Why this score</h2></div><div class="card cardpad" style="gap:12px">' + rows.map(w => {
+    const x = sc[w[0]], v = Math.max(0, Math.min(10, Number(x.score) || 0));
+    return '<div><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><b style="font-size:15px">' + w[1] + ' <span class="muted" style="font-size:12px;font-weight:600">· ' + w[2] + '%</span></b><b class="num" style="color:' + col(v) + '">' + v + '/10</b></div>' +
+      '<div style="height:8px;border-radius:99px;background:var(--sub2);margin:6px 0"><div style="height:100%;width:' + v * 10 + '%;border-radius:99px;background:' + col(v) + '"></div></div>' +
+      '<div class="muted" style="font-size:13px;line-height:1.4">' + esc(x.why || w[3]) + '</div></div>';
+  }).join('') + '<div class="muted" style="font-size:12px">GO 70+ · MAYBE 40–69 · SKIP under 40. The total is the weighted average of the five scores.</div></div>';
+}
 function estMid(d) {
   const x = d && d.resale_estimate; if (!x) return '';
   const lo = Number(x.low), hi = Number(x.high);
@@ -1057,7 +1071,7 @@ function openEvent(id) {
       '<div class="muted">' + (e.basicChecked ? 'Quick check ' + ago(e.basicChecked) + ' · ' : '') + 'Deep research adds every official seller, on-sale timeline, sell-out history, resale, fan buzz, risks and a GO / MAYBE / SKIP verdict — all with sources.</div></div>';
   } else h += '<div class="verdict ' + vcls + '"><div class="vh"><span class="vl">' + ({ go: '✅ GO', maybe: '🤔 MAYBE', skip: '⛔ SKIP', none: e.error ? '⚠️ Research failed' : '🔎 Not researched yet' }[vcls]) + '</span>' + scorePill(vd.score != null ? vd.score : e.score) + '</div>' +
     (vd.why ? '<p>' + esc(vd.why) + '</p>' : '<p class="muted">' + esc(e.error || e.note || 'Tap research to build the full dossier.') + '</p>') +
-    (vd.angle ? '<div class="angle">💡 ' + esc(vd.angle) + '</div>' : '') + '</div></div>';
+    (vd.angle ? '<div class="angle">💡 ' + esc(vd.angle) + '</div>' : '') + '</div></div>' + scorecardCard(d);
 
   if (e.dossier) {
     h += '<div class="shead"><h2>Key numbers</h2></div><div class="card cardpad"><div class="cells">' +
@@ -1286,7 +1300,7 @@ function openClub(x) {
     (c['Avg resale from (£)'] !== undefined ? cell('Resale avg', gbp(c['Avg resale from (£)'])) + cell('Home games left', c['Home games left']) : '') + '</div></div>';
 
   if (i.dossier) {
-    h += priceTable(d);
+    h += scorecardCard(d) + priceTable(d);
     if (d.reseller_route) h += '<div class="shead"><h2>Route in</h2></div><div class="card bul"><div>' + esc(d.reseller_route) + '</div>' + (hsp.contact ? '<div><b>Contact:</b> <span style="user-select:text">' + esc(hsp.contact) + '</span></div>' : '') + '</div>';
     if ((d.prepare || []).filter(Boolean).length) h += '<div class="shead"><h2>Next steps</h2></div><div class="card bul"><ul class="check">' + d.prepare.filter(Boolean).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>';
     if (tk.how_sales_work || tk.price_categories) h += '<div class="shead"><h2>How tickets sell</h2></div><div class="card bul">' + (tk.how_sales_work ? '<div>' + esc(tk.how_sales_work) + '</div>' : '') + (tk.price_categories ? '<div class="muted">💷 ' + esc(tk.price_categories) + '</div>' : '') + (tk.source ? '<div>' + srcChip(tk.source, 'Official · ' + host(tk.source)) + '</div>' : '') + '</div>';
