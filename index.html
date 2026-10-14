@@ -790,20 +790,38 @@ function profitCard(d) {
   const dm = d.demand || {}, t = d.tickets || {};
   const buys = pb.length ? pb : (!blank(t.face_from) ? [{ name: 'Face value (lowest)', price_from: t.face_from, type: 'Ticket' }] : []);
   if (!buys.length) return '';
-  const resale0 = (b) => !blank(b.resale_from) ? b.resale_from : rc.length ? Math.round(Math.min(...rc.map(x => Number(x.avg || x.from)))) : !blank(dm.resale_from) ? dm.resale_from : Math.round(b.price_from * 1.5);
+  const resale0 = (b) => !blank(b.resale_from) ? b.resale_from : rc.length ? Math.round(Math.min(...rc.map(x => Number(x.avg || x.from)))) : !blank(dm.resale_from) ? dm.resale_from : estMid(d);
+  const noResale = !pb.some(b => !blank(b.resale_from)) && !rc.length && blank(dm.resale_from);
+  const est = d.resale_estimate || {};
   const opts = buys.map((b, i) => '<option value="' + i + '">' + esc(({ Hospitality: '🥂 ', Ticket: '🎟 ' }[b.type] || '') + b.name + ' · ' + gbp(b.price_from)) + '</option>').join('');
   window._calcBuys = buys; window._calcResale = resale0;
   return '<div class="shead"><h2>Profit calculator</h2></div><div class="calc" id="calc">' +
+    (noResale ? '<div class="chg" style="display:block;padding:10px 12px;font-size:13px;line-height:1.4">⚠️ <b>No resale prices found</b> on LFT, Viagogo, StubHub, Vivid or Ticombo. ' + (estMid(d) !== '' ? 'Resale below is the <b>estimate</b> (' + esc(est.confidence || '?') + ' confidence) — check it before buying.' : 'Enter your own estimate. Use the demand score, sell-out history and status as a guide.') + '</div>' : '') +
     '<div class="in"><label class="wide">Buy<select id="cBuy" onchange="calcPick()">' + opts + '</select></label>' +
     '<label>Buy price £<input id="cCost" type="number" inputmode="decimal" value="' + buys[0].price_from + '" oninput="calcRun()"></label>' +
-    '<label>Resale price £<input id="cSell" type="number" inputmode="decimal" value="' + resale0(buys[0]) + '" oninput="calcRun()"></label>' +
+    '<label>Resale price £<input id="cSell" type="number" inputmode="decimal" value="' + resale0(buys[0]) + '" placeholder="Your estimate" oninput="calcRun()"></label>' +
     '<label>Quantity<input id="cQty" type="number" inputmode="numeric" value="10" oninput="calcRun()"></label>' +
     '<label>Fees %<input id="cFee" type="number" inputmode="decimal" value="15" oninput="calcRun()"></label></div>' +
     '<div class="out"><div><span>Markup</span><b id="cMk">–</b></div><div><span>Profit each</span><b id="cEach">–</b></div><div><span>Total</span><b id="cTot">–</b></div></div>' +
     '<div class="muted" style="font-size:12px">Resale defaults to the deep-research figure for that area (or the lowest resale average found). Fees = marketplace/seller fees taken off the sale price.</div></div>';
 }
+function estMid(d) {
+  const x = d && d.resale_estimate; if (!x) return '';
+  const lo = Number(x.low), hi = Number(x.high);
+  return lo && hi ? Math.round((lo + hi) / 2) : lo || hi || '';
+}
+function estimateCard(d) {
+  const x = d.resale_estimate; if (!x || (blank(x.low) && blank(x.high) && !x.basis)) return '';
+  const rng = blank(x.low) && blank(x.high) ? '—' : blank(x.high) || x.low === x.high ? gbp(x.low) : blank(x.low) ? 'to ' + gbp(x.high) : gbp(x.low) + ' – ' + gbp(x.high);
+  const cc = { High: 'var(--green)', Medium: 'var(--gold)', Low: 'var(--red)' }[x.confidence] || 'var(--sec)';
+  return '<div class="shead"><h2>Resale estimate</h2></div><div class="card cardpad"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><b class="num" style="font-size:24px">' + rng + '</b><span style="font-size:13px;font-weight:700;color:' + cc + '">' + esc((x.confidence || '?') + ' confidence') + '</span></div>' +
+    (x.basis ? '<div style="font-size:14px;line-height:1.45">' + esc(x.basis) + '</div>' : '') +
+    '<div class="muted" style="font-size:12px">Estimate only — the five resale sites showed no usable price. Built from other marketplaces, news, forums and past editions.</div>' +
+    ((x.sources || []).length ? '<div class="tags">' + x.sources.filter(u => u && (u.url || typeof u === 'string')).slice(0, 5).map(u => srcChip(u.url || u, u.title || host(u.url || u))).join('') + '</div>' : '') + '</div>';
+}
 function calcPick() { const b = window._calcBuys[Number($('cBuy').value)]; $('cCost').value = b.price_from; $('cSell').value = window._calcResale(b); calcRun(); }
 function calcRun() {
+  if ($('cSell').value === '') { ['cMk', 'cEach', 'cTot'].forEach(id => { $(id).textContent = '–'; $(id).className = ''; }); return; }
   const c = Number($('cCost').value) || 0, sP = Number($('cSell').value) || 0, q = Number($('cQty').value) || 0, fee = Number($('cFee').value) || 0;
   const net = sP * (1 - fee / 100), each = net - c, mk = c ? (sP / c - 1) * 100 : 0;
   const cls = v => v >= 0 ? 'pos' : 'neg';
@@ -1025,6 +1043,7 @@ function openEvent(id) {
       '<div class="main"><div class="t">' + esc(x.platform) + '</div><div class="s" style="white-space:normal">' +
       esc([!blank(x.listings) ? n0(x.listings) + ' listed' : '', !blank(x.avg) ? 'avg ' + gbp(x.avg) : '', x.note || ''].filter(Boolean).join(' · ') || (blank(x.from) ? 'No price found' : '')) + '</div></div>' +
       '<div class="right"><b class="num" style="font-size:16px">' + (blank(x.from) ? '—' : gbp(x.from)) + '</b>' + (blank(x.from) ? '' : '<small>from</small>') + '</div>' + (x.url ? '</a>' : '</div>')).join('') + '</div>';
+    h += estimateCard(d);
     h += priceTable(d) + profitCard(d);
     if ((d.prepare || []).filter(Boolean).length) h += '<div class="shead"><h2>How to prepare</h2></div><div class="card bul"><ul class="check">' + d.prepare.filter(Boolean).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>';
     if ((d.on_sale || []).length) h += '<div class="shead"><h2>On-sale timeline</h2></div><div class="list">' + d.on_sale.map(o => '<div class="row plain"><div class="main"><div class="t wrap">' + esc(o.phase) + '</div>' +
